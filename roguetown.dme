@@ -3549,4 +3549,12 @@
 #include "modular\code\modules\maturity-prompt\code\config_entries.dm"
 #include "modular\code\modules\maturity-prompt\code\maturity_prompt.dm"
 #include "modular\code\modules\maturity-prompt\code\maturity_subsystem.dm"
+#include "modular_pirate\area\area.dm"
+#include "modular_pirate\obj\item.dm"
+#include "modular_pirate\obj\landmark.dm"
+#include "modular_pirate\obj\light.dm"
+#include "modular_pirate\obj\spawner.dm"
+#include "modular_pirate\obj\structure.dm"
+#include "modular_pirate\turf\floor.dm"
+#include "modular_pirate\turf\wall.dm"
 // END_INCLUDE
