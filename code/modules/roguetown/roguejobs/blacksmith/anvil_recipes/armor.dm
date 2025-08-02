@@ -25,7 +25,7 @@
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/ingot/iron)
 	created_item = /obj/item/clothing/suit/roguetown/armor/plate/half/iron
-	i_type = "armor"
+	i_type = "Armor"
 
 /datum/anvil_recipe/armor/ichainglove
 	name = "Chain Gauntlets"
@@ -146,6 +146,12 @@
 	created_item = /obj/item/clothing/under/roguetown/chainlegs
 	i_type = "Armor"
 
+/datum/anvil_recipe/armor/brayette
+	name = "Brayette"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/clothing/under/roguetown/brayette
+	i_type = "Armor"
+
 /datum/anvil_recipe/armor/platelegs
 	name = "Plated Chausses (+1 Steel)"
 	req_bar = /obj/item/ingot/steel 
@@ -184,6 +190,24 @@
 	name = "Bervor"
 	req_bar = /obj/item/ingot/steel
 	created_item = /obj/item/clothing/neck/roguetown/bervor
+	i_type = "Armor"
+
+/datum/anvil_recipe/armor/kettle
+	name = "Kettle"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/clothing/head/roguetown/helmet/kettle
+	i_type = "Armor"
+
+/datum/anvil_recipe/armor/winged
+	name = "Winged cap"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/clothing/head/roguetown/helmet/winged
+	i_type = "Armor"
+
+/datum/anvil_recipe/armor/horned
+	name = "Horned cap"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/clothing/head/roguetown/helmet/horned
 	i_type = "Armor"
 
 /datum/anvil_recipe/armor/helmetsall

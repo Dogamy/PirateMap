@@ -39,23 +39,13 @@
 			qdel(O)
 		H.regenerate_limb(BODY_ZONE_R_ARM)
 		H.regenerate_limb(BODY_ZONE_L_ARM)
-		for(var/obj/item/bodypart/B in H.bodyparts)
-			B.skeletonize()
 		H.remove_all_languages()
 		H.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/simple/claw)
 		H.update_a_intents()
-
-		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
-		if(eyes)
-			eyes.Remove(H,1)
-			QDEL_NULL(eyes)
-		eyes = new /obj/item/organ/eyes/night_vision/zombie
-		eyes.Insert(H)
 		H.ambushable = FALSE
 		H.underwear = "Nude"
 		if(H.charflaw)
 			QDEL_NULL(H.charflaw)
-		H.update_body()
 		H.mob_biotypes = MOB_UNDEAD
 		H.faction = list("undead")
 		H.name = "skelelon"
@@ -69,6 +59,9 @@
 		ADD_TRAIT(H, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_NOSLEEP, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_SHOCKIMMUNE, TRAIT_GENERIC)
+		for(var/obj/item/bodypart/B in H.bodyparts)
+			B.skeletonize(FALSE)
+		H.update_body()
 
 /datum/outfit/job/roguetown/skeleton/pre_equip(mob/living/carbon/human/H)
 	..()

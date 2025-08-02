@@ -64,7 +64,7 @@
 	var/list/datum/mind/pre_rebels = list()
 	var/list/datum/mind/pre_aspirants = list()
 	var/list/datum/mind/aspirants = list()
-	
+
 /datum/game_mode/proc/announce() //Shows the gamemode's name and a fast description.
 	to_chat(world, "<b>The gamemode is: <span class='[announce_span]'>[name]</span>!</b>")
 	to_chat(world, "<b>[announce_text]</b>")
@@ -86,7 +86,7 @@
 			return 0
 		return 1
 	else
-		message_admins("<span class='notice'>DEBUG: GAME STARTING WITHOUT PLAYER NUMBER CHECKS, THIS WILL PROBABLY BREAK SHIT.</span>")
+		message_admins(span_notice("DEBUG: GAME STARTING WITHOUT PLAYER NUMBER CHECKS, THIS WILL PROBABLY BREAK SHIT."))
 		return 1
 
 
@@ -383,6 +383,14 @@
 	// Ultimate randomizing code right here
 	for(var/i in GLOB.new_player_list)
 		var/mob/dead/new_player/player = i
+		if(is_misc_banned(player.ckey, BAN_MISC_LEPROSY))
+			continue
+		if(is_misc_banned(player.ckey, BAN_MISC_LUNATIC))
+			continue
+		if(is_antag_banned(player.ckey, role))
+			continue
+		if(is_total_antag_banned(player.ckey))
+			continue
 		if(player.ready == PLAYER_READY_TO_PLAY && player.check_preferences())
 //			if(player.client && player.client.whitelisted() && !player.client.blacklisted())
 			players += player
@@ -397,7 +405,6 @@
 				if(get_playerquality(player.ckey) <= -10)
 					continue
 			if(role in player.client.prefs.be_special)
-//				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
 				candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 				continue
 			if(role == ROLE_NBEAST)
@@ -503,7 +510,7 @@
 //Reports player logouts//
 //////////////////////////
 /proc/display_roundstart_logout_report()
-	var/list/msg = list("<span class='boldnotice'>Roundstart logout report\n\n</span>")
+	var/list/msg = list(span_boldnotice("Roundstart logout report\n\n"))
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		var/mob/living/carbon/C = L

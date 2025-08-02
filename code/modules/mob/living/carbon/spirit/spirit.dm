@@ -72,9 +72,9 @@
 			return
 	put_in_hands(new /obj/item/underworld/coin/notracking(get_turf(src)))
 	if(patron)
-		to_chat(src, "<span class='danger'>Your suffering has not gone unnoticed, [patron] has rewarded you with your toll.</span>")
+		to_chat(src, span_danger("Your suffering has not gone unnoticed, [patron] has rewarded you with your toll."))
 	else
-		to_chat(src, "<span class='danger'>Your suffering has not gone unnoticed, your patron has rewarded you with your toll.</span>")
+		to_chat(src, span_danger("Your suffering has not gone unnoticed, your patron has rewarded you with your toll."))
 	playsound(src, 'sound/combat/caught.ogg', 80, TRUE, -1)
 
 /mob/living/carbon/spirit/create_internal_organs()
@@ -128,7 +128,7 @@
 
 	log_game("[key_name(usr)] respawned from underworld")
 
-	to_chat(src, "<span class='info'>Returned to lobby successfully.</span>")
+	to_chat(src, span_info("Returned to lobby successfully."))
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
@@ -170,42 +170,50 @@
 	if(!mind_key)
 		return
 	for(var/mob/living/carbon/spirit/spirit in GLOB.carbon_list)
-		if((spirit.key == mind_key) || (spirit.mind?.key == mind_key))
+		if((ckey(spirit.key) == ckey(mind_key)) || (ckey(spirit.mind?.key) == ckey(mind_key)))
 			return spirit
 
 /mob/living/carbon/spirit/get_spirit()
 	return src
 
 /// Proc that will search inside a given atom for any corpses, and send the associated ghost to the lobby if possible
-/proc/pacify_coffin(atom/movable/coffin, mob/user, deep = TRUE, give_pq = 0.2)
+/proc/pacify_coffin(atom/movable/coffin, mob/user, deep = TRUE, give_pq = PQ_GAIN_BURIAL)
 	if(!coffin)
 		return FALSE
 	var/success = FALSE
 	if(isliving(coffin))
-		success ||= pacify_corpse(coffin, user)
+		if(pacify_corpse(coffin, user))
+			success = TRUE
 	for(var/mob/living/corpse in coffin)
-		success ||= pacify_corpse(corpse, user)
+		if(pacify_corpse(corpse, user))
+			success = TRUE
 	for(var/obj/item/bodypart/head/head in coffin)
 		if(!head.brainmob)
 			continue
-		success ||= pacify_corpse(head.brainmob, user)
+		if(pacify_corpse(head.brainmob, user))
+			success = TRUE
 	//if this is a deep search, we will also search the contents of the coffin to pacify (EXCEPT MOBS, SINCE WE HANDLED THOSE)
 	if(deep)
 		for(var/atom/movable/stuffing in coffin)
 			if(isliving(stuffing) || istype(stuffing, /obj/item/bodypart/head))
 				continue
-			success ||= pacify_coffin(stuffing, user, deep, give_pq = FALSE)
-	if(success && give_pq && user?.ckey)
+			if(pacify_coffin(stuffing, user, deep, give_pq = FALSE))
+				success = TRUE
+	// Success is actually the ckey of the last attacker so we can prevent PQ farming from fragging people // DOESNT WORK "success" is not a ckey, just a bool for now
+	if(success && give_pq && user?.ckey && (user.ckey != success))
 		adjust_playerquality(give_pq, user.ckey)
 	return success
 
 /// Proc that sends the client associated with a given corpse to the lobby, if possible
-/proc/pacify_corpse(mob/living/corpse, mob/user, coin_pq = 0.2)
-	if(corpse.stat != DEAD)
+/proc/pacify_corpse(mob/living/corpse, mob/user, coin_pq = PQ_GAIN_BURIAL_COIN)
+	if((corpse.stat != DEAD) || !corpse.mind)
 		return FALSE
-	if(ishuman(corpse) && !HAS_TRAIT(corpse, TRAIT_BURIED_COIN_GIVEN))
+	var/attacker_ckey = corpse.lastattackerckey || TRUE
+	if(ishuman(corpse))
 		var/mob/living/carbon/human/human_corpse = corpse
-		if(istype(human_corpse.mouth, /obj/item/roguecoin))
+		human_corpse.buried = TRUE
+		human_corpse.funeral = TRUE
+		if(istype(human_corpse.mouth, /obj/item/roguecoin) && !HAS_TRAIT(corpse, TRAIT_BURIED_COIN_GIVEN))
 			var/obj/item/roguecoin/coin = human_corpse.mouth
 			if(coin.quantity >= 1) // stuffing their mouth full of a fuck ton of coins wont do shit
 				ADD_TRAIT(human_corpse, TRAIT_BURIED_COIN_GIVEN, TRAIT_GENERIC)
@@ -213,13 +221,13 @@
 					var/turf/fallen = get_turf(coin_spawn)
 					fallen = locate(fallen.x + rand(-3, 3), fallen.y + rand(-3, 3), fallen.z)
 					new /obj/item/underworld/coin/notracking(fallen)
-					fallen.visible_message("<span class='warning'>A coin falls from above!</span>")
-					if(coin_pq && user?.ckey)
+					fallen.visible_message(span_warning("A coin falls from above!"))
+					if(coin_pq && user?.ckey && (user.ckey != attacker_ckey))
 						adjust_playerquality(coin_pq, user.ckey)
 					qdel(human_corpse.mouth)
 					human_corpse.update_inv_mouth()
 					break
-	corpse.mind?.remove_antag_datum(/datum/antagonist/zombie)
+	corpse.mind.remove_antag_datum(/datum/antagonist/zombie)
 	var/mob/dead/observer/ghost
 	//Try to find a lost ghost if there is no client
 	if(!corpse.client)
@@ -236,9 +244,32 @@
 	if(ghost)
 		testing("pacify_corpse success ([corpse.mind?.key || "no key"])")
 		var/user_acknowledgement = user ? user.real_name : "a mysterious force"
-		to_chat(ghost, "<span class='rose'>My soul finds peace buried in creation, thanks to [user_acknowledgement].</span>")
-		ghost.returntolobby(RESPAWNTIME*-1)
+		to_chat(ghost, span_rose("My soul finds peace buried in creation, thanks to [user_acknowledgement]."))
+		burial_rite_return_ghost_to_lobby(ghost)
 		return TRUE
 
 	testing("pacify_corpse fail ([corpse.mind?.key || "no key"])")
 	return FALSE
+
+/proc/burial_rite_return_ghost_to_lobby(mob/dead/observer/ghost)
+	if(ghost.key)
+		GLOB.respawntimes[ghost.key] = world.time - RESPAWNTIME
+
+	log_game("[key_name(ghost)] returned to lobby from burial rites.")
+
+	if(!ghost.client)
+		log_game("[key_name(ghost)] had no client in game during burial rites.")
+
+	if(ghost.client)
+		ghost.client.screen.Cut()
+		ghost.client.screen += ghost.client.void
+		SSdroning.kill_rain(ghost.client)
+		SSdroning.kill_loop(ghost.client)
+		SSdroning.kill_droning(ghost.client)
+		ghost.remove_client_colour(/datum/client_colour/monochrome)
+
+	var/mob/dead/new_player/M = new /mob/dead/new_player()
+
+	M.key = ghost.key
+	if(ghost.client)
+		ghost.client.verbs -= GLOB.ghost_verbs

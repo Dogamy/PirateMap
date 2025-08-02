@@ -1,7 +1,7 @@
 
 /obj/structure/roguemachine/scomm
 	name = "SCOM"
-	desc = ""
+	desc = "The Supernatural Communication Optical Machine is a wonder of magic and technology."
 	icon = 'icons/roguetown/misc/machines.dmi'
 	icon_state = "scomm1"
 	density = FALSE
@@ -27,13 +27,13 @@
 	. = ..()
 	. += "<b>THE LAWS OF THE LAND:</b>"
 	if(!length(GLOB.laws_of_the_land))
-		. += "<span class='danger'>The land has no laws! <b>We are doomed!</b></span>"
+		. += span_danger("The land has no laws! <b>We are doomed!</b>")
 		return
 	if(!user.is_literate())
-		. += "<span class='warning'>Uhhh... I can't read them...</span>"
+		. += span_warning("Uhhh... I can't read them...")
 		return
 	for(var/i in 1 to length(GLOB.laws_of_the_land))
-		. += "<span class='small'>[i]. [GLOB.laws_of_the_land[i]]</span>"
+		. += span_small("[i]. [GLOB.laws_of_the_land[i]]")
 
 /obj/structure/roguemachine/scomm/process()
 	if(world.time > next_decree)
@@ -49,7 +49,7 @@
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	listening = !listening
 	speaking = !speaking
-	to_chat(user, "<span class='info'>I [speaking ? "unmute" : "mute"] the SCOM.</span>")
+	to_chat(user, span_info("I [speaking ? "unmute" : "mute"] the SCOM."))
 	update_icon()
 
 /obj/structure/roguemachine/scomm/attack_right(mob/user)
@@ -111,7 +111,7 @@
 		say(message, language = message_language)
 	voicecolor_override = null
 
-/obj/structure/roguemachine/scomm/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/obj/structure/roguemachine/scomm/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, original_message)
 	if(speaker == src)
 		return
 	if(speaker.loc != loc)
@@ -198,7 +198,7 @@
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	listening = !listening
 	speaking = !speaking
-	to_chat(user, "<span class='info'>I [speaking ? "unmute" : "mute"] the scomstone.</span>")
+	to_chat(user, span_info("I [speaking ? "unmute" : "mute"] the scomstone."))
 	update_icon()
 
 /obj/item/scomstone/Destroy()
@@ -237,7 +237,7 @@
 	else
 		send_speech(message, 1, src, , spans, message_language=language)
 
-/obj/item/scomstone/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/obj/item/scomstone/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, original_message)
 	if(speaker == src)
 		return
 	if(loc != speaker)
@@ -264,7 +264,7 @@
 	listening = FALSE
 	sellprice = 2
 
-/obj/item/scomstone/bad/Hear()
+/obj/item/scomstone/bad/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, original_message)
 	return
 //LISTENSTONE		LISTENSTONE
 /obj/item/listenstone
@@ -294,7 +294,7 @@
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	listening = !listening
 	speaking = !speaking
-	to_chat(user, "<span class='info'>I [speaking ? "unmute" : "mute"] the scomstone.</span>")
+	to_chat(user, span_info("I [speaking ? "unmute" : "mute"] the scomstone."))
 	update_icon()
 	if(listening)
 		icon_state = "listenstone"

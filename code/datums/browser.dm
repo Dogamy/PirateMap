@@ -85,7 +85,7 @@
 
 	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<head>
 		[head_content]
@@ -113,7 +113,7 @@
 /datum/browser/proc/open(use_onclose = TRUE)
 	if(isnull(window_id))	//null check because this can potentially nuke goonchat
 		WARNING("Browser [title] tried to open with a null ID")
-		to_chat(user, "<span class='danger'>The [title] browser you tried to open failed a sanity check! Please report this on github!</span>")
+		to_chat(user, span_danger("The [title] browser you tried to open failed a sanity check! Please report this on github!"))
 		return
 	var/window_size = ""
 	if (width && height)

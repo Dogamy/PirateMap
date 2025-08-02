@@ -1,6 +1,7 @@
 /datum/job
 	//The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
 	var/title = "NOPE"
+	var/f_title
 
 	//Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
@@ -43,6 +44,7 @@
 	var/minimal_player_age = 0
 
 	var/outfit = null
+	var/visuals_only_outfit = null //Handles outfits specifically for cases where you may need to prevent sensitive items from spawning. (e.g Crowns)
 	var/outfit_female = null
 
 	var/exp_requirements = 0
@@ -61,13 +63,9 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-
-	///Levels unlocked at roundstart in physiology
-	var/list/roundstart_experience
-
 	//allowed sex/race for picking
 	var/list/allowed_sexes = list(MALE, FEMALE)
-	var/list/allowed_races = CLOTHED_RACES_TYPES
+	var/list/allowed_races = RACES_ALL_KINDS
 	var/list/allowed_patrons
 	var/list/allowed_ages = ALL_AGES_LIST
 
@@ -79,14 +77,15 @@
 	var/list/jobstats
 	var/list/jobstats_f
 
-	var/f_title = null
-
+	var/job_greet_text = TRUE
 	var/tutorial = null
 
 	var/whitelist_req = FALSE
 
-	var/bypass_jobban = FALSE
-	var/bypass_lastclass = FALSE
+	var/bypass_lastclass = TRUE
+
+	var/banned_leprosy = TRUE
+	var/banned_lunatic = TRUE
 
 	var/list/peopleiknow = list()
 	var/list/peopleknowme = list()
@@ -113,8 +112,41 @@
 	/// This job uses adventurer classes on examine
 	var/advjob_examine = FALSE
 
+	/// This job always shows on latechoices
+	var/always_show_on_latechoices = FALSE
+
+	/// Cooldown for joining as this job again, if it was your last job
+	var/same_job_respawn_delay = FALSE
+
+	/// This job re-opens slots if someone dies as it
+	var/job_reopens_slots_on_death = FALSE
+
+	/// This job is immune to species-based swapped gender locks
+	var/immune_to_genderswap = FALSE
+
+/*
+	How this works, its CTAG_DEFINE = amount_to_attempt_to_role 
+	EX: advclass_cat_rolls = list(CTAG_PILGRIM = 5, CTAG_ADVENTURER = 5)
+	You will still need to contact the subsystem though
+*/
+	var/list/advclass_cat_rolls
+
+/*
+	How this works, they get one extra roll on every category per PQ amount
+*/
+	var/PQ_boost_divider = 0
+
+
 /datum/job/proc/special_job_check(mob/dead/new_player/player)
 	return TRUE
+
+/datum/job/proc/greet(mob/player)
+	if(!job_greet_text)
+		return
+	to_chat(player, span_notice("You are the <b>[title]</b>"))
+	if(tutorial)
+		to_chat(player, span_notice("*-----------------*"))
+		to_chat(player, span_notice(tutorial))
 
 //Only override this proc
 //H is usually a human unless an /equip override transformed it
@@ -123,22 +155,11 @@
 	if(mind_traits)
 		for(var/t in mind_traits)
 			ADD_TRAIT(H.mind, t, JOB_TRAIT)
-	var/list/roundstart_experience
 
 	if(!ishuman(H))
 		return
 
-	roundstart_experience = skills
-
-	if(roundstart_experience)
-		var/mob/living/carbon/human/experiencer = H
-		for(var/i in roundstart_experience)
-			experiencer.mind.adjust_experience(i, roundstart_experience[i], TRUE)
-
-	if(spells)		
-		for(var/S in spells)
-			if(H.mind)
-				H.mind.AddSpell(new S)
+	add_spells(H)
 
 	if(H.gender == FEMALE)
 		if(jobstats_f)
@@ -176,14 +197,30 @@
 	if(cmode_music)
 		H.cmode_music = cmode_music
 
+/datum/job/proc/add_spells(mob/living/H)
+	if(spells && H.mind)	
+		for(var/S in spells)
+			if(H.mind.has_spell(S))
+				continue
+			H.mind.AddSpell(new S)
+
+/datum/job/proc/remove_spells(mob/living/H)
+	if(spells && H.mind)	
+		for(var/S in spells)
+			if(!H.mind.has_spell(S))
+				continue
+			H.mind.RemoveSpell(S)
+
 /mob/living/carbon/human/proc/add_credit()
 	if(!mind || !client)
 		return
 	var/thename = "[real_name]"
 	var/datum/job/J = SSjob.GetJob(mind.assigned_role)
-	var/used_title = J.title
-	if(gender == FEMALE && J.f_title)
-		used_title = J.f_title
+	var/used_title
+	if(J)
+		used_title = J.title
+		if(gender == FEMALE && J.f_title)
+			used_title = J.f_title
 	if(used_title)
 		thename = "[real_name] the [used_title]"
 	GLOB.credits_icons[thename] = list()
@@ -234,6 +271,8 @@
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
+	if(!outfit_override && visualsOnly && visuals_only_outfit)
+		outfit_override = visuals_only_outfit
 	if(H.gender == FEMALE)
 		if(outfit_override || outfit_female)
 			H.equipOutfit(outfit_override ? outfit_override : outfit_female, visualsOnly)

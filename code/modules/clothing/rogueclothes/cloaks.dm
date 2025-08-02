@@ -355,7 +355,7 @@
 
 /obj/item/clothing/cloak/stabard/bog
 	name = "bogman tabard"
-	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG." // THE BOG DESERVES A BETTER DESCRIPTION!
+	desc = "A tabard worn by those that protect the citizenry from the horrors of the Terrorbog" // THE BOG DESERVES A BETTER DESCRIPTION!
 	color = CLOTHING_GREEN
 	detail_color = CLOTHING_DARK_GREEN
 
@@ -506,8 +506,8 @@
 	sleevetype = "shirt"
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
-//	allowed_sex = list("male")
-	allowed_race = HUMANLIKE_RACE_TYPES
+//	allowed_sex = list(MALE)
+	allowed_race = NON_DWARVEN_RACE_TYPES
 	detail_tag = "_det"
 	detail_color = CLOTHING_PURPLE
 
@@ -575,7 +575,7 @@
 	icon_state = "leather_apron"
 	item_state = "leather_apron"
 	body_parts_covered = CHEST|GROIN
-	armor = list("melee" = 12, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 24, "acid" = 0)
+	armor = list("blunt" = 25, "slash" = 5, "stab" = 15, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 24, "acid" = 0)
 	boobed = TRUE
 
 /obj/item/clothing/cloak/apron/brown
@@ -604,7 +604,7 @@
 	color = null
 	icon_state = "aproncook"
 	item_state = "aproncook"
-	body_parts_covered = GROIN
+	body_parts_covered = CHEST|GROIN
 	boobed = FALSE
 
 /*
@@ -665,10 +665,13 @@
 	color = CLOTHING_RED
 
 /obj/item/clothing/cloak/raincloak/mortus
+	name = "funeral cloak"
+	desc = "A cloak worn by morticians on their solemn task of putting the dead to rest."
 	color = CLOTHING_BLACK
 
 /obj/item/clothing/cloak/raincloak/brown
 	color = CLOTHING_BROWN
+	sellprice = 25
 
 /obj/item/clothing/cloak/raincloak/green
 	color = CLOTHING_GREEN
@@ -681,14 +684,14 @@
 
 /obj/item/clothing/head/hooded/rainhood
 	name = "hood"
-	desc = "This one will shelter me from the weather and my identity too."
+	desc = "This one will shelter you from the weather and hide your identity too."
 	icon_state = "rain_hood"
 	item_state = "rain_hood"
 	slot_flags = ITEM_SLOT_HEAD
 	dynamic_hair_suffix = ""
 	edelay_type = 1
 	body_parts_covered = HEAD
-	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDETAIL
 	block2add = FOV_BEHIND
 
 /obj/item/clothing/head/hooded/equipped(mob/user, slot)
@@ -792,17 +795,18 @@
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
 	allowed_sex = list(MALE, FEMALE)
-	allowed_race = HUMANLIKE_RACE_TYPES
+	allowed_race = NON_DWARVEN_RACE_TYPES
 	nodismemsleeves = TRUE
 
 
 /obj/item/clothing/cloak/stole
 	name = "stole"
-	desc = ""
+	desc = "Garments of a priest, usually worn when giving mass to the people."
 	icon_state = "stole_gold"
 	sleeved = null
 	sleevetype = null
 	body_parts_covered = null
+	flags_inv = null
 
 /obj/item/clothing/cloak/stole/red
 	icon_state = "stole_red"
@@ -819,7 +823,7 @@
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
 	allowed_sex = list(MALE, FEMALE)
-	allowed_race = HUMANLIKE_RACE_TYPES
+	allowed_race = NON_DWARVEN_RACE_TYPES
 	sellprice = 50
 	nodismemsleeves = TRUE
 
@@ -832,13 +836,13 @@
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
 	allowed_sex = list(MALE, FEMALE)
-	allowed_race = HUMANLIKE_RACE_TYPES
+	allowed_race = NON_DWARVEN_RACE_TYPES
 	sellprice = 50
 	nodismemsleeves = TRUE
 
 /obj/item/clothing/cloak/half
 	name = "halfcloak"
-	desc = ""
+	desc = "A cloak designed to cover one half of the body predominantly over the other."
 	color = null
 	icon_state = "halfcloak"
 	alternate_worn_layer = CLOAK_BEHIND_LAYER
@@ -854,6 +858,7 @@
 	color = CLOTHING_BLACK
 	allowed_sex = list(MALE, FEMALE)
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	flags_inv = null
 
 /obj/item/clothing/cloak/half/brown
 	color = CLOTHING_BROWN
@@ -868,8 +873,8 @@
 	name = "town watch cloak"
 	icon_state = "guardcloak"
 	color = CLOTHING_RED
-	allowed_sex = list(MALE)
-	allowed_race = HUMANLIKE_RACE_TYPES
+	allowed_sex = list(MALE, FEMALE)
+	allowed_race = NON_DWARVEN_RACE_TYPES
 	inhand_mod = FALSE
 
 /obj/item/clothing/cloak/half/vet/Initialize()
@@ -921,12 +926,51 @@
 	name = "dragonscale necklace"
 	desc = ""
 	icon_state = "bktrinket"
+	max_integrity = 100000
+	armor = list("blunt" = 100, "slash" = 100, "stab" = 100, "bullet" = 100, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	prevent_crits = list(BCLASS_CUT,BCLASS_BLUNT)
+	blocksound = PLATEHIT
 	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
 	//dropshrink = 0.75
 	resistance_flags = FIRE_PROOF
 	sellprice = 666
 	static_price = TRUE
+	var/active_item = FALSE
+
+/obj/item/clothing/neck/roguetown/blkknight/equipped(mob/living/user)
+	. = ..()
+	if(active_item)
+		return
+	active_item = TRUE
+	if(user.mind.special_role == "Bandit")
+		to_chat(user, span_notice("I feel bolstered by Matthios Power!..."))
+		user.change_stat("strength", 2)
+		user.change_stat("perception", 2)
+		user.change_stat("intelligence", 2)
+		user.change_stat("constitution", 2)
+		user.change_stat("endurance", 2)
+		user.change_stat("speed", 2)
+		armor = getArmor("blunt" = 100, "slash" = 100, "stab" = 100, "bullet" = 100, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	else
+		to_chat(user, span_notice("I feel an evil power about that necklace.."))
+		armor = getArmor("blunt" = 0, "slash" = 0, "stab" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/neck/roguetown/blkknight/dropped(mob/living/user)
+	if(!active_item)
+		return
+	active_item = FALSE
+	if(user.mind.special_role == "Bandit")
+		to_chat(user, span_notice("I've removed the necklace of Matthios..."))
+		user.change_stat("strength", -2)
+		user.change_stat("perception", -2)
+		user.change_stat("intelligence", -2)
+		user.change_stat("constitution", -2)
+		user.change_stat("endurance", -2)
+		user.change_stat("speed", -2)
+	else
+		to_chat(user, span_notice("Strange, I don't feel that power anymore.."))
+		armor = getArmor("blunt" = 100, "slash" = 100, "stab" = 100, "bullet" = 100, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 
 /obj/item/clothing/suit/roguetown/armor/plate/blkknight
 	slot_flags = ITEM_SLOT_ARMOR

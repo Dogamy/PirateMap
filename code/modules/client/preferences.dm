@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	//doohickeys for savefiles
 	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
-	var/max_save_slots = 10
+	var/max_save_slots = 20
 
 	//non-preference stuff
 	var/muted = 0
@@ -21,6 +21,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/triumphs = 0
 	var/enable_tips = TRUE
 	var/tip_delay = 500 //tip delay in milliseconds
+	// Commend variable on prefs instead of client to prevent reconnect abuse (is persistant on prefs, opposed to not on client)
+	var/commendedsomeone = FALSE
 
 	//Antag preferences
 	var/list/be_special = list()		//Special role selection
@@ -130,6 +132,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/list/exp = list()
 	var/list/menuoptions
 
+	var/datum/migrant_pref/migrant
+	var/next_special_trait = null
+
 	var/action_buttons_screen_locs = list()
 
 	var/domhand = 2
@@ -144,10 +149,19 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/update_mutant_colors = TRUE
 
 	var/headshot_link
+	var/nudeshot_link
+
+	var/list/violated = list()
+	var/list/descriptor_entries = list()
+	var/list/custom_descriptors = list()
+	var/defiant = TRUE
+	/// Tracker to whether the person has ever spawned into the round, for purposes of applying the respawn ban
+	var/has_spawned = FALSE
 
 
 /datum/preferences/New(client/C)
 	parent = C
+	migrant  = new /datum/migrant_pref(src)
 
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		custom_names[custom_name_id] = get_default_name(custom_name_id)
@@ -158,11 +172,11 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			load_path(C.ckey)
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
-				max_save_slots = 8
+				max_save_slots = 30
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if(load_character())
-			if(check_nameban(C.ckey) || (C.blacklisted() == 1))
+			if(check_nameban(C.ckey))
 				real_name = pref_species.random_name(gender,1)
 			return
 	//Set the race to properly run race setter logic
@@ -193,10 +207,13 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	accessory = "Nothing"
 
 	headshot_link = null
+	nudeshot_link = null
+
 	customizer_entries = list()
 	validate_customizer_entries()
 	reset_all_customizer_accessory_colors()
 	randomize_all_customizer_accessories()
+	reset_descriptors()
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
@@ -229,29 +246,51 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			used_title = "Character Sheet"
 
 			// Top-level menu table
-			dat += "<table width=100%>"
+			dat += "<table style='width: 100%; line-height: 20px;'>"
+			// NEXT ROW
 			dat += "<tr>"
-			dat += "<td width='33%' align='left'>"
+			dat += "<td style='width:33%;text-align:left'>"
 			dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;'>Change Character</a>"
 			dat += "</td>"
-			dat += "<td width='33%' align='center'>"
-			dat += "<b>Be voice:</b> <a href='?_src_=prefs;preference=schizo_voice'>[(toggles & SCHIZO_VOICE) ? "Enabled":"Disabled"]</a><br>"
+
+			dat += "<td style='width:33%;text-align:center'>"
+			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Class Selection</a>"
 			dat += "</td>"
-			dat += "<td width='33%' align='right'>"
+
+			dat += "<td style='width:33%;text-align:right'>"
 			dat += "<a href='?_src_=prefs;preference=keybinds;task=menu'>Keybinds</a>"
+			dat += "</td>"
+			dat += "</tr>"
+
+			// ANOTHA ROW
+			dat += "<tr style='padding-top: 0px;padding-bottom:0px'>"
+			dat += "<td style='width:33%;text-align:left'>"
+			dat += "</td>"
+
+			dat += "<td style='width:33%;text-align:center'>"
+			dat += "<a href='?_src_=prefs;preference=antag;task=menu'>Villain Selection</a>"
+			dat += "</td>"
+
+			dat += "<td style='width:33%;text-align:right'>"
+			dat += "</td>"
+			dat += "</tr>"
+
+			// ANOTHER ROW HOLY SHIT WE FINALLY A GOD DAMN GRID NOW! WHOA!
+			dat += "<tr style='padding-top: 0px;padding-bottom:0px'>"
+			dat += "<td style='width:33%; text-align:left'>"
+			dat += "<a href='?_src_=prefs;preference=playerquality;task=menu'><b>PQ:</b></a> [get_playerquality(user.ckey, text = TRUE)]"
+			dat += "</td>"
+
+			dat += "<td style='width:33%;text-align:center'>"
+			dat += "<a href='?_src_=prefs;preference=triumphs;task=menu'><b>TRIUMPHS:</b></a> [user.get_triumphs() ? "\Roman [user.get_triumphs()]" : "None"]"
+			if(SStriumphs.triumph_buys_enabled)
+				dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=triumph_buy_menu'>Triumph Buy</a>"
+			dat += "</td>"
+
+			dat += "<td style='width:33%;text-align:right'>"
+			dat += "</td>"
+
 			dat += "</table>"
-
-			// Next top level class choices table
-			dat += "<table width=100%>"
-			dat += "<tr>"
-			dat += "<td width='100%' align='center'>"
-
-			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Class Selection</a><br>"
-			dat += "<a href='?_src_=prefs;preference=antag;task=menu'>Villain Selection</a><br>"
-
-			dat += "</table>"
-
-			dat += "<table width=100%><tr><td width=33%><div style='text-align:left'><a href='?_src_=prefs;preference=playerquality;task=menu'><b>PQ:</b></a> [get_playerquality(user.ckey, text = TRUE)]</div></td><td width=34%><center><a href='?_src_=prefs;preference=triumphs;task=menu'><b>TRIUMPHS:</b></a> [user.get_triumphs() ? "\Roman [user.get_triumphs()]" : "None"]</center></td><td width=33%></td></tr></table>"
 
 			if(CONFIG_GET(flag/roundstart_traits))
 				dat += "<center><h2>Quirk Setup</h2>"
@@ -268,8 +307,6 @@ GLOBAL_LIST_EMPTY(chosen_names)
 // 			-----------START OF IDENT TABLE-----------
 			dat += "<h2>Identity</h2>"
 			dat += "<table width='100%'><tr><td width='75%' valign='top'>"
-			if(is_banned_from(user.ckey, "Appearance"))
-				dat += "<b>Thou are banned from using custom names and appearances. Thou can continue to adjust thy characters, but thee will be randomised once thee joins the game.</b><br>"
 //			dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_NAME]'>Always Random Name: [(randomise[RANDOM_NAME]) ? "Yes" : "No"]</a>"
 //			dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_NAME_ANTAG]'>When Antagonist: [(randomise[RANDOM_NAME_ANTAG]) ? "Yes" : "No"]</a>"
 			dat += "<b>Name:</b> "
@@ -357,16 +394,20 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Mutant Color #3:</b><span style='border: 1px solid #161616; background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a><BR>"
 
 
-			dat += "<br>"
 			dat += "<b>Voice Color: </b><a href='?_src_=prefs;preference=voice;task=input'>Change</a>"
 
 
 			dat += "<br><b>Features:</b> <a href='?_src_=prefs;preference=customizers;task=menu'>Change</a>"
 			dat += "<br><b>Markings:</b> <a href='?_src_=prefs;preference=markings;task=menu'>Change</a>"
+			dat += "<br><b>Descriptors:</b> <a href='?_src_=prefs;preference=descriptors;task=menu'>Change</a>"
 
-			dat += "<br><b>Headshot:</b> <a href='?_src_=prefs;preference=headshot;task=input'>Change</a>"
+			dat += "<br><b>Headshot(1:1):</b> <a href='?_src_=prefs;preference=headshot;task=input'>Change</a>"
 			if(headshot_link != null)
-				dat += "<br><img src='[headshot_link]' width='100px' height='100px'>"
+				dat += "<a href='?_src_=prefs;preference=view_headshot;task=input'>View</a>"
+
+			dat += "<br><b>Nudeshot(3:4):</b> <a href='?_src_=prefs;preference=nudeshot;task=input'>Change</a>"
+			if(nudeshot_link != null)
+				dat += "<a href='?_src_=prefs;preference=view_nudeshot;task=input'>View</a>"
 			dat += "</td>"
 
 			dat += "</tr></table>"
@@ -474,13 +515,13 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 			dat += "<h2>Special Role Settings</h2>"
 
-			if(is_banned_from(user.ckey, ROLE_SYNDICATE))
+			if(is_total_antag_banned(user.ckey))
 				dat += "<font color=red><b>I am banned from antagonist roles.</b></font><br>"
 				src.be_special = list()
 
 
 			for (var/i in GLOB.special_roles_rogue)
-				if(is_banned_from(user.ckey, i))
+				if(is_antag_banned(user.ckey, i))
 					dat += "<b>[capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
 				else
 					var/days_remaining = null
@@ -609,11 +650,17 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<a href ='?_src_=prefs;preference=keybinds;task=keybindings_set'>\[Reset to default\]</a>"
 			dat += "</body>"
 
+
 	if(!IsGuestKey(user.key))
 		dat += "<a href='?_src_=prefs;preference=save'>Save</a><br>"
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a><br>"
-	dat += "<center>"
 
+	// well.... one empty slot here for something I suppose lol
+	dat += "<table width='100%'>"
+	dat += "<tr>"
+	dat += "<td width='33%' align='left'></td>"
+	dat += "<td width='33%' align='center'>"
+	dat += "<a href='?_src_=prefs;preference=bespecial'><b>[next_special_trait ? "<font color='red'>SPECIAL</font>" : "Be Special"]</b></a><BR>"
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
 		switch(N.ready)
 			if(PLAYER_NOT_READY)
@@ -621,10 +668,21 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			if(PLAYER_READY_TO_PLAY)
 				dat += "<a href='byond://?src=[REF(N)];ready=[PLAYER_NOT_READY]'>UNREADY</a> <b>READY</b>"
 	else
-		dat += "<a href='byond://?src=[REF(N)];late_join=1'>JOINLATE</a>"
+		if(!is_active_migrant())
+			dat += "<a href='byond://?src=[REF(N)];late_join=1'>JOINLATE</a>"
+		else
+			dat += "<a class='linkOff' href='byond://?src=[REF(N)];late_join=1'>JOINLATE</a>"
+		dat += " - <a href='?_src_=prefs;preference=migrants'>MIGRATION</a>"
 
+	dat += "</td>"
+	dat += "<td width='33%' align='right'>"
+	dat += "<b>Be defiant:</b> <a href='?_src_=prefs;preference=be_defiant'>[(defiant) ? "Yes":"No"]</a><br>"
+	dat += "<b>Be voice:</b> <a href='?_src_=prefs;preference=schizo_voice'>[(toggles & SCHIZO_VOICE) ? "Enabled":"Disabled"]</a>"
+	dat += "</td>"
+	dat += "</tr>"
+	dat += "</table>"
 //	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
-	dat += "</center>"
+
 
 	if(user.client.is_new_player())
 		dat = list("<center>REGISTER!</center>")
@@ -665,7 +723,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	popup.open(FALSE)
 	onclose(user, "capturekeypress", src)
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Court Magician", "Guard Captain", "Priest", "Merchant", "Archivist", "Towner", "Grenzelhoft Mercenary", "Beggar", "Prisoner", "Goblin King"), widthPerColumn = 295, height = 620) //295 620
+/datum/preferences/proc/SetChoices(mob/user, limit = 15, list/splitJobs = list("Court Magician", "Guard Captain", "Priest", "Merchant", "Archivist", "Towner", "Grenzelhoft Mercenary", "Beggar", "Prisoner", "Goblin King"), widthPerColumn = 295, height = 670) //295 620
 	if(!SSjob)
 		return
 
@@ -720,7 +778,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			if(gender == FEMALE && job.f_title)
 				used_name = "[job.f_title]"
 			lastJob = job
-			if(is_banned_from(user.ckey, rank))
+			if(is_role_banned(user.ckey, job.title))
 				HTML += "[used_name]</td> <td><a href='?_src_=prefs;bancheck=[rank]'> BANNED</a></td></tr>"
 				continue
 			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
@@ -731,32 +789,21 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				var/available_in_days = job.available_in_days(user.client)
 				HTML += "[used_name]</td> <td><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
 				continue
-			if(CONFIG_GET(flag/usewhitelist))
-				if(job.whitelist_req && (!user.client.whitelisted()))
-					HTML += "<font color=#6183a5>[used_name]</font></td> <td> </td></tr>"
-					continue
-			if((!job.bypass_jobban) && (user.client.blacklisted()))
-				HTML += "<font color=#a36c63>[used_name]</font></td> <td> </td></tr>"
-				continue
-			if(job.plevel_req > user.client.patreonlevel())
-				HTML += "<font color=#a59461>[used_name]</font></td> <td> </td></tr>"
-				continue
 			if(!job.required && !isnull(job.min_pq) && (get_playerquality(user.ckey) < job.min_pq))
 				HTML += "<font color=#a59461>[used_name] (Min PQ: [job.min_pq])</font></td> <td> </td></tr>"
 				continue
-			if(!job.required && !isnull(job.max_pq) && (get_playerquality(user.ckey) > job.max_pq))
+			if(!job.required && !isnull(job.max_pq) && (get_playerquality(user.ckey) > job.max_pq) && !is_misc_banned(parent.ckey, BAN_MISC_LUNATIC))
 				HTML += "<font color=#a59461>[used_name] (Max PQ: [job.max_pq])</font></td> <td> </td></tr>"
 				continue
-			if(length(job.allowed_ages) && !(user.client.prefs.age in job.allowed_ages))
-				HTML += "<font color=#a36c63>[used_name]</font></td> <td> </td></tr>"
-				continue
-			if(!(user.client.prefs.pref_species.type in job.allowed_races))
-				HTML += "<font color=#a36c63>[used_name]</font></td> <td> </td></tr>"
-				continue
-			if(length(job.allowed_patrons) && !(user.client.prefs.selected_patron.type in job.allowed_patrons))
-				HTML += "<font color=#a36c63>[used_name]</font></td> <td> </td></tr>"
-				continue
-			if(length(job.allowed_sexes) && !(user.client.prefs.gender in job.allowed_sexes))
+			var/job_unavailable = JOB_AVAILABLE
+			if(isnewplayer(parent?.mob))
+				var/mob/dead/new_player/new_player = parent.mob
+				job_unavailable = new_player.IsJobUnavailable(job.title, latejoin = FALSE)
+			var/static/list/acceptable_unavailables = list(
+				JOB_AVAILABLE,
+				JOB_UNAVAILABLE_SLOTFULL,
+			)
+			if(!(job_unavailable in acceptable_unavailables))
 				HTML += "<font color=#a36c63>[used_name]</font></td> <td> </td></tr>"
 				continue
 //			if((job_preferences[SSjob.overflow_role] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
@@ -765,7 +812,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 /*			if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
 				HTML += "<b><span class='dark'><a href='?_src_=prefs;preference=job;task=tutorial;tut='[job.tutorial]''>[used_name]</a></span></b>"
 			else
-				HTML += "<span class='dark'><a href='?_src_=prefs;preference=job;task=tutorial;tut='[job.tutorial]''>[used_name]</a></span>"*/
+				HTML += span_dark("<a href='?_src_=prefs;preference=job;task=tutorial;tut='[job.tutorial]''>[used_name]</a>")*/
 
 			HTML += {"
 
@@ -901,7 +948,7 @@ Slots: [job.spawn_positions]</span>
 		return
 
 	if (!isnum(desiredLvl))
-		to_chat(user, "<span class='danger'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
+		to_chat(user, span_danger("UpdateJobPreference - desired level was not a number. Please notify coders!"))
 		ShowChoices(user,4)
 		return
 
@@ -945,7 +992,7 @@ Slots: [job.spawn_positions]</span>
 	if(user.client?.prefs)
 		if(user.client.prefs.lastclass)
 			if(user.get_triumphs() < 2)
-				to_chat(user, "<span class='warning'>I haven't TRIUMPHED enough.</span>")
+				to_chat(user, span_warning("I haven't TRIUMPHED enough."))
 				return
 			user.adjust_triumphs(-2)
 			user.client.prefs.lastclass = null
@@ -953,7 +1000,7 @@ Slots: [job.spawn_positions]</span>
 
 /datum/preferences/proc/SetQuirks(mob/user)
 	if(!SSquirks)
-		to_chat(user, "<span class='danger'>The quirk subsystem is still initializing! Try again in a minute.</span>")
+		to_chat(user, span_danger("The quirk subsystem is still initializing! Try again in a minute."))
 		return
 
 	var/list/dat = list()
@@ -1076,13 +1123,13 @@ Slots: [job.spawn_positions]</span>
 	dat += "<center><a href='?_src_=prefs;preference=antag;task=close'>Done</a></center><br>"
 
 
-	if(is_banned_from(user.ckey, ROLE_SYNDICATE))
+	if(is_total_antag_banned(user.ckey))
 		dat += "<font color=red><b>I am banned from antagonist roles.</b></font><br>"
 		src.be_special = list()
 
 
 	for (var/i in GLOB.special_roles_rogue)
-		if(is_banned_from(user.ckey, i))
+		if(is_antag_banned(user.ckey, i))
 			dat += "<b>[capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
 		else
 			var/days_remaining = null
@@ -1127,7 +1174,7 @@ Slots: [job.spawn_positions]</span>
 			var/expires = "This is a permanent ban."
 			if(ban_details["expiration_time"])
 				expires = " The ban is for [DisplayTimeText(text2num(ban_details["duration"]) MINUTES)] and expires on [ban_details["expiration_time"]] (server time)."
-			to_chat(user, "<span class='danger'>You, or another user of this computer or connection ([ban_details["key"]]) is banned from playing [href_list["bancheck"]].<br>The ban reason is: [ban_details["reason"]]<br>This ban (BanID #[ban_details["id"]]) was applied by [ban_details["admin_key"]] on [ban_details["bantime"]] during round ID [ban_details["round_id"]].<br>[expires]</span>")
+			to_chat(user, span_danger("You, or another user of this computer or connection ([ban_details["key"]]) is banned from playing [href_list["bancheck"]].<br>The ban reason is: [ban_details["reason"]]<br>This ban (BanID #[ban_details["id"]]) was applied by [ban_details["admin_key"]] on [ban_details["bantime"]] during round ID [ban_details["round_id"]].<br>[expires]"))
 			return
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
@@ -1149,16 +1196,13 @@ Slots: [job.spawn_positions]</span>
 			if("tutorial")
 				if(href_list["tut"])
 					testing("[href_list["tut"]]")
-					to_chat(user, "<span class='info'>* ----------------------- *</span>")
+					to_chat(user, span_info("* ----------------------- *"))
 					to_chat(user, href_list["tut"])
-					to_chat(user, "<span class='info'>* ----------------------- *</span>")
+					to_chat(user, span_info("* ----------------------- *"))
 			if("random")
 				switch(joblessrole)
 					if(RETURNTOLOBBY)
-						if(is_banned_from(user.ckey, SSjob.overflow_role))
-							joblessrole = BERANDOMJOB
-						else
-							joblessrole = BERANDOMJOB
+						joblessrole = BERANDOMJOB
 					if(BEOVERFLOW)
 						joblessrole = BERANDOMJOB
 					if(BERANDOMJOB)
@@ -1171,6 +1215,7 @@ Slots: [job.spawn_positions]</span>
 			else
 				SetChoices(user)
 		return 1
+
 
 	else if(href_list["preference"] == "trait")
 		switch(href_list["task"])
@@ -1185,21 +1230,21 @@ Slots: [job.spawn_positions]</span>
 					var/list/L = V
 					for(var/Q in all_quirks)
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
-							to_chat(user, "<span class='danger'>[quirk] is incompatible with [Q].</span>")
+							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return
 				var/value = SSquirks.quirk_points[quirk]
 				var/balance = GetQuirkBalance()
 				if(quirk in all_quirks)
 					if(balance + value < 0)
-						to_chat(user, "<span class='warning'>Refunding this would cause you to go below your balance!</span>")
+						to_chat(user, span_warning("Refunding this would cause you to go below your balance!"))
 						return
 					all_quirks -= quirk
 				else
 					if(GetPositiveQuirkCount() >= MAX_QUIRKS)
-						to_chat(user, "<span class='warning'>I can't have more than [MAX_QUIRKS] positive quirks!</span>")
+						to_chat(user, span_warning("I can't have more than [MAX_QUIRKS] positive quirks!"))
 						return
 					if(balance - value < 0)
-						to_chat(user, "<span class='warning'>I don't have enough balance to gain this quirk!</span>")
+						to_chat(user, span_warning("I don't have enough balance to gain this quirk!"))
 						return
 					all_quirks += quirk
 				SetQuirks(user)
@@ -1236,10 +1281,15 @@ Slots: [job.spawn_positions]</span>
 	else if(href_list["preference"] == "markings")
 		ShowMarkings(user)
 		return
+	else if(href_list["preference"] == "descriptors")
+		show_descriptors_ui(user)
+		return
 
 	else if(href_list["preference"] == "customizers")
 		ShowCustomizers(user)
 		return
+	else if(href_list["preference"] == "triumph_buy_menu")
+		SStriumphs.startup_triumphs_menu(user.client)
 
 	else if(href_list["preference"] == "keybinds")
 		switch(href_list["task"])
@@ -1328,6 +1378,10 @@ Slots: [job.spawn_positions]</span>
 			handle_body_markings_topic(user, href_list)
 			ShowChoices(user)
 			ShowMarkings(user)
+			return
+		if("change_descriptor")
+			handle_descriptors_topic(user, href_list)
+			show_descriptors_ui(user)
 			return
 		if("random")
 			switch(href_list["preference"])
@@ -1457,19 +1511,58 @@ Slots: [job.spawn_positions]</span>
 							to_chat(user, "<font color='red'>This voice color is too dark for mortals.</font>")
 							return
 						voice_color = sanitize_hexcolor(new_voice)
+
+				if("view_headshot")
+					var/list/dat = list("<img src='[headshot_link]' width='250px' height='250px'>")
+					var/datum/browser/popup = new(user, "headshot", "<div align='center'>Headshot</div>", 310, 320)
+					popup.set_content(dat.Join())
+					popup.open(FALSE)
+					return
+
+				if("view_nudeshot")
+					var/list/dat = list("<img src='[nudeshot_link]' width='360px' height='480px'>")
+					var/datum/browser/popup = new(user, "nudeshot", "<div align='center'>Nudeshot</div>", 400, 525)
+					popup.set_content(dat.Join())
+					popup.open(FALSE)
+					return
+
 				if("headshot")
 					to_chat(user, "<span class='notice'>Please use a relatively SFW image of the head and shoulder area to maintain immersion level. Lastly, ["<span class='bold'>do not use a real life photo or use any image that is less than serious.</span>"]</span>")
 					to_chat(user, "<span class='notice'>If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser.</span>")
-					to_chat(user, "<span class='notice'>Keep in mind that the photo will be downsized to 250x250 pixels, so the more square the photo, the better it will look.</span>")
+					to_chat(user, "<span class='notice'>Resolution: 250x250 pixels.</span>")
 					var/new_headshot_link = input(user, "Input the headshot link (https, hosts: gyazo, discord, lensdump, imgbox, catbox):", "Headshot", headshot_link) as text|null
-					if(!new_headshot_link)
+					if(new_headshot_link == null)
+						return
+					if(new_headshot_link == "")
 						headshot_link = null
+						ShowChoices(user)
 						return
 					if(!valid_headshot_link(user, new_headshot_link))
+						headshot_link = null
+						ShowChoices(user)
 						return
 					headshot_link = new_headshot_link
 					to_chat(user, "<span class='notice'>Successfully updated headshot picture</span>")
 					log_game("[user] has set their Headshot image to '[headshot_link]'.")
+
+				if("nudeshot")
+					to_chat(user, "<span class='notice'>["<span class='bold'>do not use a real life photo or use any image that is less than serious.</span>"]</span>")
+					to_chat(user, "<span class='notice'>If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser.</span>")
+					to_chat(user, "<span class='notice'>Resolution: 360x480 pixels.</span>")
+					var/new_nudeshot_link = input(user, "Input the nudeshot link (https, hosts: gyazo, discord, lensdump, imgbox, catbox):", "Nudeshot", nudeshot_link) as text|null
+					if(new_nudeshot_link == null)
+						return
+					if(new_nudeshot_link == "")
+						nudeshot_link = null
+						ShowChoices(user)
+						return
+					if(!valid_headshot_link(user, new_nudeshot_link))
+						nudeshot_link = null
+						ShowChoices(user)
+						return
+					nudeshot_link = new_nudeshot_link
+					to_chat(user, "<span class='notice'>Successfully updated nudeshot picture</span>")
+					log_game("[user] has set their Nudeshot image to '[nudeshot_link]'.")
 
 				if("species")
 
@@ -1496,10 +1589,6 @@ Slots: [job.spawn_positions]</span>
 					var/list/coom = GLOB.character_flaws.Copy()
 					var/result = input(user, "Select a flaw", "Roguetown") as null|anything in coom
 					if(result)
-						if(result == "Love-Fiend")
-							if(!user.can_do_sex())
-								coom -= "Love-Fiend"
-								result = pick(coom)
 						result = coom[result]
 						var/datum/charflaw/C = new result()
 						charflaw = C
@@ -1553,7 +1642,7 @@ Slots: [job.spawn_positions]</span>
 						charflaw = GLOB.character_flaws[selectedflaw]
 						charflaw = new charflaw()
 						if(charflaw.desc)
-							to_chat(user, "<span class='info'>[charflaw.desc]</span>")
+							to_chat(user, span_info("[charflaw.desc]"))
 
 				if("ooccolor")
 					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference",ooccolor) as color|null
@@ -1657,6 +1746,24 @@ Slots: [job.spawn_positions]</span>
 						domhand = 2
 					else
 						domhand = 1
+				if("bespecial")
+					if(next_special_trait)
+						print_special_text(user, next_special_trait)
+						return
+					to_chat(user, span_boldwarning("You will become special for one round, this could be something negative, positive or neutral and could have a high impact on your character and your experience."))
+					var/result = alert(user, "You'll receive a unique trait for one round\nDo I really want become special?", "Be Special", "Yes", "No")
+					if(result != "Yes")
+						return
+					if(next_special_trait)
+						return
+					next_special_trait = roll_random_special(user.client)
+					if(next_special_trait)
+						log_game("SPECIALS: Rolled [next_special_trait] for ckey: [user.ckey]")
+						print_special_text(user, next_special_trait)
+						user.playsound_local(user, 'sound/misc/alert.ogg', 100)
+						to_chat(user, span_warning("This will be applied on your next game join. You cannot reroll this, and it will not carry over to other rounds"))
+						to_chat(user, span_warning("You may switch your character and choose any role, if you don't meet the requirements (if any are specified) it won't be applied"))
+
 				if("family")
 					var/list/loly = list("Not yet.","Work in progress.","Don't click me.","Stop clicking this.","Nope.","Be patient.","Sooner or later.")
 					to_chat(user, "<font color='red'>[pick(loly)]</font>")
@@ -1849,6 +1956,13 @@ Slots: [job.spawn_positions]</span>
 					widescreenpref = !widescreenpref
 					user.client.change_view(CONFIG_GET(string/default_view))
 
+				if("be_defiant")
+					defiant = !defiant
+					if(defiant)
+						to_chat(user, span_notice("You will now have resistance from people violating you, but be punished for trying to violate others. This is not full protection."))
+					else
+						to_chat(user, span_boldwarning("You fully immerse yourself in the grim experience, waiving your resistance from people violating you, but letting you do the same unto other non-defiants"))
+
 				if("schizo_voice")
 					toggles ^= SCHIZO_VOICE
 					if(toggles & SCHIZO_VOICE)
@@ -1856,7 +1970,11 @@ Slots: [job.spawn_positions]</span>
 										As a voice, you will receive meditations from players asking about game mechanics!\n\
 										Good voices will be rewarded with PQ for answering meditations, while bad ones are punished at the discretion of jannies.</span>")
 					else
-						to_chat(user, "<span class='warning'>You are no longer a voice.</span>")
+						to_chat(user, span_warning("You are no longer a voice."))
+
+				if("migrants")
+					migrant.show_ui()
+					return
 
 				if("save")
 					save_preferences()
@@ -1962,7 +2080,7 @@ Slots: [job.spawn_positions]</span>
 	character.skin_tone = skin_tone
 	character.hairstyle = hairstyle
 	character.facial_hairstyle = facial_hairstyle
-	character.underwear = underwear
+	//character.underwear = underwear
 //	character.underwear_color = underwear_color
 	character.undershirt = undershirt
 //	character.accessory = accessory
@@ -1970,6 +2088,7 @@ Slots: [job.spawn_positions]</span>
 	character.socks = socks
 	character.set_patron(selected_patron)
 	character.backpack = backpack
+	character.defiant = defiant
 
 	character.jumpsuit_style = jumpsuit_style
 
@@ -1982,12 +2101,20 @@ Slots: [job.spawn_positions]</span>
 	character.dna.real_name = character.real_name
 
 	character.headshot_link = headshot_link
+	character.nudeshot_link = nudeshot_link
 
 	if(parent)
 		var/list/L = get_player_curses(parent.ckey)
 		if(L)
 			for(var/X in L)
 				ADD_TRAIT(character, curse2trait(X), TRAIT_GENERIC)
+
+	apply_trait_bans(character, parent.ckey)
+
+	if(is_misc_banned(parent.ckey, BAN_MISC_LEPROSY))
+		ADD_TRAIT(character, TRAIT_LEPROSY, TRAIT_BAN_PUNISHMENT)
+	if(is_misc_banned(parent.ckey, BAN_MISC_PUNISHMENT_CURSE))
+		ADD_TRAIT(character, TRAIT_PUNISHMENT_CURSE, TRAIT_BAN_PUNISHMENT)
 
 	if(icon_updates)
 		character.update_body()
@@ -2066,5 +2193,19 @@ Slots: [job.spawn_positions]</span>
 	if(find_index != 9)
 		if(!silent)
 			to_chat(usr, "<span class='warning'>The image must be hosted on one of the following sites: 'Gyazo, Lensdump, Imgbox, Catbox'</span>")
+		return FALSE
+	return TRUE
+
+/datum/preferences/proc/is_active_migrant()
+	if(!migrant)
+		return FALSE
+	if(!migrant.active)
+		return FALSE
+	return TRUE
+
+/datum/preferences/proc/allowed_respawn()
+	if(!has_spawned)
+		return TRUE
+	if(is_misc_banned(parent.ckey, BAN_MISC_RESPAWN))
 		return FALSE
 	return TRUE

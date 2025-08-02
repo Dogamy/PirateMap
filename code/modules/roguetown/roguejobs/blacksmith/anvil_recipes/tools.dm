@@ -111,9 +111,9 @@
 	i_type = "Tools"
 
 /datum/anvil_recipe/tools/pot
-	name = "Pot"
+	name = "Metal Pot"
 	req_bar = /obj/item/ingot/iron
-	created_item = /obj/item/reagent_containers/glass/pot //weird how it's a child of glass but whatevs
+	created_item = /obj/item/reagent_containers/glass/pot
 	i_type = "Tools"
 
 // --------- Steel -----------
@@ -123,6 +123,42 @@
 	req_bar = /obj/item/ingot/steel
 	additional_items = list(/obj/item/grown/log/tree/stick)
 	created_item = /obj/item/rogueweapon/pick/steel
+	i_type = "Tools"
+
+/datum/anvil_recipe/tools/surgery/scalpel
+	name = "Scalpel"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/surgery/scalpel
+	i_type = "Tools"
+
+/datum/anvil_recipe/tools/surgery/saw
+	name = "Surgical Saw"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/surgery/saw
+	i_type = "Tools"
+
+/datum/anvil_recipe/tools/surgery/hemostat
+	name = "Forceps"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/surgery/hemostat
+	i_type = "Tools"
+
+/datum/anvil_recipe/tools/surgery/retractor
+	name = "Speculum"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/surgery/retractor
+	i_type = "Tools"
+
+/datum/anvil_recipe/tools/surgery/bonesetter
+	name = "Bone Forceps"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/surgery/bonesetter
+	i_type = "Tools"
+
+/datum/anvil_recipe/tools/surgery/cautery
+	name = "Cautery Iron"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/surgery/cautery
 	i_type = "Tools"
 
 /datum/anvil_recipe/tools/cupssteel

@@ -11,6 +11,10 @@
 /datum/customizer/organ/horns/humanoid
 	customizer_choices = list(/datum/customizer_choice/organ/horns/humanoid)
 
+/datum/customizer/organ/horns/humanoid/sissean
+	allows_disabling = TRUE
+	default_disabled = TRUE
+
 /datum/customizer_choice/organ/horns/humanoid
 	name = "Horns"
 	organ_type = /obj/item/organ/horns/humanoid
@@ -43,6 +47,7 @@
 		/datum/sprite_accessory/horns/marauder,
 		/datum/sprite_accessory/horns/faceguard,
 		/datum/sprite_accessory/horns/sheephorns,
+		/datum/sprite_accessory/horns/doublehorns,
 		)
 
 /datum/customizer/organ/horns/demihuman
@@ -82,6 +87,7 @@
 		/datum/sprite_accessory/horns/marauder,
 		/datum/sprite_accessory/horns/faceguard,
 		/datum/sprite_accessory/horns/sheephorns,
+		/datum/sprite_accessory/horns/doublehorns,
 		)
 
 /datum/customizer/organ/horns/anthro
@@ -121,4 +127,5 @@
 		/datum/sprite_accessory/horns/marauder,
 		/datum/sprite_accessory/horns/faceguard,
 		/datum/sprite_accessory/horns/sheephorns,
+		/datum/sprite_accessory/horns/doublehorns,
 		)

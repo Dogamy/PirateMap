@@ -12,6 +12,7 @@
 	blade_int = blade_int - amt
 	if(blade_int <= 0)
 		blade_int = 0
+		return FALSE
 	return TRUE
 
 /obj/item/proc/degrade_bintegrity(amt as num)
@@ -48,9 +49,11 @@
 	if(max_blade_int)
 		if(istype(I, /obj/item/natural/stone))
 			playsound(src.loc, pick('sound/items/sharpen_long1.ogg','sound/items/sharpen_long2.ogg'), 100)
-			user.visible_message("<span class='notice'>[user] sharpens [src]!</span>")
+			user.visible_message(span_notice("[user] sharpens [src]!"))
 			degrade_bintegrity(0.5)
 			add_bintegrity(max_blade_int * 0.1)
+			if(blade_int >= max_blade_int)
+				to_chat(user, span_info("Fully sharpened."))
 			if(prob(35))
 				var/datum/effect_system/spark_spread/S = new()
 				var/turf/front = get_step(user,user.dir)

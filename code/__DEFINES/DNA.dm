@@ -129,52 +129,8 @@
 #define YOUNGBEARD		19 //dwarves only
 #define STUBBLE			20
 #define OLDGREY			21
-
-
-//organ slots
-#define ORGAN_SLOT_BRAIN "brain"
-#define ORGAN_SLOT_APPENDIX "appendix"
-#define ORGAN_SLOT_RIGHT_ARM_AUG "r_arm_device"
-#define ORGAN_SLOT_LEFT_ARM_AUG "l_arm_device"
-#define ORGAN_SLOT_STOMACH "stomach"
-#define ORGAN_SLOT_STOMACH_AID "stomach_aid"
-#define ORGAN_SLOT_BREATHING_TUBE "breathing_tube"
-#define ORGAN_SLOT_EARS "ears"
-#define ORGAN_SLOT_EYES "eye_sight"
-#define ORGAN_SLOT_LUNGS "lungs"
-#define ORGAN_SLOT_HEART "heart"
-#define ORGAN_SLOT_ZOMBIE "zombie_infection"
-#define ORGAN_SLOT_THRUSTERS "thrusters"
-#define ORGAN_SLOT_HUD "eye_hud"
-#define ORGAN_SLOT_LIVER "liver"
-#define ORGAN_SLOT_TONGUE "tongue"
-#define ORGAN_SLOT_VOICE "vocal_cords"
-#define ORGAN_SLOT_ADAMANTINE_RESONATOR "adamantine_resonator"
-#define ORGAN_SLOT_HEART_AID "heartdrive"
-#define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
-#define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
-#define ORGAN_SLOT_TAIL "tail"
-#define ORGAN_SLOT_PARASITE_EGG "parasite_egg"
-#define ORGAN_SLOT_REGENERATIVE_CORE "hivecore"
-#define ORGAN_SLOT_FRILLS "frills"
-#define ORGAN_SLOT_HORNS "horns"
-#define ORGAN_SLOT_ANTENNAS "antennas"
-#define ORGAN_SLOT_NECK_FEATURE "neck_feature"
-#define ORGAN_SLOT_HEAD_FEATURE "head_feature"
-#define ORGAN_SLOT_BACK_FEATURE "back_feature"
-#define ORGAN_SLOT_TAIL_FEATURE "tail_feature"
-#define ORGAN_SLOT_TAUR_BODY "taur_body"
-#define ORGAN_SLOT_WINGS "wings"
-#define ORGAN_SLOT_SNOUT "snout"
-#define ORGAN_SLOT_PENIS "penis"
-#define ORGAN_SLOT_TESTICLES "testicles"
-#define ORGAN_SLOT_BREASTS "breasts"
-#define ORGAN_SLOT_VAGINA "vagina"
-
-#define BODYPART_FEATURE_HAIR "hair"
-#define BODYPART_FEATURE_FACIAL_HAIR "facehair"
-#define BODYPART_FEATURE_ACCESSORY "accessory"
-#define BODYPART_FEATURE_FACE_DETAIL "facedetail"
+#define NO_ORGAN_FEATURES			22
+#define NO_BODYPART_FEATURES			23
 
 //organ defines
 #define STANDARD_ORGAN_THRESHOLD 	100
@@ -200,6 +156,24 @@
 #define MAX_PENIS_SIZE 3
 #define DEFAULT_PENIS_SIZE 2
 
+#define PENIS_TYPE_PLAIN 1
+#define PENIS_TYPE_KNOTTED 2
+#define PENIS_TYPE_EQUINE 3
+#define PENIS_TYPE_TAPERED 4
+#define PENIS_TYPE_TAPERED_DOUBLE 5
+#define PENIS_TYPE_TAPERED_DOUBLE_KNOTTED 6
+#define PENIS_TYPE_BARBED 7
+#define PENIS_TYPE_BARBED_KNOTTED 8
+#define PENIS_TYPE_TENTACLE 9
+
+#define SHEATH_TYPE_NONE 0
+#define SHEATH_TYPE_NORMAL 1
+#define SHEATH_TYPE_SLIT 2
+
+#define ERECT_STATE_NONE 0
+#define ERECT_STATE_PARTIAL 1
+#define ERECT_STATE_HARD 2
+
 #define MIN_TESTICLES_SIZE 1
 #define MAX_TESTICLES_SIZE 3
 #define DEFAULT_TESTICLES_SIZE 2
@@ -208,40 +182,3 @@
 #define MAX_BREASTS_SIZE 5
 #define DEFAULT_BREASTS_SIZE 3
 
-
-/mob/living/carbon/human/proc/get_hair_color()
-	var/datum/bodypart_feature/hair/feature = get_bodypart_feature_of_slot(BODYPART_FEATURE_HAIR)
-	if(!feature)
-		return "FFFFFF"
-	return feature.hair_color
-
-/mob/living/carbon/human/proc/get_facial_hair_color()
-	var/datum/bodypart_feature/hair/feature = get_bodypart_feature_of_slot(BODYPART_FEATURE_FACIAL_HAIR)
-	if(!feature)
-		return "FFFFFF"
-	return feature.hair_color
-
-/mob/living/carbon/human/proc/get_eye_color()
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if(!eyes)
-		return "FFFFFF"
-	return eyes.eye_color
-
-/mob/living/carbon/human/proc/get_chest_color()
-	var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
-	if(!chest)
-		return null
-	for(var/marking_name in chest.markings)
-		var/datum/body_marking/marking = GLOB.body_markings[marking_name]
-		if(!marking.covers_chest)
-			continue
-		var/marking_color = chest.markings[marking_name]
-		return marking_color
-	return null
-
-/mob/living/carbon/proc/get_bodypart_feature_of_slot(feature_slot)
-	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
-		for(var/datum/bodypart_feature/feature as anything in bodypart.bodypart_features)
-			if(feature.feature_slot == feature_slot)
-				return feature
-	return null

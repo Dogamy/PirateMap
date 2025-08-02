@@ -23,6 +23,7 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/returntolobby,
 	/datum/verbs/menu/Admin/verb/playerpanel,
 	/client/proc/check_antagonists,
+	/client/proc/admin_force_next_migrant_wave,
 	/client/proc/cmd_admin_say,
 	/client/proc/deadmin,				/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/set_context_menu_enabled,
@@ -109,7 +110,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/discord_id_manipulation,
 	/datum/admins/proc/open_borgopanel
 	)
-GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/check_pq, /client/proc/adjust_pq, /client/proc/getcurrentlogs, /client/proc/getserverlogs))
+GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel, /client/proc/role_ban_panel, /client/proc/check_pq, /client/proc/adjust_pq, /client/proc/getcurrentlogs, /client/proc/getserverlogs))
 GLOBAL_PROTECT(admin_verbs_ban)
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(/client/proc/play_local_sound, /client/proc/play_sound, /client/proc/set_round_end_sound))
 GLOBAL_PROTECT(admin_verbs_sounds)
@@ -337,7 +338,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	verbs.Remove(/client/proc/hide_most_verbs, GLOB.admin_verbs_hideable)
 	verbs += /client/proc/show_verbs
 
-	to_chat(src, "<span class='interface'>Most of your adminverbs have been hidden.</span>")
+	to_chat(src, span_interface("Most of your adminverbs have been hidden."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Most Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
@@ -348,7 +349,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	remove_admin_verbs()
 	verbs += /client/proc/show_verbs
 
-	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
+	to_chat(src, span_interface("Almost all of your adminverbs have been hidden."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide All Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
@@ -359,7 +360,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	verbs -= /client/proc/show_verbs
 	add_admin_verbs()
 
-	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>")
+	to_chat(src, span_interface("All of your adminverbs are now visible."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -426,10 +427,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
 			mob.invisibility = initial(mob.invisibility)
-			to_chat(mob, "<span class='boldannounce'>Invisimin off. Invisibility reset.</span>")
+			to_chat(mob, span_boldannounce("Invisimin off. Invisibility reset."))
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
-			to_chat(mob, "<span class='adminnotice'><b>Invisimin on. You are now as invisible as a ghost.</b></span>")
+			to_chat(mob, span_adminnotice("<b>Invisimin on. You are now as invisible as a ghost.</b>"))
 
 /client/proc/toggle_autovote()
 	set name = "Toggle Magnum Mode"
@@ -469,6 +470,15 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 	holder.ban_panel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Banning Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/role_ban_panel()
+	set name = "Role Ban Panel"
+	set category = "Admin"
+	if(!check_rights(R_BAN))
+		return
+	holder.role_ban_panel.show_ui(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Role Ban Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 
 /client/proc/unban_panel()
 	set name = "Unbanning Panel"
@@ -651,14 +661,14 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name_admin(T)] the spell [S].</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] gave [key_name_admin(T)] the spell [S]."))
 
 	S = spell_list[S]
 	if(T.mind)
 		T.mind.AddSpell(new S)
 	else
 		T.AddSpell(new S)
-		message_admins("<span class='danger'>Spells given to mindless mobs will not be transferred in mindswap or cloning!</span>")
+		message_admins(span_danger("Spells given to mindless mobs will not be transferred in mindswap or cloning!"))
 
 /client/proc/remove_spell(mob/T in GLOB.mob_list)
 	set category = "Fun"
@@ -670,7 +680,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		if(S)
 			T.mind.RemoveSpell(S)
 			log_admin("[key_name(usr)] removed the spell [S] from [key_name(T)].")
-			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed the spell [S] from [key_name_admin(T)].</span>")
+			message_admins(span_adminnotice("[key_name_admin(usr)] removed the spell [S] from [key_name_admin(T)]."))
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/give_disease(mob/living/T in GLOB.mob_living_list)
@@ -678,7 +688,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set name = "Give Disease"
 	set desc = ""
 	if(!istype(T))
-		to_chat(src, "<span class='notice'>I can only give a disease to a mob of type /mob/living.</span>")
+		to_chat(src, span_notice("I can only give a disease to a mob of type /mob/living."))
 		return
 	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in sortList(SSdisease.diseases, GLOBAL_PROC_REF(cmp_typepaths_asc))
 	if(!D)
@@ -686,7 +696,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	T.ForceContractDisease(new D, FALSE, TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] gave [key_name(T)] the disease [D].")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] gave [key_name_admin(T)] the disease [D].</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] gave [key_name_admin(T)] the disease [D]."))
 
 /client/proc/object_say(obj/O in world)
 	set category = "Special Verbs"
@@ -697,7 +707,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 	O.say(message)
 	log_admin("[key_name(usr)] made [O] at [AREACOORD(O)] say \"[message]\"")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] made [O] at [AREACOORD(O)]. say \"[message]\"</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] made [O] at [AREACOORD(O)]. say \"[message]\""))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Object Say") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
@@ -728,7 +738,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	holder.deactivate()
 
-	to_chat(src, "<span class='interface'>I are now a normal player.</span>")
+	to_chat(src, span_interface("I are now a normal player."))
 	log_admin("[src] deadmined themself.")
 	message_admins("[src] deadmined themself.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Deadmin")
@@ -753,7 +763,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if (!holder)
 		return //This can happen if an admin attempts to vv themself into somebody elses's deadmin datum by getting ref via brute force
 
-	to_chat(src, "<span class='interface'>I am now an admin.</span>")
+	to_chat(src, span_interface("I am now an admin."))
 	message_admins("[src] re-adminned themselves.")
 	log_admin("[src] re-adminned themselves.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Readmin")
@@ -812,10 +822,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 	if(!SSticker.end_party)
 		SSticker.end_party=TRUE
-		to_chat(src, "<span class='interface'>Ending enabled.</span>")
+		to_chat(src, span_interface("Ending enabled."))
 	else
 		SSticker.end_party=FALSE
-		to_chat(src, "<span class='interface'>Ending DISABLED.</span>")
+		to_chat(src, span_interface("Ending DISABLED."))
 
 /client/proc/delete_player_book()
 	set name = "Database Delete Player Book"
@@ -828,7 +838,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		SSlibrarian.del_player_book(player_book)
 		message_admins("[src] has deleted the player book: [player_book]")
 	else
-		to_chat(src, "<span class='notice'>Either the book file doesn't exist or you have failed to type it in properly (you can look up the file name by the verb 'database book file names'</span>")
+		to_chat(src, span_notice("Either the book file doesn't exist or you have failed to type it in properly (you can look up the file name by the verb 'database book file names'"))
 
 /client/proc/pull_book_file_names()
 	set name = "Database Book File Names"
@@ -856,4 +866,4 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(SSlibrarian.amend_player_book(book_title, amend_type, amend_text))
 		message_admins("[src] has amended [book_title]'s [amend_type] to [amend_text]")
 	else
-		to_chat(src, "<span class='notice'>Either the book file doesn't exist or you have failed to type something in properly (you can look up the file name by the verb 'database book file names'</span>")
+		to_chat(src, span_notice("Either the book file doesn't exist or you have failed to type something in properly (you can look up the file name by the verb 'database book file names'"))

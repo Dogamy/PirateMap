@@ -7,7 +7,7 @@
 // Sample font-size: DM: 8 CSS: 64px
 
 /client/script = {"<style>
-body					{text-shadow:0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;	word-wrap: break-word; overflow-x: hidden; overflow-y: scroll; color: #c9c1ba; font-size: 16px; font-family: "Pterra";}
+body					{word-wrap: break-word; overflow-x: hidden; overflow-y: scroll; color: #c9c1ba; font-size: 16px; font-family: "Pterra";}
 
 h1, h2, h3, h4, h5, h6	{color: #c9c1ba;	font-family: Pterra;}
 
@@ -60,7 +60,7 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 
 .alert					{color: #d82020;}
 
-.emote					{color: #b1bb9f;}
+.emote					{color: #b1bb9f; font-size: 75%;}
 
 .crit					{color: #c71d76;}
 .userdanger				{color: #c71d76;	font-weight: bold;	font-size: 120%;}
@@ -72,6 +72,7 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .greenannounce			{color: #059223;	font-weight: bold;}
 .rose					{color: #e7bed8;}
 .love					{color: #e7bed8;	font-size: 75%;}
+.lovebold					{color: #e7bed8;	font-weight: bold;}
 .info					{color: #a9a5b6;						font-size: 75%;}
 .biginfo				{color: #a9a5b6;}
 .notice					{color: #f1d669;}
@@ -82,7 +83,11 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .unconscious			{color: #c9c1ba;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #80b077;}
+.smallgreen				{color: #80b077;	font-size: 75%;}
+.boldgreen				{color: #80b077;	font-weight: bold;}
 .red					{color: #b84d47;}
+.smallred				{color: #b84d47;	font-size: 75%;}
+.boldred				{color: #b84d47;	font-weight: bold;}
 .blue					{color: #6a8cb7;}
 .purple					{color: #967aaf;}
 .nicegreen				{color: #9bccd0;}
@@ -125,10 +130,11 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .dwarf					{font-family: "MasonAlternate", Pterra;}
 .sandspeak				{font-family: "Arabolical", Pterra;}
 .delf					{font-family: "Dauphin", Pterra;}
-.hellspeak				{font-family: "Nosfer", Pterra;}
+.hellspeak				{font-family: "Xaphan", Pterra; font-size: 110%;}
 .undead					{font-family: "FriskyVampire", Pterra;}
 .orc					{font-family: "Thief by The Riddler", Pterra;}
 .beast					{font-family: "Thief by The Riddler", Pterra;}
+.reptile				{font-family: "Kingthings Petrock", Pterra; font-size: 120%;}
 
 .torture				{color: #42ff20}
 
@@ -167,4 +173,8 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .infection				{color: #77c72b;}
 .necrosis				{color: #558d20;}
 .bone					{color: #e3dac9;}
+.love_low					{color: #eac8de;	font-size: 75%;}
+.love_mid					{color: #e9a8d1;	font-size: 75%;}
+.love_high					{color: #f05ee1;	font-size: 75%;}
+.love_extreme					{color: #d146f5;	font-size: 75%;}
 </style>"}

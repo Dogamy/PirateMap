@@ -1,10 +1,11 @@
 /datum/patron/inhumen
 	name = null
 	associated_faith = /datum/faith/inhumen
+	undead_hater = FALSE
 	confess_lines = list(
 		"PSYDON IS THE DEMIURGE!",
-		"THE NINE ARE WORTHLESS COWARDS!",
-		"THE NINE ARE DECEIVERS!",
+		"THE TEN ARE WORTHLESS COWARDS!",
+		"THE TEN ARE DECEIVERS!",
 	)
 
 /datum/patron/inhumen/zizo
@@ -35,6 +36,7 @@
 	domain = "God of Robbery, Mugging and Redistribution of Wealth"
 	desc = "Man turned God, Matthios taught man that only through theft and popular revolts can social woes be alleviated."
 	worshippers = "Highwaymen, Robbers and Downtrodden Peasants"
+	mob_traits = list(TRAIT_COMMIE)
 	confess_lines = list(
 		"MATTHIOS STEALS FROM THE WORTHLESS!",
 		"MATTHIOS IS JUSTICE!",
@@ -46,11 +48,14 @@
     domain = "Goddess of Degeneracy, Debauchery and Addiction"
     desc = "Woman turned God, Baotha taught man that life is too short to care for the consequences of their pleasures and leads them to peculiar vices and perversions. "
     worshippers = "Perverts, Gamblers, Drunkards, and Bards"
+    mob_traits = list(TRAIT_CRACKHEAD)
     confess_lines = list(
         "BAOTHA DEMANDS PLEASURE!",
         "LIVE, LAUGH, LOVE!",
         "BAOTHA IS MY JOY!",
 	)
+
+
 /* RATWOOD EDIT - Back to the main pantheon
 /datum/patron/inhumen/eora
 	name = "Eora"

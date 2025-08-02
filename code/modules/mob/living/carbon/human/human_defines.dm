@@ -93,11 +93,10 @@
 
 	var/list/possibleclass
 	var/advsetup = 0
-	var/advpicking
+
 
 //	var/alignment = ALIGNMENT_TN
 
-	var/advjob = null
 	var/canseebandits = FALSE
 
 	var/marriedto
@@ -109,9 +108,12 @@
 	var/buried = FALSE // Whether the body is buried or not.
 	var/funeral = FALSE // Whether the body has received rites or not.
 
-	var/datum/devotion/cleric_holder/cleric = null // Used for cleric_holder for priests
+	var/datum/devotion/devotion = null // Used for cleric_holder for priests
 
 	var/headshot_link = null
+	var/nudeshot_link = null
+
+	var/received_resident_key = FALSE
 
 	possible_rmb_intents = list(/datum/rmb_intent/feint,\
 	/datum/rmb_intent/aimed,\

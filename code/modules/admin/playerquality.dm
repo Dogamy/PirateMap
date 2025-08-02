@@ -98,7 +98,7 @@
 		for(var/mob/living/H in GLOB.player_list)
 			selections[H.real_name] = H.ckey
 		if(!selections.len)
-			to_chat(src, "<span class='boldwarning'>No characters found.</span>")
+			to_chat(src, span_boldwarning("No characters found."))
 			return
 		selection = input("Which Character?") as null|anything in sortList(selections)
 		if(!selection)
@@ -124,7 +124,7 @@
 
 /proc/check_pq_menu(ckey)
 	if(!fexists("data/player_saves/[copytext(ckey,1,2)]/[ckey]/preferences.sav"))
-		to_chat(src, "<span class='boldwarning'>User does not exist.</span>")
+		to_chat(src, span_boldwarning("User does not exist."))
 		return
 	var/popup_window_data = "<center>[ckey]</center>"
 	popup_window_data += "<center>PQ: [get_playerquality(ckey, TRUE, TRUE)] ([get_playerquality(ckey, FALSE, TRUE)])</center>"
@@ -137,7 +137,7 @@
 	popup_window_data += "<td width=33%><div style='text-align:right'>Rounds Survived: [get_roundsplayed(ckey)]</div></td></tr></table>"
 	var/list/listy = world.file2list("data/player_saves/[copytext(ckey,1,2)]/[ckey]/playerquality.txt")
 	if(!listy.len)
-		popup_window_data += "<span class='info'>No data on record. Create some.</span>"
+		popup_window_data += span_info("No data on record. Create some.")
 	else
 		for(var/i = listy.len to 1 step -1)
 			var/ya = listy[i]
@@ -159,7 +159,7 @@
 		for(var/mob/living/H in GLOB.player_list)
 			selections[H.real_name] = H.ckey
 		if(!selections.len)
-			to_chat(src, "<span class='boldwarning'>No characters found.</span>")
+			to_chat(src, span_boldwarning("No characters found."))
 			return
 		selection = input("Which Character?") as null|anything in sortList(selections)
 		if(!selection)
@@ -182,16 +182,17 @@
 			return
 		theykey = selection
 	if(theykey == ckey)
-		to_chat(src, "<span class='boldwarning'>That's you!</span>")
+		to_chat(src, span_boldwarning("That's you!"))
 		return
 	if(!fexists("data/player_saves/[copytext(theykey,1,2)]/[theykey]/preferences.sav"))
-		to_chat(src, "<span class='boldwarning'>User does not exist.</span>")
+		to_chat(src, span_boldwarning("User does not exist."))
 		return
 	var/amt2change = input("How much to modify the PQ by? (20 to -20, or 0 to just add a note)") as null|num
 	if(!check_rights(R_ADMIN,0))
 		amt2change = CLAMP(amt2change, -20, 20)
 	var/raisin = stripped_input("State a short reason for this change", "Game Master", "", null)
-	if(!amt2change && !raisin)
+	if(!raisin)
+		to_chat(src, span_boldwarning("No reason given."))
 		return
 	adjust_playerquality(amt2change, theykey, src.ckey, raisin)
 	for(var/client/C in GLOB.clients) // I hate this, but I'm not refactoring the cancer above this point.

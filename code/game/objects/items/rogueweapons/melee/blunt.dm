@@ -1,6 +1,6 @@
 /obj/item/rogueweapon/mace
 	force = 20
-	force_wielded = 20
+	force_wielded = 30
 	possible_item_intents = list(/datum/intent/mace/strike)
 	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash)
 	name = "mace"
@@ -109,6 +109,7 @@
 	penfactor = 15
 	swingdelay = 0
 	icon_state = "instrike"
+	item_d_type = "blunt"
 
 /datum/intent/mace/smash
 	name = "smash"
@@ -119,6 +120,7 @@
 	damfactor = 1.1
 	swingdelay = 10
 	icon_state = "insmash"
+	item_d_type = "blunt"
 	
 /datum/intent/mace/rangedthrust
 	name = "thrust"
@@ -133,6 +135,7 @@
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
 	penfactor = 25
 	damfactor = 0.9
+	item_d_type = "stab"
 
 /obj/item/rogueweapon/mace/woodclub
 	force = 15
@@ -258,7 +261,7 @@
 	possible_item_intents = list(/datum/intent/mace/strike)
 	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/mace/rangedthrust)
 	name = "Goedendag"
-	desc = "Good morning."
+	desc = "Thick club capped with an iron spike. Good morning."
 	icon_state = "goedendag"
 	icon = 'icons/roguetown/weapons/64.dmi'
 	sharpness = IS_BLUNT
@@ -292,7 +295,7 @@
 
 /obj/item/rogueweapon/mace/goden/steel
 	name = "grand mace"
-	desc = "Good morning, sire."
+	desc = "A massive mace that can crush any opposition with ease."
 	icon_state = "polemace"
 	force = 15
 	force_wielded = 35

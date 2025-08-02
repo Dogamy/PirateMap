@@ -25,8 +25,6 @@
 				lockhash = rand(100,999)
 			GLOB.lockhashes += lockhash
 			GLOB.lockids[lockid] = lockhash
-	else if(!lockhash)
-		qdel(src)
 
 /obj/item/roguekey/lord
 	name = "master key"
@@ -45,24 +43,17 @@
 		if(D.masterkey)
 			lockhash = D.lockhash
 
+/obj/item/roguekey/royal
+	name = "Royal Key"
+	desc = "The Key to the royal chambers. It even feels pretentious."
+	icon_state = "ekey"
+	lockid = "royal"
 
-/obj/item/roguekey/manor
-	name = "manor key"
-	desc = "This key will open any manor doors."
-	icon_state = "mazekey"
-	lockid = "manor"
-
-/obj/item/roguekey/garrison
-	name = "town watch key"
-	desc = "This key belongs to the town guards."
-	icon_state = "spikekey"
-	lockid = "garrison"
-
-/obj/item/roguekey/dungeon
-	name = "dungeon key"
-	desc = "This key should unlock the rusty bars and doors of the dungeon."
-	icon_state = "rustkey"
-	lockid = "dungeon"
+/obj/item/roguekey/prince_rooms
+	name = "Princely Key"
+	desc = "The Key to the heirs chambers."
+	icon_state = "ekey"
+	lockid = "prince"
 
 /obj/item/roguekey/vault
 	name = "vault key"
@@ -70,17 +61,11 @@
 	icon_state = "cheesekey"
 	lockid = "vault"
 
-/obj/item/roguekey/sheriff
-	name = "guard captain's key"
-	desc = "This key belongs to the captain of the guard."
+/obj/item/roguekey/councillor_rooms
+	name = "councillor rooms key"
+	desc = "This key opens the councillor's rooms."
 	icon_state = "cheesekey"
-	lockid = "sheriff"
-
-/obj/item/roguekey/bailiff
-	name = "bailiff's key"
-	desc = "This key belongs to the bailiff."
-	icon_state = "cheesekey"
-	lockid = "sheriff"
+	lockid = "councillor"
 
 /obj/item/roguekey/merchant
 	name = "merchant's key"
@@ -93,6 +78,12 @@
 	desc = "This key opens and closes a shop door."
 	icon_state = "ekey"
 	lockid = "shop"
+
+/obj/item/roguekey/townie // For use in round-start available houses in town. Do not use default lockID.
+	name = "town dwelling Key"
+	desc = "The key of some townie's home. Hope it's not lost."
+	icon_state ="brownkey"
+	lockid = "townie"
 
 /obj/item/roguekey/tavern
 	name = "tavern key"
@@ -294,24 +285,112 @@
 	desc = "This key looks barely used."
 	icon_state = "ekey"
 	lockid = "archive"
+
+/obj/item/roguekey/manor
+	name = "manor key"
+	desc = "This key will open any manor doors."
+	icon_state = "mazekey"
+	lockid = "manor"
+
+/obj/item/roguekey/bog_gatehouse
+	name = "bog gatehouse key"
+	desc = "This key opens the bog gatehouse."
+	icon_state = "spikekey"
+	lockid = "bog_gatehouse"
+	
+/obj/item/roguekey/bog_barracks
+	name = "bog barracks key"
+	desc = "This key opens the bog barracks."
+	icon_state = "spikekey"
+	lockid = "bog_barracks"
+	
+/obj/item/roguekey/bog_dungeon
+	name = "bog dungeon key"
+	desc = "This key opens the bog dungeon."
+	icon_state = "spikekey"
+	lockid = "bog_dungeon"
+	
+/obj/item/roguekey/bog_armory
+	name = "bog armory key"
+	desc = "This key opens the bog armory."
+	icon_state = "spikekey"
+	lockid = "bog_armory"
+
+/obj/item/roguekey/town_barracks
+	name = "town barracks key"
+	desc = "This key opens the town barracks."
+	icon_state = "spikekey"
+	lockid = "town_barracks"
+
+/obj/item/roguekey/town_dungeon
+	name = "town dungeon key"
+	desc = "This key opens the town dungeon."
+	icon_state = "spikekey"
+	lockid = "town_dungeon"
+
+/obj/item/roguekey/town_armory
+	name = "town armory key"
+	desc = "This key opens the town armory."
+	icon_state = "spikekey"
+	lockid = "town_armory"
+
+/obj/item/roguekey/sheriff_office
+	name = "sheriff's office key"
+	desc = "This key opens the sheriff's office."
+	icon_state = "spikekey"
+	lockid = "sheriff_office"
+
+/obj/item/roguekey/keep_gatehouse
+	name = "keep gatehouse key"
+	desc = "This key opens the keep gatehouse."
+	icon_state = "spikekey"
+	lockid = "keep_gatehouse"
+
+/obj/item/roguekey/keep_barracks
+	name = "keep barracks key"
+	desc = "This key opens the keep barracks."
+	icon_state = "spikekey"
+	lockid = "keep_barracks"
+
+/obj/item/roguekey/keep_dungeon
+	name = "keep dungeon key"
+	desc = "This key opens the keep dungeon."
+	icon_state = "spikekey"
+	lockid = "keep_dungeon"
+
+/obj/item/roguekey/keep_dungeon_torture
+	name = "keep dungeon torture room key"
+	desc = "This key opens the keep dungeon torture room."
+	icon_state = "spikekey"
+	lockid = "keep_dungeon_torture"
+
+/obj/item/roguekey/keep_armory
+	name = "keep armory key"
+	desc = "This key opens the keep armory."
+	icon_state = "spikekey"
+	lockid = "keep_armory"
+
 //grenchensnacker
 /obj/item/roguekey/porta
 	name = "strange key"
-	desc = "Was this key enchanted by a wizard locksmith..?"//what is grenchensnacker.
+	desc = "Was this key enchanted by a wizard locksmith...?"//what is grenchensnacker.
 	icon_state = "eyekey"
 	lockid = "porta"
+
+// Towner homes keys
 
 //custom key
 /obj/item/roguekey/custom
 	name = "custom key"
-	desc = "A simple iron key, to be used with simple iron locks."
+	desc = "A custom key designed by a blacksmith."
 	icon_state = "brownkey"
-	lockid = "help" //this does nothing since the lockhash is gonna change
 
 /obj/item/roguekey/custom/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/hammer))
-		name = (input(user, "What would you name this key?") as text) + " key"
-		to_chat(user, "<span class='notice'>You rename the key to [name].</span>")
+		var/input = (input(user, "What would you name this key?", "", "") as text) 
+		if(input)
+			name = input + " key"
+			to_chat(user, span_notice("You rename the key to [name]."))
 
 //custom key blank
 /obj/item/customblank //i'd prefer not to make a seperate item for this honestly
@@ -321,26 +400,28 @@
 	icon_state = "brownkey"
 	w_class = WEIGHT_CLASS_TINY
 	dropshrink = 0.75
-	var/lockid
+	var/lockhash = 0
 
 /obj/item/customblank/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/hammer))
-		var/input = input(user, "What would you like to set the key ID to?") as num
-		lockid = 10000 + input //having custom lock ids start at 10000 leaves it outside the range that opens normal doors, so you can't make a key that randomly unlocks existing key ids like the church
+		var/input = input(user, "What would you like to set the key ID to?", "", 0) as num
+		input = max(0, input)
+		to_chat(user, span_notice("You set the key ID to [input]."))
+		lockhash = 10000 + input //having custom lock ids start at 10000 leaves it outside the range that opens normal doors, so you can't make a key that randomly unlocks existing key ids like the church
 
 /obj/item/customblank/attack_right(mob/user)
 	if(istype(user.get_active_held_item(), /obj/item/roguekey))
 		var/obj/item/roguekey/held = user.get_active_held_item()
-		src.lockid = held.lockhash
-		to_chat(user, "<span class='notice'>You trace teeth from [held] to [src].</span>")
-	if(istype(user.get_active_held_item(), /obj/item/customlock))
+		src.lockhash = held.lockhash
+		to_chat(user, span_notice("You trace the teeth from [held] to [src]."))
+	else if(istype(user.get_active_held_item(), /obj/item/customlock))
 		var/obj/item/customlock/held = user.get_active_held_item()
-		src.lockid = held.lockid
-		to_chat(user, "<span class='notice'>You fine tune [src] to the lock's internals.</span>")
-	if(istype(user.get_active_held_item(), /obj/item/rogueweapon/hammer) && src.lockid != null)
-		var/obj/item/roguekey/custom/F = new (src.loc)
-		F.lockhash = src.lockid
-		to_chat(user, "<span class='notice'>You finish [F].</span>")
+		src.lockhash = held.lockhash
+		to_chat(user, span_notice("You fine-tune [src] to the lock's internals."))
+	else if(istype(user.get_active_held_item(), /obj/item/rogueweapon/hammer) && src.lockhash != 0)
+		var/obj/item/roguekey/custom/F = new (get_turf(src))
+		F.lockhash = src.lockhash
+		to_chat(user, span_notice("You finish [F]."))
 		qdel(src)
 	
 
@@ -352,50 +433,53 @@
 	icon_state = "lock"
 	w_class = WEIGHT_CLASS_SMALL
 	dropshrink = 0.75
-	var/lockid = null
+	var/lockhash = 0
 
 /obj/item/customlock/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/hammer))
-		var/input = input(user, "What would you like to set the key ID to?") as num
-		lockid = 10000 + input //same deal as the customkey
-	if(istype(I, /obj/item/roguekey))
+		var/input = input(user, "What would you like to set the lock ID to?", "", 0) as num
+		input = max(0, input)
+		to_chat(user, span_notice("You set the lock ID to [input]."))
+		lockhash = 10000 + input //same deal as the customkey
+	else if(istype(I, /obj/item/roguekey))
 		var/obj/item/roguekey/ID = I
-		if(ID.lockhash == src.lockid)
-			to_chat(user, "<span class='notice'>[I] twists cleanly in [src].</span>")
+		if(ID.lockhash == src.lockhash)
+			to_chat(user, span_notice("[I] twists cleanly in [src]."))
 		else
-			to_chat(user, "<span class='warning'>[I] jams in [src],</span>")
-	if(istype(I, /obj/item/customblank))
+			to_chat(user, span_warning("[I] jams in [src],"))
+	else if(istype(I, /obj/item/customblank))
 		var/obj/item/customblank/ID = I
-		if(ID.lockid == src.lockid)
-			to_chat(user, "<span class='notice'>[I] twists cleanly in [src],</span>") //this makes no sense since the teeth aren't formed yet but i want people to be able to check whether the locks theyre making actually fit
+		if(ID.lockhash == src.lockhash)
+			to_chat(user, span_notice("[I] twists cleanly in [src].")) //this makes no sense since the teeth aren't formed yet but i want people to be able to check whether the locks theyre making actually fit
 		else
-			to_chat(user, "<span class='warning'>[I] jams in [src].</span>")
+			to_chat(user, span_warning("[I] jams in [src]."))
 
 /obj/item/customlock/attack_right(mob/user)
 	if(istype(user.get_active_held_item(), /obj/item/roguekey))//i need to figure out how to avoid these massive if/then trees, this sucks
 		var/obj/item/roguekey/held = user.get_active_held_item()
-		src.lockid = held.lockid
-		to_chat(user, "<span class='notice'>You align the lock's internals to [held].</span>") //locks for non-custom keys
-	if(istype(user.get_active_held_item(), /obj/item/customblank))
+		src.lockhash = held.lockhash
+		to_chat(user, span_notice("You align the lock's internals to [held].")) //locks for non-custom keys
+	else if(istype(user.get_active_held_item(), /obj/item/customblank))
 		var/obj/item/customblank/held = user.get_active_held_item()
-		src.lockid = held.lockid
-		to_chat(user, "<span class='notice'>You align the lock's internals to [held].</span>")
-	if(istype(user.get_active_held_item(), /obj/item/rogueweapon/hammer) && src.lockid != null)
-		var/obj/item/customlock/finished/F = new (src.loc)
-		F.lockid = src.lockid
-		to_chat(user, "<span class='notice'>You finish [F].</span>")
+		src.lockhash = held.lockhash
+		to_chat(user, span_notice("You align the lock's internals to [held]."))
+	else if(istype(user.get_active_held_item(), /obj/item/rogueweapon/hammer) && src.lockhash != 0)
+		var/obj/item/customlock/finished/F = new (get_turf(src))
+		F.lockhash = src.lockhash
+		to_chat(user, span_notice("You finish [F]."))
 		qdel(src)
 
 //finished lock
 /obj/item/customlock/finished
 	name = "lock"
-	desc = "A simple iron lock, to be used with simple iron keys."
-	var/holdname = null
+	desc = "A customized iron lock that is used by keys."
+	var/holdname = ""
 
 /obj/item/customlock/finished/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/hammer))
-		src.holdname = input(user, "What would you like to name this?", "") as text
-		to_chat(user, "<span class='notice'>You label the [name].</span>")
+		src.holdname = input(user, "What would you like to name this?", "", "") as text
+		if(holdname)
+			to_chat(user, span_notice("You label the [name] with [holdname]."))
 	else
 		..()
 
@@ -405,24 +489,23 @@
 	if(istype(K, /obj/structure/closet))
 		var/obj/structure/closet/KE = K
 		if(KE.keylock == TRUE)
-			to_chat(user, "<span class='warning'>[K] already has a lock.</span>")
+			to_chat(user, span_warning("[K] already has a lock."))
 		else
 			KE.keylock = TRUE
-			KE.lockhash = src.lockid
-			if(src.holdname != null)
+			KE.lockhash = src.lockhash
+			if(src.holdname)
 				KE.name = (src.holdname + " " + KE.name)
-			to_chat(user, "<span class='notice'>You add [src] to [K].</span>")
+			to_chat(user, span_notice("You add [src] to [K]."))
 			qdel(src)
-	if(istype(K, /obj/structure/mineral_door/wood/deadbolt))
-		var/obj/structure/mineral_door/wood/deadbolt/KE = K
+	if(istype(K, /obj/structure/mineral_door))
+		var/obj/structure/mineral_door/KE = K
 		if(KE.keylock == TRUE)
-			to_chat(user, "<span class='warning'>[K] already has a lock.</span>")
+			to_chat(user, span_warning("[K] already has a lock."))
 		else
 			KE.keylock = TRUE
-			KE.lockhash = src.lockid
-			if(src.holdname != null)
+			KE.lockhash = src.lockhash
+			if(src.holdname)
 				KE.name = src.holdname
-			to_chat(user, "<span class='notice'>You add [src] to [K].</span>")
+			to_chat(user, span_notice("You add [src] to [K]."))
 			qdel(src)
 			
-

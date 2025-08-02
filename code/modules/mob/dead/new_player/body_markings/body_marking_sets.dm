@@ -8,6 +8,12 @@
 	name = "None"
 	body_marking_list = list()
 
+/datum/body_marking_set/socks
+	name = "Socks"
+	body_marking_list = list(
+		/datum/body_marking/sock
+		)
+
 /datum/body_marking_set/belly
 	name = "Belly"
 	body_marking_list = list(
@@ -32,6 +38,12 @@
 	name = "Scaled Belly"
 	body_marking_list = list(
 		/datum/body_marking/bellyscale
+	)
+
+/datum/body_marking_set/kobold_scale
+	name = "Kobold Scales"
+	body_marking_list = list(
+		/datum/body_marking/kobold_scale
 	)
 
 /datum/body_marking_set/tiger

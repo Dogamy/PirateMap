@@ -232,7 +232,7 @@
 	if(L == src)
 		return FALSE
 
-	if(!is_in_zweb(src.z,L.z))
+	if(!is_in_zweb(src, L))
 		return FALSE
 
 	if(L.stat == DEAD)
@@ -270,7 +270,7 @@
 				m_intent = MOVE_INTENT_WALK
 				INVOKE_ASYNC(src, PROC_REF(walk2derpless), target)
 
-			if(!get_active_held_item() && !get_inactive_held_item())
+			if(!get_active_held_item() && !get_inactive_held_item() && !mind?.has_antag_datum(/datum/antagonist/zombie))
 				// pickup any nearby weapon
 				for(var/obj/item/I in view(1,src))
 					if(!isturf(I.loc))

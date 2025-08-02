@@ -82,14 +82,18 @@
 	var/list/notes = list() //RTD add notes button
 
 	var/lastrecipe
+	
+	var/datum/sleep_adv/sleep_adv = null
 
 /datum/mind/New(key)
 	src.key = key
 	soulOwner = src
 	martial_art = default_martial_art
+	sleep_adv = new /datum/sleep_adv(src)
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	QDEL_NULL(sleep_adv)
 	if(islist(antag_datums))
 		QDEL_LIST(antag_datums)
 	return ..()
@@ -121,12 +125,7 @@
 		if(!known_people[H.real_name])
 			known_people[H.real_name] = list()
 		known_people[H.real_name]["VCOLOR"] = H.voice_color
-		var/used_title
-		if(H.job)
-			var/datum/job/J = SSjob.GetJob(H.job)
-			used_title = J.title
-			if(H.gender == FEMALE && J.f_title)
-				used_title = J.f_title
+		var/used_title = H.get_role_title()
 		if(!used_title)
 			used_title = "unknown"
 		known_people[H.real_name]["FJOB"] = used_title
@@ -260,6 +259,7 @@
 	if(active || force_key_move)
 		testing("dotransfer to [new_character]")
 		new_character.key = key		//now transfer the key to link the client to our new body
+	new_character.update_fov_angles()
 
 
 	///Adjust experience of a specific skill
@@ -298,9 +298,21 @@
 	//TODO add some bar hud or something, i think i seen a request like that somewhere
 	if(known_skills[S] >= old_level)
 		if(known_skills[S] > old_level)
-			to_chat(current, "<span class='nicegreen'>My [S.name] grows!</span>")
+			to_chat(current, span_nicegreen("My [S.name] grows to [SSskills.level_names[known_skills[S]]]!"))
 	else
-		to_chat(current, "<span class='warning'>My [S.name] has weakened!</span>")
+		to_chat(current, span_warning("My [S.name] has weakened to [SSskills.level_names[known_skills[S]]]!"))
+
+/datum/mind/proc/adjust_skillrank_up_to(skill, amt, silent = FALSE)
+	var/proper_amt = amt - get_skill_level(skill)
+	if(proper_amt <= 0)
+		return
+	adjust_skillrank(skill, proper_amt, silent)
+
+/datum/mind/proc/adjust_skillrank_down_to(skill, amt, silent = FALSE)
+	var/proper_amt = get_skill_level(skill) - amt
+	if(proper_amt <= 0)
+		return
+	adjust_skillrank(skill, -proper_amt, silent)
 
 /datum/mind/proc/adjust_skillrank(skill, amt, silent = FALSE)
 	var/datum/skill/S = GetSkillRef(skill)
@@ -322,7 +334,7 @@
 		if(!skill_experience[S])
 			amt2gain = SKILL_EXP_NOVICE+1
 		skill_experience[S] = max(0, skill_experience[S] + amt2gain) //Prevent going below 0
-	var/old_level = known_skills[S]
+	var/old_level = get_skill_level(skill)
 	switch(skill_experience[S])
 		if(SKILL_EXP_LEGENDARY to INFINITY)
 			known_skills[S] = SKILL_LEVEL_LEGENDARY
@@ -338,14 +350,14 @@
 			known_skills[S] = SKILL_LEVEL_NOVICE
 		if(0 to SKILL_EXP_NOVICE)
 			known_skills[S] = SKILL_LEVEL_NONE
-	if(isnull(old_level) || known_skills[S] == old_level)
+	if(known_skills[S] == old_level)
 		return //same level or we just started earning xp towards the first level.
 	if(silent)
 		return
 	if(known_skills[S] >= old_level)
-		to_chat(current, "<span class='nicegreen'>I feel like I've become more proficient at [S.name]!</span>")
+		to_chat(current, span_nicegreen("I feel like I've become more proficient at [S.name]!"))
 	else
-		to_chat(current, "<span class='warning'>I feel like I've become worse at [S.name]!</span>")
+		to_chat(current, span_warning("I feel like I've become worse at [S.name]!"))
 
 
 ///Gets the skill's singleton and returns the result of its get_skill_speed_modifier
@@ -371,10 +383,10 @@
 		if(known_skills[i]) //Do we actually have a level in this?
 			shown_skills += i
 	if(!length(shown_skills))
-		to_chat(user, "<span class='warning'>I don't have any skills.</span>")
+		to_chat(user, span_warning("I don't have any skills."))
 		return
 	var/msg = ""
-	msg += "<span class='info'>*---------*\n</span>"
+	msg += span_info("*---------*\n")
 	for(var/i in shown_skills)
 		msg += "[i] - [SSskills.level_names[known_skills[i]]]\n"
 	msg += "</span>"
@@ -555,7 +567,7 @@
 
 	if (!uplink_loc)
 		if(!silent)
-			to_chat(traitor_mob, "<span class='boldwarning'>Unfortunately, [employer] wasn't able to get you an Uplink.</span>")
+			to_chat(traitor_mob, span_boldwarning("Unfortunately, [employer] wasn't able to get you an Uplink."))
 		. = 0
 	else
 		. = uplink_loc
@@ -565,11 +577,11 @@
 		U.setup_unlock_code()
 		if(!silent)
 			if(uplink_loc == R)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as my [R.name]. Simply dial the frequency [format_frequency(U.unlock_code)] to unlock its hidden features.</span>")
+				to_chat(traitor_mob, span_boldnotice("[employer] has cunningly disguised a Syndicate Uplink as my [R.name]. Simply dial the frequency [format_frequency(U.unlock_code)] to unlock its hidden features."))
 			else if(uplink_loc == PDA)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as my [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ringtone select to unlock its hidden features.</span>")
+				to_chat(traitor_mob, span_boldnotice("[employer] has cunningly disguised a Syndicate Uplink as my [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ringtone select to unlock its hidden features."))
 			else if(uplink_loc == P)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as my [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features.</span>")
+				to_chat(traitor_mob, span_boldnotice("[employer] has cunningly disguised a Syndicate Uplink as my [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features."))
 
 		if(uplink_owner)
 			uplink_owner.antag_memory += U.unlock_note + "<br>"
@@ -602,7 +614,7 @@
 
 	if(creator.mind.special_role)
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
-		to_chat(current, "<span class='danger'>Despite my creators current allegiances, my true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless my creator's body is destroyed.</span>")
+		to_chat(current, span_danger("Despite my creators current allegiances, my true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless my creator's body is destroyed."))
 
 /datum/mind/proc/show_memory(mob/recipient, window=1)
 	if(!recipient)
@@ -644,7 +656,7 @@
 	if(href_list["remove_antag"])
 		var/datum/antagonist/A = locate(href_list["remove_antag"]) in antag_datums
 		if(!istype(A))
-			to_chat(usr,"<span class='warning'>Invalid antagonist ref to be removed.</span>")
+			to_chat(usr,span_warning("Invalid antagonist ref to be removed."))
 			return
 		A.admin_remove(usr)
 
@@ -796,7 +808,7 @@
 							log_admin("[key_name(usr)] changed [current]'s telecrystal count to [crystals].")
 			if("uplink")
 				if(!equip_traitor())
-					to_chat(usr, "<span class='danger'>Equipping a syndicate failed!</span>")
+					to_chat(usr, span_danger("Equipping a syndicate failed!"))
 					log_admin("[key_name(usr)] tried and failed to give [current] an uplink.")
 				else
 					log_admin("[key_name(usr)] gave [current] an uplink.")
@@ -818,7 +830,7 @@
 
 /datum/mind/proc/announce_objectives()
 	var/obj_count = 1
-	to_chat(current, "<span class='notice'>My current objectives:</span>")
+	to_chat(current, span_notice("My current objectives:"))
 	for(var/objective in get_all_objectives())
 		var/datum/objective/O = objective
 		O.update_explanation_text()
@@ -878,12 +890,12 @@
 	spell_list += S
 	S.action.Grant(current)
 
-/datum/mind/proc/has_spell(spell_type)
+/datum/mind/proc/has_spell(spell_type, specific = FALSE)
 	if(istype(spell_type, /obj/effect/proc_holder))
 		var/obj/instanced_spell = spell_type
 		spell_type = instanced_spell.type
 	for(var/obj/effect/proc_holder/spell as anything in spell_list)
-		if(istype(spell, spell_type))
+		if((specific && spell.type == spell_type) || istype(spell, spell_type))
 			return TRUE
 	return FALSE
 
@@ -1007,7 +1019,6 @@
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
 
+/datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE)
+	sleep_adv.add_sleep_experience(skill, amt, silent)
 
-
-/datum/mind/proc/get_learning_boon(skill)
-	return 1 + (get_skill_level(skill) / 10)

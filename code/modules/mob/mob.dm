@@ -124,12 +124,12 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t =	"<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t +=	"<span class='danger'>Temperature: [environment.temperature] \n</span>"
+	var/t =	span_notice("Coordinates: [x],[y] \n")
+	t +=	span_danger("Temperature: [environment.temperature] \n")
 	for(var/id in environment.gases)
 		var/gas = environment.gases[id]
 		if(gas[MOLES])
-			t+="<span class='notice'>[gas[GAS_META][META_GAS_NAME]]: [gas[MOLES]] \n</span>"
+			t+=span_notice("[gas[GAS_META][META_GAS_NAME]]: [gas[MOLES]] \n")
 
 	to_chat(usr, t)
 
@@ -146,7 +146,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 	if(!client)
 		return
 
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
 		if(type & MSG_VISUAL && eye_blind )//Vision related
@@ -188,7 +188,7 @@ GLOBAL_VAR_INIT(mobids, 1)
   * * vision_distance (optional) define how many tiles away the message can be seen.
   * * ignored_mob (optional) doesn't show any message to a given mob if TRUE.
   */
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, runechat_message = null, log_seen = NONE, log_seen_msg = null)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -212,9 +212,13 @@ GLOBAL_VAR_INIT(mobids, 1)
 		if(!msg)
 			continue
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+		if(runechat_message && M.can_see_runechat(src) && M.can_hear())
+			M.create_chat_message(src, raw_message = runechat_message, spans = list("emote"))
+	if(log_seen)
+		log_seen(src, null, hearers, (log_seen_msg ? log_seen_msg : message), log_seen)
 
 ///Adds the functionality to self_message.
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, runechat_message = null, log_seen = NONE, log_seen_msg = null)
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -229,12 +233,16 @@ GLOBAL_VAR_INIT(mobids, 1)
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message)
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, runechat_message = null, log_seen = NONE, log_seen_msg = null)
 	var/list/hearers = get_hearers_in_view(hearing_distance, src)
 	if(self_message)
 		hearers -= src
 	for(var/mob/M in hearers)
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+		if(runechat_message && M.can_see_runechat(src) && M.can_hear())
+			M.create_chat_message(src, raw_message = runechat_message, spans = list("emote"))
+	if(log_seen)
+		log_seen(src, null, hearers, (log_seen_msg ? log_seen_msg : message), log_seen)
 
 /**
   * Show a message to all mobs in earshot of this one
@@ -247,7 +255,7 @@ GLOBAL_VAR_INIT(mobids, 1)
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message)
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, runechat_message = null, log_seen = NONE, log_seen_msg = null)
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
@@ -308,7 +316,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 			qdel(W)
 		else
 			if(!disable_warning)
-				to_chat(src, "<span class='warning'>I couldn't equip that.</span>")
+				to_chat(src, span_warning("I couldn't equip that."))
 		return FALSE
 	equip_to_slot(W, slot, redraw_mob, initial) //This proc should not ever fail.
 	update_a_intents()
@@ -425,12 +433,12 @@ GLOBAL_VAR_INIT(mobids, 1)
 		return
 
 	if(is_blind(src))
-		to_chat(src, "<span class='warning'>Something is there but I can't see it!</span>")
+		to_chat(src, span_warning("Something is there but I can't see it!"))
 		return
 
 	if(isturf(A.loc) && isliving(src))
 		face_atom(A)
-		visible_message("<span class='emote'>[src] looks at [A].</span>")
+		visible_message(span_emote("[src] looks at [A]."))
 	var/list/result = A.examine(src)
 	if(result)
 		to_chat(src, result.Join("\n"))
@@ -487,9 +495,9 @@ GLOBAL_VAR_INIT(mobids, 1)
 	lastpoint = world.time
 	var/obj/I = get_active_held_item()
 	if(I)
-		src.visible_message("<span class='info'>[src] points [I] at [A].</span>", "<span class='info'>I point [I] at [A].</span>")
+		src.visible_message(span_info("[src] points [I] at [A]."), span_info("I point [I] at [A]."))
 	else
-		src.visible_message("<span class='info'>[src] points at [A].</span>", "<span class='info'>I point at [A].</span>")
+		src.visible_message(span_info("[src] points at [A]."), span_info("I point at [A]."))
 
 	return TRUE
 
@@ -570,7 +578,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 		if (world.time < memory_throttle_time)
 			return
 		memory_throttle_time = world.time + 5 SECONDS
-		msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+		msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 		msg = sanitize(msg)
 
 		mind.store_memory(msg)
@@ -593,12 +601,12 @@ GLOBAL_VAR_INIT(mobids, 1)
 	if (CONFIG_GET(flag/norespawn))
 		return
 	if ((stat != DEAD || !( SSticker )))
-		to_chat(usr, "<span class='boldnotice'>I must be dead to use this!</span>")
+		to_chat(usr, span_boldnotice("I must be dead to use this!"))
 		return
 
 	log_game("[key_name(usr)] used abandon mob.")
 
-	to_chat(src, "<span class='info'>Returned to lobby successfully.</span>")
+	to_chat(src, span_info("Returned to lobby successfully."))
 
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
@@ -750,6 +758,8 @@ GLOBAL_VAR_INIT(mobids, 1)
 			stat(null, "TimeOfDay: [GLOB.tod]")
 			stat(null, "IC Time: [station_time_timestamp()] [station_time()]")
 			stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
+			if(check_rights(R_ADMIN,0))
+				stat(null, SSmigrants.get_status_line())
 			if(SSshuttle.emergency)
 				var/ETA = SSshuttle.emergency.getModeStr()
 				if(ETA)
@@ -785,7 +795,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 			GLOB.cameranet.stat_entry()
 		if(statpanel("Tickets"))
 			GLOB.ahelp_tickets.stat_entry()
-			
+
 		if(length(GLOB.sdql2_queries))
 			if(statpanel("SDQL2"))
 				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
@@ -871,9 +881,6 @@ GLOBAL_VAR_INIT(mobids, 1)
 		return
 	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE) //the reason this isn't a mobility_flags check is because you want them to be able to change dir if you're passively grabbing them
 		return FALSE
-	if(sexcon)
-		if(!sexcon.can_change_dir())
-			return FALSE
 	if(IsImmobilized())
 		return FALSE
 	return ..()
@@ -1183,11 +1190,11 @@ GLOBAL_VAR_INIT(mobids, 1)
 /mob/proc/can_read(obj/O, silent = FALSE)
 	if(is_blind(src) || eye_blurry)
 		if(!silent)
-			to_chat(src, "<span class='warning'>I'm too blind to read.</span>")
+			to_chat(src, span_warning("I'm too blind to read."))
 		return
 	if(!is_literate())
 		if(!silent)
-			to_chat(src, "<span class='warning'>I can't make sense of these verba.</span>")
+			to_chat(src, span_warning("I can't make sense of these verba."))
 		return
 	return TRUE
 
@@ -1356,14 +1363,14 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 
 /mob/say_mod(input, message_mode)
-	var/customsayverb = findtext(input, "*")
+	var/customsayverb = findtext_char(input, "*")
 	if(customsayverb)
-		return lowertext(copytext(input, 1, customsayverb))
+		return lowertext(copytext_char(input, 1, customsayverb))
 	. = ..()
 
 /atom/movable/proc/attach_spans(input, list/spans)
-	var/customsayverb = findtext(input, "*")
+	var/customsayverb = findtext_char(input, "*")
 	if(customsayverb)
-		input = capitalize(copytext(input, customsayverb+1))
+		input = capitalize(copytext_char(input, customsayverb+1))
 	return "[message_spans_start(spans)][input]</span>"
 

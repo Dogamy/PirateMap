@@ -1,13 +1,13 @@
 /datum/job/roguetown/veteran
 	title = "Veteran"
 	flag = VETERAN
-	department_flag = GARRISON
+	department_flag = MERCENARIES
 	faction = "Station"
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 
 	allowed_sexes = list(MALE) //same as town guard
-	allowed_races = CLOTHED_RACES_TYPES // same as town guard
+	allowed_races = RACES_SHUNNED_UP // same as town guard
 	tutorial = "You've known combat your entire life. There isn't a way to kill a man you havent practiced in the tapestries of war itself. You wouldn't call yourself a hero, those belong to the men left rotting in the fields of where you practiced your ancient trade. You don't sleep well at night anymore, you don't like remembering what you've had to do to survive. Trading adventure for stable pay was the only logical solution, and maybe someday you'll get to lay down the blade..."
 	allowed_ages = list(AGE_OLD)
 	display_order = JDO_VET
@@ -15,7 +15,7 @@
 
 	outfit = /datum/outfit/job/roguetown/veteran
 	give_bank_account = 35
-	min_pq = 4
+	min_pq = 5
 	max_pq = null
 
 	cmode_music = 'sound/music/combat_guard.ogg'
@@ -43,7 +43,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor
 	belt = /obj/item/storage/belt/rogue/leather/black
 	beltl = /obj/item/rogueweapon/sword/sabre
-	beltr = /obj/item/keyring/guardcastle
+	beltr = /obj/item/keyring/veteran
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1)
 	if(H.mind)
@@ -62,11 +62,9 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 3, TRUE)
-		H.change_stat("strength", 2)
 		H.change_stat("perception", 1)
 		H.change_stat("intelligence", 4)
 		H.change_stat("endurance", 1)
-		H.change_stat("speed", 1)
 	H.verbs |= /mob/proc/haltyell
 	ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)

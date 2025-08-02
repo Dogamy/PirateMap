@@ -29,9 +29,7 @@ GLOBAL_VAR(restart_counter)
 
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
-	TgsNew(minimum_required_security_level = TGS_SECURITY_TRUSTED)
-
-	GLOB.revdata = new
+	InitTgs()
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
@@ -50,7 +48,7 @@ GLOBAL_VAR(restart_counter)
 	SetupLogs()
 	load_poll_data()
 	if(CONFIG_GET(string/channel_announce_new_game_message))
-		send2chat(new /datum/tgs_message_content(CONFIG_GET(string/channel_announce_new_game_message)), CONFIG_GET(string/chat_announce_new_game))
+		send2chat(new /datum/tgs_message_content(CONFIG_GET(string/channel_announce_new_game_message)), CONFIG_GET(string/channel_announce_new_game))
 
 #ifndef USE_CUSTOM_ERROR_HANDLER
 	world.log = file("[GLOB.log_directory]/dd.log")
@@ -62,11 +60,7 @@ GLOBAL_VAR(restart_counter)
 	LoadVerbs(/datum/verbs/menu)
 	load_whitelist()
 
-	load_blacklist()
-
 	load_nameban()
-
-	load_psychokiller()
 
 	load_crownlist()
 
@@ -92,6 +86,10 @@ GLOBAL_VAR(restart_counter)
 
 	update_status()
 
+/// Initializes TGS and loads the returned revising info into GLOB.revdata
+/world/proc/InitTgs()
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
+	GLOB.revdata.load_tgs_info()
 
 /world/proc/HandleTestRun()
 	//trigger things to run the whole process
@@ -149,6 +147,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_cloning_log = "[GLOB.log_directory]/cloning.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.world_attack_log = "[GLOB.log_directory]/attack.log"
+	GLOB.world_seen_log = "[GLOB.log_directory]/seen.log"
 	GLOB.world_pda_log = "[GLOB.log_directory]/pda.log"
 	GLOB.world_telecomms_log = "[GLOB.log_directory]/telecomms.log"
 	GLOB.world_manifest_log = "[GLOB.log_directory]/manifest.log"
@@ -165,6 +164,7 @@ GLOBAL_VAR(restart_counter)
 
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_attack_log)
+	start_log(GLOB.world_seen_log)
 	start_log(GLOB.world_pda_log)
 	start_log(GLOB.world_telecomms_log)
 	start_log(GLOB.world_manifest_log)
@@ -221,7 +221,7 @@ GLOBAL_VAR(restart_counter)
 		if(PRcounts[id] > PR_ANNOUNCEMENTS_PER_ROUND)
 			return
 
-	var/final_composed = "<span class='announce'>PR: [announcement]</span>"
+	var/final_composed = span_announce("PR: [announcement]")
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 
@@ -251,15 +251,17 @@ GLOBAL_VAR(restart_counter)
 //		if (usr)
 //			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 //			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")
-//		to_chat(world, "<span class='boldannounce'>Rebooting World immediately due to host request.</span>")
+//		to_chat(world, span_boldannounce("Rebooting World immediately due to host request."))
 //	else
-//	to_chat(world, "<span class='boldannounce'><b><u><a href='byond://winset?command=.reconnect'>CLICK TO RECONNECT</a></u></b></span>")
+//	to_chat(world, span_boldannounce("<b><u><a href='byond://winset?command=.reconnect'>CLICK TO RECONNECT</a></u></b>"))
 
-	var/round_end_sound = pick('sound/roundend/knave.ogg',
-	'sound/roundend/twohours.ogg',
-	'sound/roundend/rest.ogg',
-	'sound/roundend/gather.ogg',
-	'sound/roundend/dwarfs.ogg')
+	var/round_end_sound = pick(
+		'sound/roundend/knave.ogg',
+		'sound/roundend/twohours.ogg',
+		'sound/roundend/rest.ogg',
+		'sound/roundend/gather.ogg',
+		'sound/roundend/dwarfs.ogg',
+	)
 	for(var/client/thing in GLOB.clients)
 		if(!thing)
 			continue
@@ -275,7 +277,7 @@ GLOBAL_VAR(restart_counter)
 		return
 
 	if(TgsAvailable())
-		send2chat(new /datum/tgs_message_content("Round ending!"), CONFIG_GET(string/chat_announce_new_game))
+		send2chat(new /datum/tgs_message_content("Round ending!"), CONFIG_GET(string/channel_announce_new_game))
 		testing("tgsavailable passed")
 		var/do_hard_reboot
 		// check the hard reboot counter

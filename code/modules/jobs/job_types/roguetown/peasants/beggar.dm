@@ -6,11 +6,11 @@
 	total_positions = -1
 	spawn_positions = -1
 
-	allowed_races = CLOTHED_RACES_TYPES
+	allowed_races = RACES_VERY_SHUNNED_UP
 	allowed_ages = ALL_AGES_LIST
 	outfit = /datum/outfit/job/roguetown/vagrant
 	bypass_lastclass = TRUE
-	bypass_jobban = FALSE
+	banned_leprosy = FALSE
 	min_pq = -30
 	max_pq = null
 
@@ -18,6 +18,9 @@
 	display_order = JDO_VAGRANT
 	show_in_credits = FALSE
 	can_random = FALSE
+	
+	cmode_music = 'sound/music/combat_bum.ogg'
+	
 	/// Chance to become a wise beggar, if we still have space for more wise beggars
 	var/wise_chance = 10
 	/// Amount of wise beggars spawned as of now
@@ -39,6 +42,8 @@
 
 /datum/outfit/job/roguetown/vagrant/pre_equip(mob/living/carbon/human/H)
 	..()
+	ADD_TRAIT(H, TRAIT_NOSTINK, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_NASTY_EATER, TRAIT_GENERIC)
 	// wise beggar!!!
 	// guaranteed full beggar gear + random stats
 	if(is_wise)
@@ -102,7 +107,7 @@
 			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, rand(1,5), TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, rand(1,5), TRUE)
 		H.STALUC = rand(1, 20)
 	if(prob(5))
@@ -117,8 +122,6 @@
 	H.change_stat("intelligence", -4)
 	H.change_stat("constitution", -3)
 	H.change_stat("endurance", -3)
-	ADD_TRAIT(H, TRAIT_NOSTINK, TRAIT_GENERIC)
-	ADD_TRAIT(H, TRAIT_NASTY_EATER, TRAIT_GENERIC)
 
 /datum/outfit/job/roguetown/vagrant
 	name = "Beggar"

@@ -197,11 +197,15 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 				/mob/living/carbon/human/species/goblin/npc/ambush/cave = 30)
 	first_time_text = "THE TERRORBOG"
 	converted_type = /area/rogue/indoors/shelter/bog
+
 /area/rogue/indoors/shelter/bog
 	icon_state = "bog"
 	droning_sound = 'sound/music/area/bog.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
+
+/area/rogue/outdoors/bog/dense
+	name = "dense bog"
 
 /area/rogue/outdoors/beach
 	name = "sophia's cry"
@@ -342,6 +346,21 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 	spookysounds = SPOOKY_CAVE
 	spookynight = SPOOKY_GEN
 
+/area/rogue/under/cave/dungeon1
+	name = "smalldungeon1"
+	icon_state = "spider"
+	first_time_text = "THE ABANDONED FORTRESS"
+	droning_sound = 'sound/music/area/dungeon.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	converted_type = /area/rogue/outdoors/dungeon1
+/area/rogue/outdoors/dungeon1
+	name = "smalldungeonoutdoors"
+	icon_state = "spidercave"
+	droning_sound = 'sound/music/area/dungeon.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+
 //////
 /////
 ////     TOWN AREAS
@@ -472,6 +491,7 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(/area/rogue/indoors/town
 
 /area/rogue/indoors/town/church/chapel
 	icon_state = "chapel"
+	first_time_text = "THE HOUSE OF THE TEN"
 
 /area/rogue/indoors/town/fire_chamber
 	name = "incinerator"

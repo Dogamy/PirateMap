@@ -36,26 +36,26 @@
 		var/list/RockPaperScissors = list("rock" = "paper", "paper" = "scissors", "scissors" = "rock") //choice = loses to
 		if(M.apply_status_effect(/datum/status_effect/necropolis_curse,CURSE_BLINDING))
 			helbent = TRUE
-		to_chat(M, "<span class='hierophant'>Malevolent spirits appear before you, bartering your life in a 'friendly' game of rock, paper, scissors. Which do you choose?</span>")
+		to_chat(M, span_hierophant("Malevolent spirits appear before you, bartering your life in a 'friendly' game of rock, paper, scissors. Which do you choose?"))
 		var/timeisticking = world.time
 		var/RPSchoice = input(M, "Janken Time! You have 60 Seconds to Choose!", "Rock Paper Scissors",null) as null|anything in RockPaperScissors
 		if(QDELETED(M) || (timeisticking+(1.1 MINUTES) < world.time))
 			reaping = FALSE
 			return //good job, you ruined it
 		if(!RPSchoice)
-			to_chat(M, "<span class='hierophant'>I decide to not press your luck, but the spirits remain... hopefully they'll go away soon.</span>")
+			to_chat(M, span_hierophant("I decide to not press your luck, but the spirits remain... hopefully they'll go away soon."))
 			reaping = FALSE
 			return
 		var/grim = pick(RockPaperScissors)
 		if(grim == RPSchoice) //You Tied!
-			to_chat(M, "<span class='hierophant'>I tie, and the malevolent spirits disappear... for now.</span>")
+			to_chat(M, span_hierophant("I tie, and the malevolent spirits disappear... for now."))
 			reaping = FALSE
 		else if(RockPaperScissors[RPSchoice] == grim) //You lost!
-			to_chat(M, "<span class='hierophant'>I lose, and the malevolent spirits smirk eerily as they surround your body.</span>")
+			to_chat(M, span_hierophant("I lose, and the malevolent spirits smirk eerily as they surround your body."))
 			M.dust()
 			return
 		else //VICTORY ROYALE
-			to_chat(M, "<span class='hierophant'>I win, and the malevolent spirits fade away as well as your wounds.</span>")
+			to_chat(M, span_hierophant("I win, and the malevolent spirits fade away as well as your wounds."))
 			M.client.give_award(/datum/award/achievement/misc/helbitaljanken, M)
 			M.revive(full_heal = TRUE, admin_revive = FALSE)
 			M.reagents.del_reagent(type)
@@ -218,7 +218,7 @@
 	return TRUE
 
 /datum/reagent/medicine/C2/multiver //enhanced with MULTIple medicines
-	name = "Multiver"
+	name = "Charcoal"
 	description = "A chem-purger that becomes more effective the more unique medicines present. Slightly heals toxicity but causes lung damage (mitigatable by unique medicines)."
 
 /datum/reagent/medicine/C2/multiver/on_mob_life(mob/living/carbon/human/M)
@@ -227,7 +227,7 @@
 		var/datum/reagent/the_reagent = r
 		if(istype(the_reagent, /datum/reagent/medicine))
 			medibonus += 1
-	M.adjustToxLoss(-0.2 * medibonus)
+	M.adjustToxLoss(-0.1 * medibonus)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, medibonus ? 1.5/medibonus : 1)
 	for(var/r2 in M.reagents.reagent_list)
 		var/datum/reagent/the_reagent2 = r2
@@ -235,7 +235,7 @@
 			continue
 		var/amount2purge = 0.1
 		if(istype(the_reagent2,/datum/reagent/toxin) || istype(the_reagent2,/datum/reagent/consumable/ethanol/))
-			amount2purge *= (5*medibonus) //very good antitox and antidrink (well just removing them) for roundstart availability
+			amount2purge *= (2.5*medibonus) //very good antitox and antidrink (well just removing them) for roundstart availability
 		else if(medibonus >= 5 && istype(the_reagent2, /datum/reagent/medicine)) //5 unique meds (4+multiver) will make it not purge medicines
 			continue
 		M.reagents.remove_reagent(the_reagent2.type, amount2purge)
@@ -339,7 +339,7 @@
 			var/burnies = min(Carbies.getFireLoss(),Carbies.adjustFireLoss(-1.25 * reac_volume)*-1)
 			Carbies.adjustToxLoss((harmies+burnies)*0.66)
 			if(show_message)
-				to_chat(Carbies, "<span class='danger'>I feel your burns and bruises healing! It stings like hell!</span>")
+				to_chat(Carbies, span_danger("I feel your burns and bruises healing! It stings like hell!"))
 			SEND_SIGNAL(Carbies, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 	..()
 	return TRUE

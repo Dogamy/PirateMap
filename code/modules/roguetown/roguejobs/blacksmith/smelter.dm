@@ -4,7 +4,8 @@
 
 /obj/machinery/light/rogue/smelter
 	icon = 'icons/roguetown/misc/forge.dmi'
-	name = "furnace"
+	name = "stone furnace"
+	desc = "A stone furnace, weathered by time and heat."
 	icon_state = "cavesmelter0"
 	base_state = "cavesmelter"
 	anchored = TRUE
@@ -27,7 +28,7 @@
 			ore -= I
 			I.forceMove(T)
 			T.hingot = I
-			user.visible_message("<span class='info'>[user] retrieves [I] from [src].</span>")
+			user.visible_message(span_info("[user] retrieves [I] from [src]."))
 			if(on)
 				var/tyme = world.time
 				T.hott = tyme
@@ -45,20 +46,20 @@
 		cooking = 0
 		return
 	else
-		to_chat(user, "<span class='warning'>[W.name] cannot be smelted.</span>")
+		to_chat(user, span_warning("[W.name] cannot be smelted."))
 	return ..()
 
 
 /obj/machinery/light/rogue/smelter/attack_hand(mob/user, params)
 	if(on)
-		to_chat(user, "<span class='warning'>It's too hot.</span>")
+		to_chat(user, span_warning("It's too hot."))
 		return
 	if(ore.len)
 		var/obj/item/I = ore[ore.len]
 		ore -= I
 		I.loc = user.loc
 		user.put_in_active_hand(I)
-		user.visible_message("<span class='info'>[user] retrieves [I] from [src].</span>")
+		user.visible_message(span_info("[user] retrieves [I] from [src]."))
 	else
 		return ..()
 
@@ -133,4 +134,5 @@
 								ore += R
 								qdel(I)
 					playsound(src,'sound/misc/smelter_fin.ogg', 100, FALSE)
+					visible_message(span_notice("[src] is finished."))
 					cooking = 31

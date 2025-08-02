@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(courtier_positions, list(
 	"Court Magician",
 	"Court Physician",
 	"Jester",
-	"Butler",
+	"Head Butler",
 ))
 
 GLOBAL_LIST_INIT(garrison_positions, list(
@@ -82,10 +82,9 @@ GLOBAL_LIST_INIT(garrison_positions, list(
 	"Bog Guard",
 	"Bog Master",
 	"Man at Arms",
-	"Veteran",
 	"Dungeoneer",
 	"Gatemaster",
-	"Village Elder",
+	"Town Sheriff",
 ))
 
 GLOBAL_LIST_INIT(church_positions, list(
@@ -95,6 +94,7 @@ GLOBAL_LIST_INIT(church_positions, list(
 	"Acolyte",
 	"Mortician",
 	"Templar",
+	"Druid",
 ))
 
 GLOBAL_LIST_INIT(yeoman_positions, list(
@@ -107,6 +107,7 @@ GLOBAL_LIST_INIT(yeoman_positions, list(
 	"Alchemist",
 	"Mason",
 	"Scribe",
+	"Village Elder",
 ))
 
 GLOBAL_LIST_INIT(peasant_positions, list(
@@ -121,7 +122,7 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Towner",
 	"Grabber",
 	"Nightmaster",
-	"Bath Wench",
+	"Bath Swain",
 	"Docker",
 	"Prisoner",
 	"Beggar",
@@ -132,17 +133,19 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 GLOBAL_LIST_INIT(mercenary_positions, list(
 	"Grenzelhoft Mercenary",
 	"Desert Rider Mercenary",
+	"Sellsword",
+	"Veteran",
 ))
 
 GLOBAL_LIST_INIT(youngfolk_positions, list(
 	"Squire",
 	"Clerk",
 	"Smithy Apprentice",
-	"Magician's Apprentice",
+	"Magicians Apprentice",
 	"Churchling",
 	"Servant",
 	"Shophand",
-	"Orphan",
+	"Vagabond",
 ))
 
 GLOBAL_LIST_INIT(allmig_positions, list(

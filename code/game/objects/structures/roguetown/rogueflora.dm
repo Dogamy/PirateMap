@@ -34,8 +34,9 @@
 			return
 
 /obj/structure/flora/roguetree/fire_act(added, maxstacks)
-	if(added > 5)
-		return ..()
+	if(added <= 5)
+		return
+	return ..()
 
 /obj/structure/flora/roguetree/Initialize()
 	. = ..()
@@ -286,7 +287,7 @@
 		var/mob/living/L = AM
 		if(L.m_intent == MOVE_INTENT_RUN && (L.mobility_flags & MOBILITY_STAND))
 			if(!ishuman(L))
-				to_chat(L, "<span class='warning'>I'm cut on a thorn!</span>")
+				to_chat(L, span_warning("I'm cut on a thorn!"))
 				L.apply_damage(5, BRUTE)
 
 			else
@@ -298,10 +299,10 @@
 						var/obj/item/natural/thorn/TH = new(src.loc)
 						BP.add_embedded_object(TH, silent = TRUE)
 						BP.receive_damage(10)
-						to_chat(H, "<span class='danger'>\A [TH] impales my [BP.name]!</span>")
+						to_chat(H, span_danger("\A [TH] impales my [BP.name]!"))
 				else
 					var/obj/item/bodypart/BP = pick(H.bodyparts)
-					to_chat(H, "<span class='warning'>A thorn [pick("slices","cuts","nicks")] my [BP.name].</span>")
+					to_chat(H, span_warning("A thorn [pick("slices","cuts","nicks")] my [BP.name]."))
 					BP.receive_damage(10)
 
 /obj/structure/flora/roguegrass/bush/attack_hand(mob/user)
@@ -321,15 +322,15 @@
 				if(B)
 					B = new B(user.loc)
 					user.put_in_hands(B)
-					user.visible_message("<span class='notice'>[user] finds [B] in [src].</span>")
+					user.visible_message(span_notice("[user] finds [B] in [src]."))
 					return
-			user.visible_message("<span class='warning'>[user] searches through [src].</span>")
+			user.visible_message(span_warning("[user] searches through [src]."))
 #ifdef MATURESERVER
 			if(!looty.len)
-				to_chat(user, "<span class='warning'>Picked clean.</span>")
+				to_chat(user, span_warning("Picked clean."))
 #else
 			if(!looty.len)
-				to_chat(user, "<span class='warning'>Picked clean... I should try later.</span>")
+				to_chat(user, span_warning("Picked clean... I should try later."))
 #endif
 /obj/structure/flora/roguegrass/bush/update_icon()
 	icon_state = "bush[rand(1, 4)]"
@@ -441,8 +442,9 @@
 	return 1
 
 /obj/structure/flora/rogueshroom/fire_act(added, maxstacks)
-	if(added > 5)
-		return ..()
+	if(added <= 5)
+		return
+	return ..()
 
 /obj/structure/flora/rogueshroom/obj_destruction(damage_flag)
 	var/obj/structure/S = new /obj/structure/flora/shroomstump(loc)

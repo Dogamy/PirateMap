@@ -13,6 +13,7 @@
 	var/message_monkey = "" //Message displayed if the user is a monkey
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
+	var/message_muffled = null //Message to display if the user is muffled
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
@@ -29,8 +30,14 @@
 	var/snd_vol = 100
 	var/snd_range = -1
 	var/mute_time = 30//time after where someone can't do another emote
+	// Whether this should show on runechat
+	var/show_runechat = TRUE
+	// Explicitly defined runechat message, if it's not defined and `show_runechat` is TRUE then it will use `message` instaed
+	var/runechat_msg = null
 
 /datum/emote/New()
+	if(!runechat_msg)
+		runechat_msg = strip_punctuation(message)
 	if (ispath(mob_type_allowed_typecache))
 		switch (mob_type_allowed_typecache)
 			if (/mob)
@@ -65,7 +72,8 @@
 			if(user.Adjacent(chosenmob))
 				params = chosenmob.name
 				adjacentaction(user, chosenmob)
-	var/msg = select_message_type(user, intentional)
+	var/raw_msg = select_message_type(user, intentional)
+	var/msg = raw_msg
 	if(params && message_param)
 		msg = select_param(user, params)
 
@@ -78,17 +86,19 @@
 		user.log_message(msg, LOG_EMOTE)
 		msg = "<b>[user]</b> " + msg
 
-	var/freq = get_rand_frequency() //bespoke vary system so deep voice/high voiced humans
-
+	var/pitch = 1 //bespoke vary system so deep voice/high voiced humans
 	if(isliving(user))
 		var/mob/living/L = user
 		for(var/obj/item/implant/I in L.implants)
 			I.trigger(key, L)
-		freq = L.get_emote_frequency()
+		pitch = L.get_emote_pitch()
 
-	var/tmp_sound = get_sound(user)
+	var/sound/tmp_sound = get_sound(user)
+	if(!istype(tmp_sound))
+		tmp_sound = sound(get_sfx(tmp_sound))
+	tmp_sound.frequency = pitch
 	if(tmp_sound && (!only_forced_audio || !intentional))
-		playsound(user, tmp_sound, snd_vol, FALSE, snd_range, frequency = freq, soundping = soundping)
+		playsound(user, tmp_sound, snd_vol, FALSE, snd_range, soundping = soundping)
 	if(!nomsg)
 		for(var/mob/M in GLOB.dead_mob_list)
 			if(!M.client || isnewplayer(M))
@@ -96,32 +106,26 @@
 			var/T = get_turf(user)
 			if(M.stat == DEAD && M.client && (M.client.prefs?.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
 				M.show_message(msg)
+		var/runechat_msg_to_use = null
+		if(show_runechat)
+			runechat_msg_to_use = runechat_msg ? runechat_msg : raw_msg
 		if(emote_type == EMOTE_AUDIBLE)
-			user.audible_message(msg)
+			user.audible_message(msg, runechat_message = runechat_msg_to_use, log_seen = SEEN_LOG_EMOTE)
 		else
-			user.visible_message(msg)
+			user.visible_message(msg, runechat_message = runechat_msg_to_use, log_seen = SEEN_LOG_EMOTE)
 
-/mob/living/proc/get_emote_frequency()
-	return get_rand_frequency()
+/mob/living/proc/get_emote_pitch()
+	return clamp(voice_pitch, 0.7, 1.5)
 
-/mob/living/carbon/human/get_emote_frequency()
-	var/cont = 44100
-	if(gender == MALE)
+/mob/living/carbon/human/get_emote_pitch()
+	var/final_pitch = ..()
+	var/pitch_modifier = 0
+	if(!HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))
 		if(STASTR > 10)
-			for(var/i in 1 to STASTR)
-				cont -= 200
-		if(STASTR < 10)
-			for(var/i in 1 to STASTR)
-				cont += 100
-	else
-		if(STASTR > 10)
-			for(var/i in 1 to STASTR)
-				cont -= 200
-		if(STASTR < 5)
-			for(var/i in 1 to STASTR)
-				cont += 100
-	return cont
-
+			pitch_modifier -= (STASTR - 10) * 0.03
+		else if(STASTR < 10)
+			pitch_modifier += (10 - STASTR) * 0.06
+	return clamp(final_pitch + pitch_modifier, 0.8, 1.35)
 
 /datum/emote/proc/get_env(mob/living/user)
 	return
@@ -174,17 +178,21 @@
 /mob/living/proc/get_sound(input)
 	return
 
-/datum/emote/proc/replace_pronoun(mob/user, message)
+/datum/emote/proc/replace_pronoun(mob/user, msg)
 	if(findtext(message, "their"))
-		message = replacetext(message, "their", user.p_their())
+		msg = replacetext(message, "their", user.p_their())
 	if(findtext(message, "them"))
-		message = replacetext(message, "them", user.p_them())
+		msg = replacetext(message, "them", user.p_them())
 	if(findtext(message, "%s"))
-		message = replacetext(message, "%s", user.p_s())
-	return message
+		msg = replacetext(message, "%s", user.p_s())
+	return msg
 
 /datum/emote/proc/select_message_type(mob/user, intentional)
 	. = message
+	if(message_muffled && iscarbon(user))
+		var/mob/living/carbon/C = user
+		if(C.silent || !C.can_speak_vocal())
+			. = message_muffled
 	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
 		return "makes a [pick("strong ", "weak ", "")]noise."
 	if(user.mind && user.mind.miming && message_mime)
@@ -207,7 +215,6 @@
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
 	. = TRUE
-	message = initial(message)
 	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
@@ -218,11 +225,11 @@
 				return FALSE
 /*			switch(user.stat)
 				if(SOFT_CRIT)
-					to_chat(user, "<span class='warning'>I cannot [key] while dying!</span>")
+					to_chat(user, span_warning("I cannot [key] while dying!"))
 				if(UNCONSCIOUS)
-					to_chat(user, "<span class='warning'>I cannot [key] while unconscious!</span>")
+					to_chat(user, span_warning("I cannot [key] while unconscious!"))
 				if(DEAD)
-					to_chat(user, "<span class='warning'>I cannot [key] while dead!</span>")*/
+					to_chat(user, span_warning("I cannot [key] while dead!"))*/
 			return FALSE
 		if(restraint_check)
 			if(isliving(user))
@@ -230,15 +237,13 @@
 				if(L.IsParalyzed() || L.IsStun())
 					if(!intentional)
 						return FALSE
-//					to_chat(user, "<span class='warning'>I cannot [key] while stunned!</span>")
+//					to_chat(user, span_warning("I cannot [key] while stunned!"))
 					return FALSE
 		if(restraint_check && user.restrained())
 			if(!intentional)
 				return FALSE
-//			to_chat(user, "<span class='warning'>I cannot [key] while restrained!</span>")
+//			to_chat(user, span_warning("I cannot [key] while restrained!"))
 			return FALSE
 
-	if(isliving(user))
-		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
-			return FALSE
+	if(intentional && HAS_TRAIT(user, TRAIT_EMOTEMUTE))
+		return FALSE

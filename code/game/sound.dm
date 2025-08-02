@@ -2,7 +2,7 @@
 	var/list/played_loops = list() //uses dlink to link to the sound
 
 
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff, frequency = null, channel, pressure_affected = FALSE, ignore_walls = TRUE, soundping = FALSE, repeat)
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff, frequency = null, channel, pressure_affected = FALSE, ignore_walls = TRUE, soundping = FALSE, repeat = FALSE)
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -30,10 +30,10 @@
 	var/turf/below_turf = turf_source.below()
 
 	if(above_turf)
-		if(!is_in_zweb(source_z,above_turf.z))
+		if(!is_in_zweb(turf_source, above_turf))
 			above_turf=null
 	if(below_turf)
-		if(!is_in_zweb(source_z,below_turf.z))
+		if(!is_in_zweb(turf_source, below_turf))
 			below_turf=null
 
 	if(soundping)
@@ -347,8 +347,6 @@
 				soundin = pick('sound/combat/hits/punch/punch_hard (1).ogg','sound/combat/hits/punch/punch_hard (2).ogg','sound/combat/hits/punch/punch_hard (3).ogg')
 			if("smallslash")
 				soundin = pick('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
-			if("fart")
-				soundin = pick('sound/vo/fart (1).ogg','sound/vo/fart (2).ogg','sound/vo/fart (3).ogg')
 			if("woodimpact")
 				soundin = pick('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
 			if("bubbles")
@@ -367,9 +365,5 @@
 				soundin = pick('sound/combat/wooshes/blunt/wooshlarge (1).ogg','sound/combat/wooshes/blunt/wooshlarge (2).ogg','sound/combat/wooshes/blunt/wooshlarge (3).ogg')
 			if("punchwoosh")
 				soundin = pick('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
-
-
-
-
 
 	return soundin

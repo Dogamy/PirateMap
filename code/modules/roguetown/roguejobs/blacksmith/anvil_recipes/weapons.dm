@@ -58,6 +58,12 @@
 	created_item = /obj/item/rogueweapon/sword
 	i_type = "Weapons"
 
+/datum/anvil_recipe/weapons/sswordshort
+	name = "steel short sword"
+	appro_skill = /datum/skill/craft/weaponsmithing
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/sword/short
+
 /datum/anvil_recipe/weapons/ssaber
 	name = "Sabre"
 	req_bar = /obj/item/ingot/steel
@@ -76,9 +82,15 @@
 	created_item = /obj/item/rogueweapon/sword/cutlass
 	i_type = "Weapons"
 
+/datum/anvil_recipe/weapons/katar
+	name = "Katar"
+	req_bar = /obj/item/ingot/steel
+	created_item = /obj/item/rogueweapon/katar
+	i_type = "Weapons"
+
 /datum/anvil_recipe/weapons/hknife
 	name = "Hunting knife"
-	req_bar = /obj/item/ingot/steel
+	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/rogueweapon/huntingknife
 	i_type = "Weapons"
 
@@ -335,5 +347,14 @@
 	name = "Arrows 5x (+1 Stick)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/grown/log/tree/stick)
-	created_item = list(/obj/item/ammo_casing/caseless/rogue/arrow,/obj/item/ammo_casing/caseless/rogue/arrow,/obj/item/ammo_casing/caseless/rogue/arrow, /obj/item/ammo_casing/caseless/rogue/arrow, /obj/item/ammo_casing/caseless/rogue/arrow)
+	created_item = list(/obj/item/ammo_casing/caseless/rogue/arrow/iron,/obj/item/ammo_casing/caseless/rogue/arrow/iron,/obj/item/ammo_casing/caseless/rogue/arrow/iron, /obj/item/ammo_casing/caseless/rogue/arrow/iron, /obj/item/ammo_casing/caseless/rogue/arrow/iron)
 	i_type = "Ammo"
+
+//Rarity
+/datum/anvil_recipe/valuables/execution
+	name = "Execution Sword (+ 1 Steel, + 1 Iron)"
+	req_bar = /obj/item/ingot/steel
+	additional_items = list(/obj/item/ingot/iron, /obj/item/ingot/steel)	
+	created_item = /obj/item/rogueweapon/sword/long/exe
+	i_type = "Weapons"
+

@@ -7,6 +7,7 @@
 
 /obj/item/clothing/mask/rogue/spectacles
 	name = "spectacles"
+	desc = "A finely made set of spectacles for those with trouble seeing."
 	icon_state = "glasses"
 	break_sound = "glassbreak"
 	attacked_sound = 'sound/combat/hits/onglass/glasshit.ogg'
@@ -19,6 +20,7 @@
 
 /obj/item/clothing/mask/rogue/spectacles/golden
 	name = "golden spectacles"
+	desc = "A finely made set of spectacles, these ones seem to have been commissioned by a noble."
 	icon_state = "goggles"
 	break_sound = "glassbreak"
 	attacked_sound = 'sound/combat/hits/onglass/glasshit.ogg'
@@ -34,7 +36,7 @@
 
 /obj/item/clothing/mask/rogue/spectacles/Crossed(mob/crosser)
 	if(isliving(crosser) && !obj_broken)
-		take_damage(11, BRUTE, "melee", 1)
+		take_damage(11, BRUTE, "blunt", 1)
 	..()
 
 /obj/item/clothing/mask/rogue/equipped(mob/user, slot)
@@ -52,6 +54,7 @@
 	max_integrity = 20
 	integrity_failure = 0.5
 	block2add = FOV_RIGHT
+	body_parts_covered = EYES
 	sewrepair = TRUE
 
 /obj/item/clothing/mask/rogue/eyepatch/left
@@ -71,14 +74,15 @@
 
 /obj/item/clothing/mask/rogue/facemask
 	name = "iron mask"
+	desc = "An iron mask which protects the fact and obscures it."
 	icon_state = "imask"
 	max_integrity = 100
 	blocksound = PLATEHIT
 	break_sound = 'sound/foley/breaksound.ogg'
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	resistance_flags = FIRE_PROOF
-	armor = list("melee" = 100, "bullet" = 20, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_BLUNT)
+	armor = list("blunt" = 90, "slash" = 100, "stab" = 80, "bullet" = 20, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	flags_inv = HIDEFACE
 	body_parts_covered = FACE
 	block2add = FOV_BEHIND
@@ -100,6 +104,7 @@
 
 /obj/item/clothing/mask/rogue/facemask/steel
 	name = "steel mask"
+	desc = "A mask of steel to both protect and hide the face."
 	icon_state = "smask"
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/steel
@@ -134,3 +139,12 @@
 				if(ishuman(user))
 					var/mob/living/carbon/H = user
 					H.update_inv_wear_mask()
+
+/obj/item/clothing/mask/rogue/physician
+	name = "plague mask"
+	desc = "What better laboratory than the blood-soaked battlefield?"
+	icon_state = "physmask"
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	body_parts_covered = FACE|EARS|EYES|MOUTH|NECK
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_HIP
+	sewrepair = TRUE

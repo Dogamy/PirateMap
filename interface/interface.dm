@@ -11,7 +11,7 @@
 		else if (query != null)
 			src << link(wikiurl)
 	else
-		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
 	return
 
 /client/verb/discord()
@@ -24,7 +24,7 @@
 			return
 		src << link(discordurl)
 	else
-		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The forum URL is not set in the server configuration."))
 	return
 
 /client/verb/rules()
@@ -37,7 +37,7 @@
 			return
 		src << link(rulesurl)
 	else
-		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The rules URL is not set in the server configuration."))
 	return
 
 /client/verb/github()
@@ -50,7 +50,7 @@
 			return
 		src << link(githuburl)
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
 
 /client/verb/mentorhelp()
@@ -62,7 +62,7 @@
 		if(msg)
 			mob.schizohelp(msg)
 	else
-		to_chat(src, "<span class='danger'>You can't currently use Mentorhelp in the main menu.</span>")
+		to_chat(src, span_danger("You can't currently use Mentorhelp in the main menu."))
 
 /client/verb/reportissue()
 	set name = "report-issue"
@@ -83,8 +83,24 @@
 			url_params = "Issue reported from [GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]\n\n[url_params]"
 		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[url_encode(url_params)]"))
 	else
-		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
+		to_chat(src, span_danger("The Github URL is not set in the server configuration."))
 	return
+
+/client/verb/check_role_bans()
+	set name = "Check Role Bans"
+	set desc = ""
+	set category = "OOC"
+	
+	var/datum/role_bans/bans = get_role_bans_for_ckey(ckey)
+	var/list/dat = list()
+	for(var/datum/role_ban_instance/instance as anything in bans.bans)
+		if(!instance.permanent && world.realtime >= instance.apply_date + instance.duration)
+			dat += "<b>EXPIRED</b><BR>"
+		dat += instance.get_ban_string_list().Join("<BR>")
+		dat += "<HR>"
+	var/datum/browser/popup = new(usr, "check_role_bans", "Role Bans", 550, 500)
+	popup.set_content(dat.Join())
+	popup.open()
 
 /client/verb/changelog()
 	set name = "Changelog"

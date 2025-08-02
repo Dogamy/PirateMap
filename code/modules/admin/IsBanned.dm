@@ -41,34 +41,11 @@ GLOBAL_VAR(last_connection)
 			if (admin)
 				log_admin("The admin [key] has been allowed to bypass the whitelist")
 				if (message)
-					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass the whitelist</span>")
-					addclientmessage(ckey,"<span class='adminnotice'>I have been allowed to bypass the whitelist</span>")
+					message_admins(span_adminnotice("The admin [key] has been allowed to bypass the whitelist"))
+					addclientmessage(ckey,span_adminnotice("I have been allowed to bypass the whitelist"))
 			else
 				log_access("Failed Login: [key] - Not on whitelist")
 				return list("reason"="whitelist", "desc" = "\nBecome whitelisted! discord.gg/bx9c7ha5Qk")
-/*
-#ifdef MATURESERVER
-	if(!check_whitelist(ckey))
-		var/num = get_roundsplayed(ckey)
-		if(num >= 10)
-			if(check_patreon_lvl(ckey) < 2)
-				log_access("Failed Login: [key] - TrialExpire")
-				return list("reason"="trialexpire", "desc" = "\nBecome whitelisted to continue playing here! discord.gg/6UzZQYqVHT")
-#endif
-*/
-/*	//Blacklist
-	if(!real_bans_only && !C && CONFIG_GET(flag/useblacklist))
-		if(check_blacklist(ckey))
-			if (admin)
-				log_admin("The admin [key] has been allowed to bypass the blacklist")
-				if (message)
-					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass the blacklist</span>")
-					addclientmessage(ckey,"<span class='adminnotice'>I have been allowed to bypass the blacklist</span>")
-			else
-				log_access("Failed Login: [key] - Blacklisted")
-				return list("reason"="blacklist", "desc" = "\nSomething went wrong. Contact the Game Master.")
-*/
-
 
 	if(!real_bans_only && !C)
 		if (!admin)
@@ -114,7 +91,7 @@ GLOBAL_VAR(last_connection)
 						log_admin(msg)
 						if (message)
 							message_admins(msg)
-							addclientmessage(ckey,"<span class='adminnotice'>Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]].</span>")
+							addclientmessage(ckey,span_adminnotice("Admin [key] has been allowed to bypass a matching non-admin ban on [i["key"]] [i["ip"]]-[i["computerid"]]."))
 						continue
 				var/expires = "This is a permanent ban."
 				if(i["expiration_time"])
@@ -246,12 +223,12 @@ GLOBAL_VAR(last_connection)
 		if (admin)
 			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]")
 			if (message)
-				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]</span>")
-				addclientmessage(ckey,"<span class='adminnotice'>I have been allowed to bypass a matching host/sticky ban on [bannedckey]</span>")
+				message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching host/sticky ban on [bannedckey]"))
+				addclientmessage(ckey,span_adminnotice("I have been allowed to bypass a matching host/sticky ban on [bannedckey]"))
 			return null
 
 		if (C) //user is already connected!.
-			to_chat(C, "<span class='redtext'>I are about to get disconnected for matching a sticky ban after you connected. If this turns out to be the ban evasion detection system going haywire, we will automatically detect this and revert the matches. if you feel that this is the case, please wait EXACTLY 6 seconds then reconnect using file -> reconnect to see if the match was automatically reversed.</span>")
+			to_chat(C, span_redtext("I are about to get disconnected for matching a sticky ban after you connected. If this turns out to be the ban evasion detection system going haywire, we will automatically detect this and revert the matches. if you feel that this is the case, please wait EXACTLY 6 seconds then reconnect using file -> reconnect to see if the match was automatically reversed."))
 
 		var/desc = ""
 		. = list("reason" = "Stickyban", "desc" = desc)

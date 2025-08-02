@@ -87,7 +87,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/adventurerlate
 	name = "Adventurerlate"
 	icon_state = "arrow"
-	jobspawn_override = list("Adventurer", "Pilgrim", "Skeleton")
+	jobspawn_override = list("Skeleton", "Pilgrim", "Adventurer", "Migrant")
+	delete_after_roundstart = FALSE
+
+/obj/effect/landmark/start/banditlate
+	name = "Bandit"
+	icon_state = "arrow"
+	jobspawn_override = list("Bandit")
+	delete_after_roundstart = FALSE
+
+/obj/effect/landmark/start/bogguardlate
+	name = "Bogguardlate"
+	icon_state = "arrow"
+	jobspawn_override = list("Bog Master", "Bog Guard")
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/vagrantlate
@@ -97,21 +109,21 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/orphanlate
-	name = "Orphanlate"
+	name = "Vagabondlate"
 	icon_state = "arrow"
-	jobspawn_override = list("Orphan")
+	jobspawn_override = list("Vagabond")
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/desertriderlate
 	name = "DesertRiderlate"
 	icon_state = "arrow"
-	jobspawn_override = list("Desert Rider Mercenary")
+	jobspawn_override = list("Desert Rider Mercenary", "Sellsword")
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/grenzelhoftlate
 	name = "Grenzelhoftlate"
 	icon_state = "arrow"
-	jobspawn_override = list("Grenzelhoft Mercenary")
+	jobspawn_override = list("Grenzelhoft Mercenary", "Sellsword")
 	delete_after_roundstart = FALSE
 
 /obj/effect/landmark/start/villagerlate
@@ -129,11 +141,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/sheriff
+	name = "Town Sheriff"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/guard_captain
 	name = "Guard Captain"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/barkeep
 	name = "Barkeep"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/cook
+	name = "Cook"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/steward
@@ -150,10 +170,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/physician
 	name = "Court Physician"
-	icon_state = "arrow"
-
-/obj/effect/landmark/start/guardsman
-	name = "Watchman"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/manorguardsman
@@ -184,8 +200,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Dungeoneer"
 	icon_state = "arrow"
 
-/obj/effect/landmark/start/watchman
+/obj/effect/landmark/start/gatemaster
 	name = "Gatemaster"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/watchman
+	name = "Watchman"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/villager
@@ -208,6 +228,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Acolyte"
 	icon_state = "arrow"
 
+/obj/effect/landmark/start/druid
+	name = "Druid"
+	icon_state = "arrow"
+
 /obj/effect/landmark/start/templar
 	name = "Templar"
 	icon_state = "arrow"
@@ -225,7 +249,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/nightmaiden
-	name = "Bath Wench"
+	name = "Bath Swain"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/merchant
@@ -289,6 +313,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Mortician"
 	icon_state = "arrow"
 
+/obj/effect/landmark/start/mercenary
+	name = "Mercenary"
+	icon_state = "arrow"
+
 /obj/effect/landmark/start/vagrant
 	name = "Beggar"
 	icon_state = "arrow"
@@ -301,8 +329,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Prince"
 	icon_state = "arrow"
 
-/obj/effect/landmark/start/prisoner
-	name = "Prisoner"
+/obj/effect/landmark/start/prisonerr
+	name = "Prisoner (Rockhill)"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/prisonerb
+	name = "Prisoner (Bog)"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/hostage
+	name = "Hostage"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/jester
@@ -326,7 +362,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/butler
-	name = "Butler"
+	name = "Head Butler"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/barkeeper
@@ -344,7 +380,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/wapprentice
-	name = "Magician's Apprentice"
+	name = "Magicians Apprentice"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/servant
@@ -356,7 +392,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/orphan
-	name = "Orphan"
+	name = "Vagabond"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/sapprentice
@@ -778,3 +814,50 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/underworldsafe // To prevent demons spawn camping will save a lot of ear rape.
 	name = "safe zone"
+
+GLOBAL_LIST_EMPTY(travel_tile_locations)
+
+/obj/effect/landmark/travel_tile_location
+	name = "travel tile location"
+
+/obj/effect/landmark/travel_tile_location/Initialize()
+	. = ..()
+	GLOB.travel_tile_locations += src
+
+/obj/effect/landmark/travel_tile_location/Destroy()
+	GLOB.travel_tile_locations -= src
+	. = ..()
+
+GLOBAL_LIST_EMPTY(travel_spawn_points)
+
+/obj/effect/landmark/travel_spawn_point
+	name = "travel spawn point"
+	icon_state = "generic_event"
+	var/taken = FALSE
+
+/obj/effect/landmark/travel_spawn_point/Initialize()
+	. = ..()
+	GLOB.travel_spawn_points += src
+
+/obj/effect/landmark/travel_spawn_point/Destroy()
+	GLOB.travel_spawn_points -= src
+	. = ..()
+
+/proc/get_free_travel_spawn_point()
+	var/list/shuffled = shuffle(GLOB.travel_spawn_points)
+	for(var/obj/effect/landmark/travel_spawn_point/point as anything in shuffled)
+		if(point.taken)
+			continue
+		point.taken = TRUE
+		return point.loc
+	return null
+
+/proc/create_travel_tiles(var/atom/location, travel_id, travel_goes_to_id, required_trait)
+	for(var/obj/effect/landmark/travel_tile_location/landmark as anything in GLOB.travel_tile_locations)
+		if(get_dist(location, landmark) > 5)
+			continue
+		// Create travel tile here
+		var/obj/structure/fluff/traveltile/tile = new /obj/structure/fluff/traveltile(landmark.loc)
+		tile.aportalid = travel_id
+		tile.aportalgoesto = travel_goes_to_id
+		tile.required_trait = required_trait

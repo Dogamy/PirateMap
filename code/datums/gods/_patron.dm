@@ -18,6 +18,8 @@ GLOBAL_LIST_EMPTY(preference_patrons)
 	var/datum/faith/associated_faith = /datum/faith
 	/// Whether or not we are accessible in preferences
 	var/preference_accessible = TRUE
+	/// Whether or not this patron hates undead - Mostly so we know whether miracles should actually harm
+	var/undead_hater = TRUE
 	/// Some gods have related confessions, if they're evil and such
 	var/list/confess_lines
 	/// Some patrons have related traits, why not?
@@ -28,8 +30,10 @@ GLOBAL_LIST_EMPTY(preference_patrons)
 	var/t1
 	/// Tier 2 spell
 	var/t2
-	/// Final tier spell
+	/// Tier 3 spell
 	var/t3
+	/// Final tier spell
+	var/t4
 
 /datum/patron/proc/on_gain(mob/living/pious)
 	for(var/trait in mob_traits)

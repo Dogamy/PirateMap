@@ -134,9 +134,9 @@
 	description = "Yield to your enemy, which may save your life or end it quicker."
 
 /datum/keybinding/living/submit/down(client/user)
-	if(!isliving(user))
-		return
 	var/mob/living/L = user.mob
+	if(!isliving(L))
+		return
 	if(L.doing)
 		L.doing = 0
 	L.submit()
@@ -254,3 +254,67 @@
 		return TRUE
 	else
 		return FALSE
+
+//pixel shifting
+
+/datum/keybinding/living/pixel_shift_north
+	hotkey_keys = list("CtrlShiftW")
+	name = "pixel_shift_north"
+	full_name = "Pixel-Shift North"
+	description = ""
+	var/lastrest = 0
+
+/datum/keybinding/living/pixel_shift_north/down(client/user)
+	var/mob/living/M = user.mob
+	if(M.pixel_y <= 16 && M.pixelshift_y <= 16 && M.wallpressed == FALSE)
+		M.pixelshifted = TRUE
+		M.pixelshift_y = M.pixelshift_y + 1
+		M.set_mob_offsets("pixel_shift", _x = M.pixelshift_x, _y = M.pixelshift_y)	
+	return TRUE
+
+/datum/keybinding/living/pixel_shift_east
+	hotkey_keys = list("CtrlShiftD")
+	name = "pixel_shift_east"
+	full_name = "Pixel-Shift East"
+	description = ""
+	var/lastrest = 0
+
+/datum/keybinding/living/pixel_shift_east/down(client/user)
+	var/mob/living/M = user.mob
+	if(M.pixel_x <= 16 && M.pixelshift_x <= 16 && M.wallpressed == FALSE)
+		M.pixelshifted = TRUE
+		M.pixelshift_x = M.pixelshift_x + 1
+		M.set_mob_offsets("pixel_shift", _x = M.pixelshift_x, _y = M.pixelshift_y)	
+	return TRUE
+
+/datum/keybinding/living/pixel_shift_south
+	hotkey_keys = list("CtrlShiftS")
+	name = "pixel_shift_south"
+	full_name = "Pixel-Shift South"
+	description = ""
+	var/lastrest = 0
+
+/datum/keybinding/living/pixel_shift_south/down(client/user)
+	var/mob/living/M = user.mob
+	if(M.pixel_y >= -16 && M.pixelshift_y >= -16 && M.wallpressed == FALSE)
+		M.pixelshifted = TRUE
+		M.pixelshift_y = M.pixelshift_y - 1
+		M.set_mob_offsets("pixel_shift", _x = M.pixelshift_x, _y = M.pixelshift_y)		
+	return TRUE
+
+/datum/keybinding/living/pixel_shift_west
+	hotkey_keys = list("CtrlShiftA")
+	name = "pixel_shift_west"
+	full_name = "Pixel-Shift West"
+	description = ""
+	var/lastrest = 0
+
+/datum/keybinding/living/pixel_shift_west/down(client/user)
+	var/mob/living/M = user.mob
+	if(M.pixel_x >= -16 && M.pixelshift_x >= -16 && M.wallpressed == FALSE)
+		M.pixelshifted = TRUE
+		M.pixelshift_x = M.pixelshift_x - 1
+		M.set_mob_offsets("pixel_shift", _x = M.pixelshift_x, _y = M.pixelshift_y)	
+	return TRUE
+
+

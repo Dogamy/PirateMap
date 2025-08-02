@@ -7,7 +7,7 @@
 	charge_max = 600
 
 /obj/effect/proc_holder/spell/self/telljoke/cast(list/targets,mob/user = usr)
-	..()
+	. = ..()
 	var/joker = input(user, "Say something funny!", "Comedia")
 	if(!joker)
 		return FALSE
@@ -19,7 +19,7 @@
 			continue
 		if(CA.cmode)
 			continue
-		if(CA.stress <= 0)
+		if(CA.get_stress_amount() <= 0)
 			CA.add_stress(/datum/stressevent/joke)
 			CA.emote(pick("laugh","chuckle","giggle"), forced = TRUE)
 		sleep(rand(1,5))
@@ -33,7 +33,7 @@
 	charge_max = 600
 
 /obj/effect/proc_holder/spell/self/telltragedy/cast(list/targets,mob/user = usr)
-	..()
+	. = ..()
 	var/joker = input(user, "Say something sad!", "Tragedia")
 	if(!joker)
 		return FALSE
@@ -45,7 +45,7 @@
 			continue
 		if(CA.cmode)
 			continue
-		if(CA.stress > 0)
+		if(CA.get_stress_amount() > 0)
 			CA.add_stress(/datum/stressevent/tragedy)
 			CA.emote(pick("sigh","hmm"), forced = TRUE)
 		sleep(rand(1,5))

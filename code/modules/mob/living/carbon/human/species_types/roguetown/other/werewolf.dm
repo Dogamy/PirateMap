@@ -5,11 +5,35 @@
 	var/list/stored_skills
 	var/list/stored_experience
 
+/mob/living/carbon/human/species/werewolf/male
+	gender = MALE
+
+/mob/living/carbon/human/species/werewolf/female
+	gender = FEMALE
+
 /datum/species/werewolf
-	name = "werewolf"
+	name = "verewolf"
 	id = "werewolf"
-	species_traits = list(NO_UNDERWEAR,NOEYESPRITES)
-	inherent_traits = list(TRAIT_NOROGSTAM,TRAIT_RESISTHEAT,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_CHUNKYFINGERS,TRAIT_RADIMMUNE,TRAIT_NODISMEMBER)
+	species_traits = list(NO_UNDERWEAR, NO_ORGAN_FEATURES, NO_BODYPART_FEATURES)
+	inherent_traits = list(
+		TRAIT_STRONGBITE,
+		TRAIT_ZJUMP,
+		TRAIT_NOFALLDAMAGE1,
+		TRAIT_NOROGSTAM,
+		TRAIT_BASHDOORS,
+		TRAIT_SHOCKIMMUNE,
+		TRAIT_STEELHEARTED,
+		TRAIT_BREADY,
+		TRAIT_TOXIMMUNE,
+		TRAIT_ORGAN_EATER,
+		TRAIT_NASTY_EATER,
+		TRAIT_NOSTINK,
+		TRAIT_CRITICAL_RESISTANCE,
+		TRAIT_IGNOREDAMAGESLOWDOWN,
+		TRAIT_HARDDISMEMBER, //Decapping Volfs causes them to bug out, badly, and need admin intervention to fix. Bandaid fix.
+		TRAIT_PIERCEIMMUNE, //Prevents weapon dusting and caltrop effects due to them transforming when killed/stepping on shards.
+		TRAIT_IGNORESLOWDOWN
+	)
 	inherent_biotypes = MOB_HUMANOID
 	armor = 30
 	no_equip = list(SLOT_SHIRT, SLOT_HEAD, SLOT_WEAR_MASK, SLOT_ARMOR, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_CLOAK, SLOT_BELT, SLOT_BACK_R, SLOT_BACK_L, SLOT_S_STORE)
@@ -18,8 +42,15 @@
 	offset_features = list(OFFSET_HANDS = list(0,2), OFFSET_HANDS_F = list(0,2))
 	soundpack_m = /datum/voicepack/werewolf
 	soundpack_f = /datum/voicepack/werewolf
-	specstats = list("strength" = 8, "perception" = 7, "intelligence" = -6, "constitution" = 8, "endurance" = 8, "speed" = 3, "fortune" = 0)
-	specstats_f = list("strength" = 8, "perception" = 7, "intelligence" = -6, "constitution" = 8, "endurance" = 8, "speed" = 3, "fortune" = 0)
+	specstats = list(
+		"strength" = 8, 
+		"perception" = 7, 
+		"intelligence" = -6, 
+		"constitution" = 8, 
+		"endurance" = 8, 
+		"speed" = 3, 
+		"fortune" = 0
+		)
 	enflamed_icon = "widefire"
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain,
@@ -31,6 +62,10 @@
 		ORGAN_SLOT_LIVER = /obj/item/organ/liver,
 		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
 		ORGAN_SLOT_APPENDIX = /obj/item/organ/appendix,
+		ORGAN_SLOT_TESTICLES = /obj/item/organ/testicles,
+		ORGAN_SLOT_PENIS = /obj/item/organ/penis/knotted/big,
+		ORGAN_SLOT_BREASTS = /obj/item/organ/breasts,
+		ORGAN_SLOT_VAGINA = /obj/item/organ/vagina,
 		)
 	languages = list(
 		/datum/language/beast,
@@ -41,7 +76,7 @@
 
 /datum/species/werewolf/regenerate_icons(mob/living/carbon/human/H)
 	H.icon = 'icons/roguetown/mob/monster/werewolf.dmi'
-	H.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/wwolf)
+	H.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
 	if(H.gender == MALE)
 		H.icon_state = "wwolf_m"
 	else
@@ -86,4 +121,4 @@
 	return TRUE
 
 /datum/species/werewolf/random_name(gender,unique,lastname)
-	return "WEREVOLF"
+	return "VEREWOLF"
