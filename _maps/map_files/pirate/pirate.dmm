@@ -14,14 +14,6 @@
 "aA" = (
 /turf/open/water,
 /area/game)
-"aW" = (
-/obj/structure/closet/dirthole/closed/loot,
-/obj/structure/gravemarker{
-	name = "marked grave marker";
-	desc = "A simple marker honouring the departed. This one in particular has a crude engraving on it. <i>"HERE LIES AN UNKNOWN MAN. FOUND DEAD ON THE SHORE. WAS ONCE WITH US, NOW NO MORE."</i>"
-	},
-/turf/open/floor/rogue/dirt/nrich,
-/area/rogue/outdoors/exposed/church)
 "aY" = (
 /obj/effect/spawner/lootdrop/trash/weighted,
 /turf/open/floor/wood/plank_hori,
@@ -52,6 +44,14 @@
 	},
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"bA" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/structure/gravemarker{
+	name = "marked grave marker";
+	desc = "A simple marker honouring the departed. This one in particular has a crude engraving on it. <i>"HERE LIES CAPTAIN ROBERT NICKEL. SHOT A MAN FOR A DIME. NOW HE RAN OUT OF TIME. REST HIS SOUL"</i>"
+	},
+/turf/open/floor/rogue/dirt/nrich,
+/area/rogue/outdoors/exposed/church)
 "bK" = (
 /obj/structure/mineral_door/wood,
 /turf/open/floor/wood,
@@ -66,6 +66,10 @@
 	},
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"ck" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/concrete,
+/area/rogue/outdoors/exposed/church)
 "cD" = (
 /obj/structure/chair/wood/rogue/fancy{
 	dir = 4
@@ -84,10 +88,6 @@
 "da" = (
 /turf/closed/wall/stone/stucco,
 /area/game)
-"dv" = (
-/obj/structure/mineral_door/bars,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/exposed/church)
 "dz" = (
 /turf/closed/wall/wood/deco,
 /area/game/start/indoors/town)
@@ -110,9 +110,6 @@
 /obj/effect/landmark/lost_cargo,
 /turf/open/floor/sand,
 /area/game/outdoors/shore)
-"eE" = (
-/turf/open/floor/rogue/dirt/nrich,
-/area/rogue/outdoors/exposed/church)
 "eH" = (
 /obj/effect/landmark/observer_start,
 /turf/open/floor/sand,
@@ -122,9 +119,6 @@
 /obj/item/reagent_containers/glass/cup,
 /turf/open/floor/carpet/plain,
 /area/game/start/indoors/town)
-"eM" = (
-/turf/open/floor/rogue/concrete,
-/area/rogue/outdoors/exposed/church)
 "eO" = (
 /obj/effect/landmark/latejoin,
 /turf/open/floor/sand,
@@ -136,6 +130,14 @@
 "eQ" = (
 /turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
+"eU" = (
+/obj/structure/stairs/stone/d,
+/turf/open,
+/area/game/start/indoors/town)
+"fc" = (
+/obj/structure/flora/roguegrass/bush,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/exposed/church)
 "fe" = (
 /obj/structure/bars/straight{
 	dir = 8
@@ -164,9 +166,6 @@
 /obj/effect/spawner/boat/big_boat,
 /turf/open/water,
 /area/game/outdoors/shore/fishing)
-"gb" = (
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/exposed/church)
 "gd" = (
 /turf/open/floor/tile/linoleum,
 /area/game/start/indoors/town)
@@ -187,10 +186,6 @@
 "gy" = (
 /turf/closed/wall/wood,
 /area/game/outdoors/town)
-"gF" = (
-/obj/structure/light/rogue/torchholder/r,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/exposed/church)
 "gV" = (
 /obj/structure/bars/cemetery,
 /turf/open/floor/grass,
@@ -287,10 +282,6 @@
 /obj/effect/landmark/lost_cargo,
 /turf/open/floor/sand,
 /area/game/outdoors/shore/fishing)
-"lk" = (
-/obj/structure/stairs/stone/d,
-/turf/open,
-/area/game/start/indoors/town)
 "lp" = (
 /obj/structure/fluff/railing/border{
 	dir = 1
@@ -309,13 +300,6 @@
 /obj/item/grown/log/tree/stake,
 /turf/open/floor/dirt,
 /area/game/start/indoors/town)
-"lJ" = (
-/obj/structure/fluff/statue/gargoyle/moss/candles{
-	name = "mossy gargoyle";
-	desc = "A stone gargoyle, covered in moss, and with candles at it's base. It's said to protect the dead."
-	},
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/exposed/church)
 "lX" = (
 /turf/open/transparent/openspace,
 /area/game/start/indoors/town)
@@ -323,6 +307,9 @@
 /obj/structure/stairs,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
+"mt" = (
+/turf/open/floor/rogue/dirt/nrich,
+/area/rogue/outdoors/exposed/church)
 "mv" = (
 /obj/structure/fluff/railing/border,
 /turf/open/floor/wood,
@@ -331,10 +318,6 @@
 /obj/structure/light/rogue/lampholder/dir/left,
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
-"mH" = (
-/obj/structure/bars/cemetery,
-/turf/open/floor/rogue/concrete,
-/area/rogue/outdoors/exposed/church)
 "nn" = (
 /obj/effect/spawner/lootdrop/lockpick_chest/twenty,
 /turf/open/floor/dirt,
@@ -358,14 +341,18 @@
 /obj/item/natural/feather,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
+"nA" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/structure/gravemarker{
+	desc = "A simple marker honouring the departed. This one has a well-done etching on it. <i>"Here lies Emma Carnival, wife of the Carpenter. Died in her slep. Rest in piece.</i>"";
+	name = "marked grave marker"
+	},
+/turf/open/floor/rogue/dirt/nrich,
+/area/rogue/outdoors/exposed/church)
 "nS" = (
 /obj/structure/table/wood,
 /obj/item/paper/scroll,
 /turf/open/floor/wood/dark,
-/area/game/start/indoors/town)
-"of" = (
-/obj/structure/stairs/stone,
-/turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
 "oO" = (
 /turf/open/floor/carpet/plain,
@@ -407,6 +394,10 @@
 /obj/structure/light/rogue/lampholder/dir/right,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"pL" = (
+/obj/structure/stairs/stone,
+/turf/open/floor/stone/blocks,
+/area/game/start/indoors/town)
 "pM" = (
 /obj/effect/spawner/lootdrop/flowerpot,
 /turf/open/floor/wood,
@@ -415,13 +406,12 @@
 /obj/structure/light/rogue/firebowl/standing/blue,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
-"qd" = (
-/obj/structure/closet/dirthole/closed,
-/obj/structure/gravemarker{
-	name = "marked grave marker";
-	desc = "A simple marker honouring the departed. This one in particular has a crude engraving on it. <i>"HERE LIES AN UNKNOWN MAN. FOUND DEAD ON THE SHORE. WAS ONCE WITH US, NOW NO MORE."</i>"
+"pU" = (
+/obj/structure/fluff/statue/gargoyle/moss/candles{
+	name = "mossy gargoyle";
+	desc = "A stone gargoyle, covered in moss, and with candles at it's base. It's said to protect the dead."
 	},
-/turf/open/floor/rogue/dirt/nrich,
+/turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/exposed/church)
 "qs" = (
 /obj/structure/table/wood,
@@ -439,10 +429,6 @@
 "rc" = (
 /turf/closed/wall/rock,
 /area/game)
-"ru" = (
-/obj/structure/closet/dirthole/grave,
-/turf/open/floor/rogue/dirt/nrich,
-/area/rogue/outdoors/exposed/church)
 "rz" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -454,13 +440,13 @@
 /obj/structure/light/rogue/lampholder/dir/top,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
-"rP" = (
-/obj/structure/closet/dirthole/closed/loot,
-/obj/structure/gravemarker{
-	desc = "A simple marker honouring the departed. This one has a well-done etching on it. <i>"Here lies Emma Carnival, wife of the Carpenter. Died in her slep. Rest in piece.</i>"";
-	name = "marked grave marker"
-	},
-/turf/open/floor/rogue/dirt/nrich,
+"sb" = (
+/obj/structure/stairs/stone,
+/turf/closed/wall/stone/stucco,
+/area/rogue/outdoors/exposed/church)
+"sc" = (
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/grass,
 /area/rogue/outdoors/exposed/church)
 "sd" = (
 /obj/structure/closet/crate/roguecloset,
@@ -499,6 +485,9 @@
 "tr" = (
 /turf/open/floor/carpet/plain,
 /area/game/outdoors/town)
+"uh" = (
+/turf/open/floor/rogue/concrete,
+/area/rogue/outdoors/exposed/church)
 "ui" = (
 /obj/structure/stairs{
 	dir = 4
@@ -532,14 +521,15 @@
 "uP" = (
 /turf/closed/wall/stone/stucco,
 /area/game/outdoors/town)
-"uS" = (
-/obj/structure/flora/roguegrass,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/exposed/church)
 "uX" = (
 /obj/effect/landmark/latejoin,
 /turf/open/floor/sand,
 /area/game/outdoors/shore/fishing)
+"vr" = (
+/obj/structure/flora/roguegrass,
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/exposed/church)
 "vz" = (
 /obj/structure/stairs{
 	dir = 1
@@ -573,12 +563,6 @@
 "wz" = (
 /obj/structure/light/rogue/lampholder/dir/top,
 /turf/open/floor/wood/dark,
-/area/game/start/indoors/town)
-"wD" = (
-/obj/structure/fluff/railing/border{
-	dir = 8
-	},
-/turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
 "wX" = (
 /obj/effect/spawner/lootdrop/trash/weighted,
@@ -653,6 +637,13 @@
 /obj/item/flashlight/flare/torch/lantern,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"CC" = (
+/obj/structure/well,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/exposed/church)
+"CD" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/exposed/church)
 "DC" = (
 /obj/structure/table/wood,
 /obj/structure/talkstone_stand,
@@ -672,10 +663,20 @@
 	},
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
+"EC" = (
+/obj/structure/fluff/railing/border,
+/turf/open/floor/stone/blocks,
+/area/game/start/indoors/town)
 "EF" = (
 /obj/structure/table/wood,
 /obj/structure/bars/straight,
 /turf/open/floor/wood,
+/area/game/start/indoors/town)
+"EP" = (
+/obj/structure/fluff/railing/border{
+	dir = 8
+	},
+/turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
 "EY" = (
 /obj/structure/closet/crate/chest,
@@ -732,8 +733,13 @@
 /obj/structure/roguewindow,
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"GU" = (
-/turf/open/floor/rogue/cobblerock,
+"Hn" = (
+/obj/structure/closet/dirthole/closed,
+/obj/structure/gravemarker{
+	name = "marked grave marker";
+	desc = "A simple marker honouring the departed. This one in particular has a crude engraving on it. <i>"HERE LIES AN UNKNOWN MAN. FOUND DEAD ON THE SHORE. WAS ONCE WITH US, NOW NO MORE."</i>"
+	},
+/turf/open/floor/rogue/dirt/nrich,
 /area/rogue/outdoors/exposed/church)
 "Ht" = (
 /obj/structure/table/wood,
@@ -741,10 +747,6 @@
 /obj/item/candle/skull/lit,
 /turf/open/floor/tile/linoleum,
 /area/game/start/indoors/town)
-"Hy" = (
-/obj/structure/flora/roguegrass/bush,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/exposed/church)
 "HI" = (
 /obj/structure/table/wood,
 /obj/item/natural/feather,
@@ -754,6 +756,10 @@
 /obj/structure/bed/rogue/shit,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"In" = (
+/obj/structure/flora/rogueflora/poppy,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/exposed/church)
 "Ip" = (
 /turf/open/floor/wood/plank_vert,
 /area/game/outdoors/shore/fishing)
@@ -778,6 +784,9 @@
 /obj/item/flashlight/flare/torch,
 /turf/open/floor/dirt/road,
 /area/game/start/indoors/town)
+"Jo" = (
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/exposed/church)
 "Jz" = (
 /obj/effect/spawner/lootdrop/lockpick_chest/twenty,
 /turf/open/floor/wood/plank_hori,
@@ -792,13 +801,6 @@
 "Kp" = (
 /turf/open/water,
 /area/game/outdoors/shore/fishing)
-"Kq" = (
-/obj/structure/closet/dirthole/closed,
-/obj/structure/gravemarker{
-	desc = "A simple marker honouring the departed. This one has nothing on it. It looks extra old."
-	},
-/turf/open/floor/rogue/dirt/nrich,
-/area/rogue/outdoors/exposed/church)
 "Ku" = (
 /obj/structure/chair/wood/rogue/fancy,
 /turf/open/floor/wood,
@@ -935,11 +937,6 @@
 /obj/item/reagent_containers/glass/cup/wooden,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"OU" = (
-/obj/structure/flora/roguegrass,
-/obj/structure/flora/roguegrass,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/exposed/church)
 "OW" = (
 /obj/structure/stairs/stone{
 	dir = 4
@@ -1049,10 +1046,6 @@
 /obj/structure/fluff/railing/border,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"RX" = (
-/obj/structure/flora/rogueflora/poppy,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/exposed/church)
 "Se" = (
 /obj/structure/stairs/stone{
 	dir = 4
@@ -1068,6 +1061,10 @@
 	},
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
+"Sv" = (
+/obj/structure/light/rogue/torchholder/r,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/exposed/church)
 "Sz" = (
 /obj/structure/mineral_door/wood/deadbolt{
 	dir = 4
@@ -1080,18 +1077,17 @@
 "SM" = (
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"Td" = (
-/obj/structure/stairs/stone,
-/turf/closed/wall/stone/stucco,
-/area/rogue/outdoors/exposed/church)
-"Tt" = (
-/obj/structure/fluff/railing/border,
-/turf/open/floor/stone/blocks,
-/area/game/start/indoors/town)
 "Ub" = (
 /obj/effect/landmark/poi/jungle_heart,
 /turf/open/floor/grass,
 /area/game/outdoors/shore)
+"Ue" = (
+/obj/structure/closet/dirthole/closed,
+/obj/structure/gravemarker{
+	desc = "A simple marker honouring the departed. This one has nothing on it. It looks extra old."
+	},
+/turf/open/floor/rogue/dirt/nrich,
+/area/rogue/outdoors/exposed/church)
 "Uu" = (
 /obj/structure/chair/stool/rogue,
 /turf/open/floor/carpet/plain,
@@ -1100,6 +1096,10 @@
 /obj/item/reagent_containers/food/snacks/smallrat,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"Vh" = (
+/obj/structure/closet/dirthole/grave,
+/turf/open/floor/rogue/dirt/nrich,
+/area/rogue/outdoors/exposed/church)
 "Vl" = (
 /obj/structure/light/rogue/lampholder/dir/top,
 /turf/open/floor/cobblerock,
@@ -1136,6 +1136,10 @@
 "Ws" = (
 /turf/open/floor/sand,
 /area/game/outdoors/shore/fishing)
+"WR" = (
+/obj/structure/mineral_door/bars,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/exposed/church)
 "Xh" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -1170,10 +1174,6 @@
 /obj/structure/light/rogue/lampholder/dir/left,
 /turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
-"Yf" = (
-/obj/structure/well,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/exposed/church)
 "Yg" = (
 /obj/structure/light/rogue/lampholder/dir/left,
 /turf/open/floor/wood,
@@ -238238,18 +238238,18 @@ Za
 Za
 Za
 Za
-mH
-mH
-mH
-mH
-mH
-dv
-mH
-mH
-mH
-mH
-mH
-mH
+ck
+ck
+ck
+ck
+ck
+WR
+ck
+ck
+ck
+ck
+ck
+ck
 uP
 uP
 uP
@@ -238640,18 +238640,18 @@ Za
 Za
 Za
 Za
-mH
-OU
-uS
-uS
-OU
-GU
-uS
-uS
-uS
-uS
-uS
-mH
+ck
+vr
+sc
+sc
+vr
+Jo
+sc
+sc
+sc
+sc
+sc
+ck
 uP
 uP
 uP
@@ -239042,18 +239042,18 @@ Za
 Za
 Za
 Za
-mH
-uS
-ru
-ru
-uS
-GU
-uS
-qd
-eE
-aW
-uS
-mH
+ck
+sc
+Vh
+Vh
+sc
+Jo
+sc
+Hn
+mt
+bA
+sc
+ck
 uP
 uP
 uP
@@ -239444,18 +239444,18 @@ Za
 Za
 Za
 Za
-mH
-uS
-eE
-eE
-uS
-GU
-uS
-eE
-eE
-eE
-OU
-mH
+ck
+sc
+mt
+mt
+sc
+Jo
+sc
+mt
+mt
+mt
+vr
+ck
 uP
 uP
 uP
@@ -239846,18 +239846,18 @@ Za
 Za
 Za
 Za
-mH
-uS
-Kq
-ru
-uS
-lJ
-uS
-ru
-eE
-ru
-uS
-mH
+ck
+sc
+Ue
+Vh
+sc
+pU
+sc
+Vh
+mt
+Vh
+sc
+ck
 uP
 uP
 uP
@@ -240248,18 +240248,18 @@ Za
 Za
 Za
 Za
-mH
-uS
-eE
-eE
-uS
-GU
-uS
-eE
-eE
-eE
-uS
-mH
+ck
+sc
+mt
+mt
+sc
+Jo
+sc
+mt
+mt
+mt
+sc
+ck
 uP
 uP
 uP
@@ -240650,18 +240650,18 @@ jA
 Za
 Za
 Za
-mH
-uS
-ru
-rP
-uS
-GU
-uS
-uS
-OU
-OU
-uS
-mH
+ck
+sc
+Vh
+nA
+sc
+Jo
+sc
+sc
+vr
+vr
+sc
+ck
 uP
 uP
 uP
@@ -241052,18 +241052,18 @@ jA
 jA
 Za
 Za
-mH
-OU
-uS
-uS
-OU
-GU
-GU
-GU
-GU
-GU
-GU
-mH
+ck
+vr
+sc
+sc
+vr
+Jo
+Jo
+Jo
+Jo
+Jo
+Jo
+ck
 uP
 uP
 uP
@@ -241454,19 +241454,19 @@ jA
 jA
 jA
 jA
-eM
-mH
-mH
-mH
-mH
-mH
-mH
-mH
-mH
-mH
-dv
-mH
-Yf
+uh
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+WR
+ck
+CC
 uP
 uP
 uP
@@ -241866,11 +241866,11 @@ jA
 jA
 jA
 jA
-GU
-RX
-gb
-Hy
-Hy
+Jo
+In
+CD
+fc
+fc
 uP
 uP
 uP
@@ -242268,13 +242268,13 @@ jA
 jA
 jA
 jA
-GU
-GU
-gF
-GU
-GU
-GU
-Td
+Jo
+Jo
+Sv
+Jo
+Jo
+Jo
+sb
 uP
 uP
 uP
@@ -403075,9 +403075,9 @@ Za
 Za
 Za
 eQ
-Tt
-lk
-of
+EC
+eU
+pL
 eQ
 VP
 Ro
@@ -403478,8 +403478,8 @@ Za
 Za
 VP
 eQ
-wD
-wD
+EP
+eQ
 eQ
 eQ
 Ro
