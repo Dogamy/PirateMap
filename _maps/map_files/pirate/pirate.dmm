@@ -3,12 +3,6 @@
 /obj/structure/closet/crate/chest,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"ad" = (
-/obj/structure/chair/wood/rogue/chair3{
-	dir = 8
-	},
-/turf/open/floor/wood/pattern_dark,
-/area/rogue/outdoors/exposed/church)
 "ax" = (
 /obj/structure/table/church,
 /turf/open/floor/rogue/churchmarble,
@@ -20,29 +14,7 @@
 "aA" = (
 /turf/open/water,
 /area/game)
-"aN" = (
-/turf/open/floor/rogue/churchbrick,
-/area/rogue/indoors/town/church)
-"aY" = (
-/obj/effect/spawner/lootdrop/trash/weighted,
-/turf/open/floor/wood/plank_hori,
-/area/game/outdoors/town)
-"bb" = (
-/obj/structure/fluff/railing/border{
-	dir = 8
-	},
-/obj/structure/fluff/railing/border,
-/turf/open/transparent/openspace,
-/area/game/outdoors/town)
-"bc" = (
-/turf/closed/wall/mineral/rogue/decostone/mossy/end{
-	dir = 1
-	},
-/area/rogue/outdoors/exposed/church)
-"bd" = (
-/turf/open/floor/grass,
-/area/game)
-"bi" = (
+"aJ" = (
 /obj/structure/closet/crate/roguecloset/inn/chest,
 /obj/item/reagent_containers/powder/salt,
 /obj/item/reagent_containers/powder/salt,
@@ -68,6 +40,30 @@
 /obj/item/reagent_containers/glass/cup/wooden{
 	pixel_y = 41;
 	pixel_x = -8
+	},
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
+"aY" = (
+/obj/effect/spawner/lootdrop/trash/weighted,
+/turf/open/floor/wood/plank_hori,
+/area/game/outdoors/town)
+"bb" = (
+/obj/structure/fluff/railing/border{
+	dir = 8
+	},
+/obj/structure/fluff/railing/border,
+/turf/open/transparent/openspace,
+/area/game/outdoors/town)
+"bd" = (
+/turf/open/floor/grass,
+/area/game)
+"bj" = (
+/obj/structure/table/wood,
+/obj/item/book/rogue/cooking{
+	pixel_y = -10;
+	pixel_x = 20;
+	name = "Food";
+	desc = "A seemingly hand-made book, originating from the church. It has in the center a little brass plaque for a name. It says FOOD. No matter how hard you try, you can't seem to take a bite out of the book. What a misleading name."
 	},
 /turf/open/floor/tile/kitchen,
 /area/rogue/indoors/town/church)
@@ -111,19 +107,19 @@
 /area/game/outdoors/town)
 "ck" = (
 /obj/structure/bars/cemetery,
-/obj/structure/gravemarker{
-	name = "marked grave marker";
-	desc = "A simple marker honouring the departed. This one in particular has a crude engraving on it. <i>"HERELIESANUNKNOWNMAN.FOUNDDEADONTHESHORE.WASONCEWITHUS,NOWNOMORE."</i>"
-	},
 /turf/open/floor/grass,
 /area/rogue/outdoors/exposed/church)
-"cv" = (
+"cm" = (
 /obj/structure/table/wood,
-/obj/structure/fluff/millstone{
-	pixel_y = 8
+/obj/item/flashlight/flare/torch/lantern{
+	pixel_x = -7;
+	pixel_y = 17
 	},
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
+/obj/item/trash/applecore{
+	pixel_y = -3
+	},
+/turf/open/floor/wood/pattern_dark,
+/area/rogue/outdoors/exposed/church)
 "cD" = (
 /obj/structure/chair/wood/rogue/fancy{
 	dir = 4
@@ -139,16 +135,12 @@
 "cW" = (
 /turf/open/floor/wood/plank_hori,
 /area/game)
-"cY" = (
-/turf/closed/wall/mineral/rogue/decostone/mossy/long,
-/area/rogue/outdoors/exposed/church)
 "da" = (
 /turf/closed/wall/stone/stucco,
 /area/game)
-"dr" = (
-/obj/structure/chair/wood/rogue/chair3,
-/turf/open/floor/rogue/churchbrick,
-/area/rogue/indoors/town/church)
+"dx" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/end,
+/area/rogue/outdoors/exposed/church)
 "dz" = (
 /turf/closed/wall/wood/deco,
 /area/game/start/indoors/town)
@@ -160,6 +152,45 @@
 /obj/structure/closet/crate/chest,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
+"dY" = (
+/turf/open/floor/wood/pattern_dark,
+/area/rogue/outdoors/exposed/church)
+"eg" = (
+/obj/structure/table/wood/bar,
+/obj/item/kitchen/fork{
+	pixel_x = -11;
+	pixel_y = 3
+	},
+/obj/item/kitchen/spoon/plastic{
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/obj/item/kitchen/fork{
+	pixel_x = -11;
+	pixel_y = 3
+	},
+/obj/item/kitchen/fork{
+	pixel_x = -11;
+	pixel_y = 3
+	},
+/obj/item/kitchen/fork{
+	pixel_x = -11;
+	pixel_y = 3
+	},
+/obj/item/kitchen/spoon/plastic{
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/obj/item/kitchen/spoon/plastic{
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/obj/item/kitchen/spoon/plastic{
+	pixel_y = 3;
+	pixel_x = -1
+	},
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "ei" = (
 /turf/open/floor/sand,
 /area/game/outdoors/town)
@@ -192,8 +223,8 @@
 /turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
 "eU" = (
-/turf/open/floor/wood/plank_hori,
-/area/rogue/indoors/town/church)
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "fc" = (
 /obj/structure/flora/roguegrass/bush,
 /turf/open/floor/grass,
@@ -205,6 +236,11 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
+"fq" = (
+/obj/structure/table/wood,
+/obj/item/cooking/pan,
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "fr" = (
 /obj/structure/table/wood,
 /obj/item/candle/skull/lit,
@@ -222,14 +258,15 @@
 /obj/effect/spawner/boat/small_boat,
 /turf/open/water,
 /area/game/outdoors/shore/fishing)
-"fY" = (
-/obj/structure/table/wood,
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
 "fZ" = (
 /obj/effect/spawner/boat/big_boat,
 /turf/open/water,
 /area/game/outdoors/shore/fishing)
+"gc" = (
+/obj/structure/table/wood,
+/obj/item/rogueweapon/huntingknife/cleaver,
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "gd" = (
 /turf/open/floor/tile/linoleum,
 /area/game/start/indoors/town)
@@ -324,14 +361,6 @@
 "kr" = (
 /turf/open/floor/dirt/road,
 /area/game/start/indoors/town)
-"kt" = (
-/obj/machinery/light/rogue/firebowl/church,
-/turf/open/floor/rogue/church,
-/area/rogue/indoors/town/church/chapel)
-"ky" = (
-/obj/effect/landmark/start/priest,
-/turf/open/floor/rogue/churchmarble,
-/area/rogue/indoors/town/church/chapel)
 "kF" = (
 /obj/structure/bed/rogue,
 /turf/open/floor/wood/plank_hori,
@@ -347,6 +376,10 @@
 /obj/item/reagent_containers/glass/cup/wooden,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"kU" = (
+/obj/structure/table/wood,
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "kV" = (
 /turf/open/transparent/openspace,
 /area/game/outdoors/town)
@@ -364,14 +397,31 @@
 /obj/structure/light/rogue/chand,
 /turf/open/transparent/openspace,
 /area/game/outdoors/town)
+"lx" = (
+/turf/open/floor/wood/plank_hori,
+/area/rogue/indoors/town)
 "lC" = (
 /obj/effect/spawner/lootdrop/trash/weighted,
 /turf/open/floor/grass,
 /area/game/outdoors/town)
+"lD" = (
+/obj/structure/lever{
+	pixel_x = 9
+	},
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "lE" = (
 /obj/item/grown/log/tree/stake,
 /turf/open/floor/dirt,
 /area/game/start/indoors/town)
+"lP" = (
+/obj/structure/bars/cemetery,
+/obj/structure/gravemarker{
+	name = "marked grave marker";
+	desc = "A simple marker honouring the departed. This one in particular has a crude engraving on it. <i>"HERELIESANUNKNOWNMAN.FOUNDDEADONTHESHORE.WASONCEWITHUS,NOWNOMORE."</i>"
+	},
+/turf/open/floor/grass,
+/area/rogue/outdoors/exposed/church)
 "lX" = (
 /turf/open/transparent/openspace,
 /area/game/start/indoors/town)
@@ -379,15 +429,6 @@
 /obj/structure/stairs,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
-"mq" = (
-/obj/effect/landmark/start/churchling,
-/turf/open/floor/wood/pattern_dark,
-/area/rogue/outdoors/exposed/church)
-"ms" = (
-/obj/structure/gravemarker,
-/obj/structure/closet/dirthole/closed/loot,
-/turf/open/floor/dirt,
-/area/rogue/outdoors/exposed/church)
 "mt" = (
 /turf/open/floor/dirt,
 /area/rogue/outdoors/exposed/church)
@@ -398,6 +439,10 @@
 "mC" = (
 /obj/structure/light/rogue/lampholder/dir/left,
 /turf/open/floor/cobblerock,
+/area/game/outdoors/town)
+"mN" = (
+/obj/structure/rack/rogue/shelf/big,
+/turf/open/transparent/openspace,
 /area/game/outdoors/town)
 "nn" = (
 /obj/effect/spawner/lootdrop/lockpick_chest/twenty,
@@ -430,10 +475,6 @@
 	},
 /turf/open/floor/dirt,
 /area/rogue/outdoors/exposed/church)
-"nG" = (
-/obj/structure/table/wood/bar,
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
 "nS" = (
 /obj/structure/table/wood,
 /obj/item/paper/scroll,
@@ -450,9 +491,6 @@
 /obj/structure/bookcase/random,
 /turf/open/floor/tile/linoleum,
 /area/game/start/indoors/town)
-"pk" = (
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
 "pl" = (
 /turf/closed/wall/wood,
 /area/game/start/indoors/shore)
@@ -471,10 +509,6 @@
 "px" = (
 /turf/open/floor/cobblestone,
 /area/game/outdoors/town)
-"py" = (
-/obj/effect/landmark/start/templar,
-/turf/open/floor/rogue/churchmarble,
-/area/rogue/indoors/town/church/chapel)
 "pB" = (
 /turf/open/floor/wood/plank_hori,
 /area/game/start/indoors/shore)
@@ -487,8 +521,8 @@
 /turf/open/floor/wood,
 /area/game/outdoors/town)
 "pL" = (
-/turf/open/floor/rogue/churchrough,
-/area/rogue/indoors/town/church/chapel)
+/turf/closed/wall/stone/stucco,
+/area/rogue/indoors/town/church)
 "pM" = (
 /obj/effect/spawner/lootdrop/flowerpot,
 /turf/open/floor/wood,
@@ -498,8 +532,12 @@
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
 "pU" = (
+/turf/open/floor/stone/blocks,
+/area/rogue/indoors/town/church)
+"qg" = (
+/obj/structure/roguewindow/stained/yellow,
 /turf/closed/wall/stone/stucco,
-/area/rogue/indoors/town)
+/area/rogue/indoors/town/church/chapel)
 "qs" = (
 /obj/structure/table/wood,
 /obj/structure/light/rogue/lampholder/dir/right,
@@ -509,12 +547,6 @@
 /obj/structure/bed/rogue,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"qB" = (
-/obj/structure/chair/wood/rogue/chair3{
-	dir = 1
-	},
-/turf/open/floor/rogue/churchbrick,
-/area/rogue/indoors/town/church)
 "qM" = (
 /obj/effect/spawner/poi,
 /turf/open/floor/grass,
@@ -522,6 +554,10 @@
 "rc" = (
 /turf/closed/wall/rock,
 /area/game)
+"rj" = (
+/obj/structure/mineral_door/wood/deadbolt,
+/turf/open/floor/wood/dark,
+/area/rogue/outdoors/exposed/church)
 "rz" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -534,8 +570,8 @@
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
 "sb" = (
-/turf/open/floor/cobblerock,
-/area/rogue/outdoors/exposed/church)
+/turf/closed/wall/stone/stucco,
+/area/rogue/indoors/town/church/chapel)
 "sc" = (
 /obj/structure/flora/roguegrass,
 /turf/open/floor/grass,
@@ -545,9 +581,25 @@
 /obj/effect/spawner/lootdrop/merchant/weighted,
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
+"si" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_y = 14;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_y = 14;
+	pixel_x = 9
+	},
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "sr" = (
 /turf/open/floor/dirt,
 /area/game/start/indoors/town)
+"sy" = (
+/obj/structure/fluff/psycross,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "sH" = (
 /obj/structure/fluff/railing/border{
 	dir = 8
@@ -555,9 +607,6 @@
 /obj/structure/chair/stool/rogue,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"sO" = (
-/turf/open/floor/wood/plank_hori,
-/area/rogue/indoors/town)
 "sQ" = (
 /obj/effect/spawner/lootdrop/trash/weighted,
 /obj/structure/table/wood{
@@ -571,27 +620,26 @@
 	},
 /turf/closed/wall/wood/deco,
 /area/game/outdoors/town)
+"tf" = (
+/obj/structure/chair/wood/rogue/chair3,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/town/church)
 "tm" = (
 /turf/open/floor/metal/plating,
 /area/game/start/indoors/town)
+"to" = (
+/obj/effect/landmark/start/churchling,
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "tp" = (
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
 "tr" = (
 /turf/open/floor/carpet/plain,
 /area/game/outdoors/town)
-"tD" = (
-/obj/structure/fluff/psycross/copper,
+"uh" = (
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/town/church/chapel)
-"tS" = (
-/obj/effect/landmark/start/churchling,
-/turf/open/floor/rogue/churchmarble,
-/area/rogue/indoors/town/church/chapel)
-"uh" = (
-/obj/structure/bars/cemetery,
-/turf/open/floor/grass,
-/area/rogue/outdoors/exposed/church)
 "ui" = (
 /obj/structure/stairs{
 	dir = 4
@@ -619,15 +667,6 @@
 /obj/structure/chair/bench/royal_left,
 /turf/open/floor/carpet/plain,
 /area/game/start/indoors/town)
-"uB" = (
-/obj/structure/table/wood,
-/obj/item/cooking/pan,
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
-"uD" = (
-/obj/structure/fluff/psycross/crafted,
-/turf/open/floor/wood/pattern_dark,
-/area/rogue/outdoors/exposed/church)
 "uM" = (
 /turf/open/floor/tile/kitchen,
 /area/game/outdoors/town)
@@ -638,6 +677,9 @@
 /obj/effect/landmark/latejoin,
 /turf/open/floor/sand,
 /area/game/outdoors/shore/fishing)
+"vf" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/long,
+/area/rogue/outdoors/exposed/church)
 "vr" = (
 /obj/structure/flora/roguegrass,
 /obj/structure/flora/roguegrass,
@@ -657,13 +699,19 @@
 /obj/item/rope/chain,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"vR" = (
-/turf/open/floor/stone/blocks,
-/area/rogue/indoors/town/church)
+"vU" = (
+/obj/structure/gravemarker,
+/obj/structure/closet/dirthole/closed/loot,
+/turf/open/floor/dirt,
+/area/rogue/outdoors/exposed/church)
 "vW" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet/plain,
 /area/game/start/indoors/town)
+"vX" = (
+/obj/effect/landmark/start/churchling,
+/turf/open/floor/wood/pattern_dark,
+/area/rogue/outdoors/exposed/church)
 "wg" = (
 /obj/structure/rack/rogue,
 /obj/item/flint,
@@ -680,19 +728,10 @@
 /obj/structure/light/rogue/lampholder/dir/top,
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"wM" = (
-/obj/structure/mineral_door/bars,
-/turf/open/floor/rogue/churchrough,
-/area/rogue/outdoors/exposed/church)
 "wX" = (
 /obj/effect/spawner/lootdrop/trash/weighted,
 /turf/open/floor/wood/plank_hori,
 /area/game/start/indoors/town)
-"xc" = (
-/obj/structure/gravemarker,
-/obj/structure/closet/dirthole/closed,
-/turf/open/floor/dirt,
-/area/rogue/outdoors/exposed/church)
 "xj" = (
 /obj/structure/chair/wood/rogue/comfyblack,
 /turf/open/floor/carpet/plain,
@@ -711,31 +750,17 @@
 /obj/structure/rack/rogue,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
-"yk" = (
-/obj/machinery/light/rogue/oven,
-/turf/closed/wall/stone/stucco,
-/area/rogue/indoors/town/church)
+"ym" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy,
+/area/rogue/outdoors/exposed/church)
 "yC" = (
 /turf/open/floor/dirt,
 /area/game/outdoors/town)
-"yI" = (
-/turf/closed/wall/mineral/rogue/decostone/mossy,
+"zx" = (
+/obj/structure/gravemarker,
+/obj/structure/closet/dirthole/closed,
+/turf/open/floor/dirt,
 /area/rogue/outdoors/exposed/church)
-"yS" = (
-/turf/open/floor/rogue/church,
-/area/rogue/indoors/town/church/chapel)
-"zH" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_y = 14;
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_y = 14;
-	pixel_x = 9
-	},
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
 "zJ" = (
 /obj/structure/stairs{
 	dir = 1
@@ -791,18 +816,6 @@
 "CD" = (
 /turf/open/floor/grass,
 /area/rogue/outdoors/exposed/church)
-"CF" = (
-/turf/closed/wall/mineral/rogue/wooddark,
-/area/rogue/outdoors/exposed/church)
-"CT" = (
-/obj/structure/closet/dirthole/closed,
-/obj/structure/gravemarker,
-/turf/open/floor/dirt,
-/area/rogue/outdoors/exposed/church)
-"Da" = (
-/obj/structure/roguewindow/stained/silver,
-/turf/closed/wall/stone/stucco,
-/area/rogue/indoors/town/church/chapel)
 "DC" = (
 /obj/structure/table/wood,
 /obj/structure/talkstone_stand,
@@ -812,16 +825,20 @@
 /obj/structure/light/rogue/firebowl/stump,
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
+"Ea" = (
+/obj/structure/chair/wood/rogue/chair3{
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/town/church)
 "Eh" = (
 /obj/structure/fermenting_barrel/random/water,
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"Em" = (
-/obj/structure/chair/wood/rogue/chair3{
-	dir = 1
-	},
-/turf/open/floor/wood/pattern_dark,
-/area/rogue/outdoors/exposed/church)
+"Es" = (
+/obj/structure/roguewindow/stained/silver,
+/turf/closed/wall/stone/stucco,
+/area/rogue/indoors/town/church/chapel)
 "Et" = (
 /obj/structure/stairs/stone{
 	dir = 1
@@ -829,9 +846,7 @@
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
 "EC" = (
-/obj/machinery/light/rogue/hearth,
-/obj/item/reagent_containers/glass/pot,
-/turf/open/floor/tile/kitchen,
+/turf/open/floor/wood/plank_hori,
 /area/rogue/indoors/town/church)
 "EF" = (
 /obj/structure/table/wood,
@@ -839,18 +854,8 @@
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
 "EP" = (
-/turf/closed/wall/stone/stucco,
-/area/rogue/indoors/town/church)
-"EW" = (
-/obj/structure/table/wood,
-/obj/item/book/rogue/cooking{
-	pixel_y = -10;
-	pixel_x = 20;
-	name = "Food";
-	desc = "A seemingly hand-made book, originating from the church. It has in the center a little brass plaque for a name. It says FOOD. No matter how hard you try, you can't seem to take a bite out of the book. What a misleading name."
-	},
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
+/turf/open/floor/rogue/churchrough,
+/area/rogue/indoors/town/church/chapel)
 "EY" = (
 /obj/structure/closet/crate/chest,
 /obj/effect/spawner/lootdrop/merchant/weighted,
@@ -879,13 +884,13 @@
 /obj/structure/light/rogue/wallfire/candle/blue/up,
 /turf/open/floor/carpet/plain,
 /area/game/start/indoors/town)
-"FI" = (
-/turf/closed/wall/mineral/rogue/decostone/mossy/end,
-/area/rogue/outdoors/exposed/church)
 "FS" = (
 /obj/item/chair/rogue,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"FY" = (
+/turf/closed/wall/stone/stucco,
+/area/rogue/indoors/town)
 "Gt" = (
 /obj/structure/closet/crate/chest,
 /obj/effect/spawner/lootdrop/merchant/weighted,
@@ -909,9 +914,10 @@
 /obj/structure/roguewindow,
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"GU" = (
-/turf/open/floor/wood/pattern_dark,
-/area/rogue/outdoors/exposed/church)
+"Hj" = (
+/obj/structure/table/wood,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/town/church)
 "Hn" = (
 /obj/structure/closet/dirthole/closed,
 /obj/structure/gravemarker{
@@ -926,11 +932,21 @@
 /obj/item/candle/skull/lit,
 /turf/open/floor/tile/linoleum,
 /area/game/start/indoors/town)
+"HG" = (
+/obj/structure/fluff/psycross/copper,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "HI" = (
 /obj/structure/table/wood,
 /obj/item/natural/feather,
 /turf/open/floor/carpet/plain,
 /area/game/start/indoors/town)
+"HS" = (
+/obj/structure/chair/wood/rogue/chair3{
+	dir = 1
+	},
+/turf/open/floor/wood/pattern_dark,
+/area/rogue/outdoors/exposed/church)
 "Im" = (
 /obj/structure/bed/rogue/shit,
 /turf/open/floor/wood/plank_hori,
@@ -959,6 +975,9 @@
 "IC" = (
 /turf/closed/basic,
 /area/game)
+"IK" = (
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/town/church)
 "IZ" = (
 /turf/open/floor/wood,
 /area/game/outdoors/town)
@@ -967,21 +986,15 @@
 /turf/open/floor/dirt/road,
 /area/game/start/indoors/town)
 "Jo" = (
-/obj/structure/gravemarker{
-	desc = "A simple marker honouring the departed. This one has a well-done etching on it. <i>"Here lies Emma Carnival, wife of the Carpenter. Died in her slep. Rest in piece.</i>"";
-	name = "marked grave marker"
-	},
 /turf/open/floor/cobblerock,
 /area/rogue/outdoors/exposed/church)
 "Jz" = (
 /obj/effect/spawner/lootdrop/lockpick_chest/twenty,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
-"JG" = (
-/obj/structure/chair/wood/rogue/chair3{
-	dir = 4
-	},
-/turf/open/floor/rogue/churchbrick,
+"Kh" = (
+/obj/structure/fermenting_barrel/water,
+/turf/open/floor/tile/kitchen,
 /area/rogue/indoors/town/church)
 "Kj" = (
 /turf/open/water,
@@ -997,6 +1010,13 @@
 /obj/structure/chair/wood/rogue/fancy,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"KJ" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/millstone{
+	pixel_y = 8
+	},
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "KM" = (
 /obj/structure/table/wood,
 /obj/item/paper/scroll,
@@ -1010,9 +1030,6 @@
 /area/game/start/indoors/town)
 "KU" = (
 /obj/structure/table/church/e,
-/turf/open/floor/rogue/churchmarble,
-/area/rogue/indoors/town/church/chapel)
-"KV" = (
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/indoors/town/church/chapel)
 "KY" = (
@@ -1053,15 +1070,11 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"LT" = (
+/turf/closed/wall/mineral/rogue/wooddark/horizontal,
+/area/rogue/outdoors/exposed/church)
 "LZ" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/flare/torch/lantern{
-	pixel_x = -7;
-	pixel_y = 17
-	},
-/obj/item/trash/applecore{
-	pixel_y = -3
-	},
+/obj/structure/fluff/psycross/crafted,
 /turf/open/floor/wood/pattern_dark,
 /area/rogue/outdoors/exposed/church)
 "MC" = (
@@ -1101,6 +1114,11 @@
 /obj/structure/light/rogue/lampholder/dir/bottom,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
+"Nu" = (
+/obj/machinery/light/rogue/hearth,
+/obj/item/reagent_containers/glass/pot,
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
 "Nz" = (
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
@@ -1121,12 +1139,11 @@
 /obj/structure/chair/bench/church,
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/indoors/town/church/chapel)
-"Oh" = (
-/obj/structure/lever{
-	pixel_x = 9
-	},
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
+"Oi" = (
+/obj/structure/closet/dirthole/closed,
+/obj/structure/gravemarker,
+/turf/open/floor/dirt,
+/area/rogue/outdoors/exposed/church)
 "Or" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -1136,9 +1153,6 @@
 	},
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"Ov" = (
-/turf/closed/wall/mineral/rogue/wooddark/horizontal,
-/area/rogue/outdoors/exposed/church)
 "Oy" = (
 /obj/structure/light/rogue/wallfire/candle/blue/l,
 /turf/open/floor/tile/linoleum,
@@ -1184,6 +1198,9 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"PP" = (
+/turf/closed/wall/mineral/rogue/wooddark/vertical,
+/area/rogue/outdoors/exposed/church)
 "PY" = (
 /obj/structure/fluff/railing/border{
 	dir = 8
@@ -1226,8 +1243,6 @@
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
 "Ro" = (
-/obj/structure/table/wood,
-/obj/item/rogueweapon/huntingknife/cleaver,
 /turf/open/floor/tile/kitchen,
 /area/rogue/indoors/town/church)
 "Rr" = (
@@ -1238,6 +1253,11 @@
 /obj/structure/closet/crate/roguecloset,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"Rt" = (
+/obj/structure/bed/rogue/shit,
+/obj/item/bedsheet/rogue/cloth,
+/turf/open/floor/wood/pattern_dark,
+/area/rogue/outdoors/exposed/church)
 "Ru" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -1248,10 +1268,6 @@
 /obj/structure/chair/stool/rogue,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
-"RE" = (
-/obj/structure/mineral_door/wood/deadbolt,
-/turf/open/floor/wood/dark,
-/area/rogue/outdoors/exposed/church)
 "RK" = (
 /obj/structure/chair/wood/rogue,
 /turf/open/floor/wood,
@@ -1260,6 +1276,10 @@
 /obj/structure/roller/autolink,
 /turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
+"RQ" = (
+/obj/machinery/light/rogue/firebowl/church,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "RR" = (
 /obj/structure/fluff/railing/border{
 	dir = 8
@@ -1267,6 +1287,10 @@
 /obj/structure/fluff/railing/border,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"RU" = (
+/obj/effect/landmark/start/priest,
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "Se" = (
 /obj/structure/stairs/stone{
 	dir = 4
@@ -1276,16 +1300,16 @@
 "Sh" = (
 /turf/open/floor/wood/plank_hori,
 /area/game/start/indoors/town)
+"Sk" = (
+/obj/effect/landmark/start/templar,
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "Sr" = (
 /obj/structure/stairs/stone{
 	dir = 4
 	},
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
-"Su" = (
-/obj/structure/fermenting_barrel/water,
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
 "Sv" = (
 /obj/structure/light/rogue/torchholder/r,
 /turf/open/floor/cobblerock,
@@ -1296,20 +1320,22 @@
 	},
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
-"SB" = (
-/obj/structure/table/wood,
-/turf/open/floor/rogue/churchbrick,
-/area/rogue/indoors/town/church)
 "SF" = (
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/shore)
 "SM" = (
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"ST" = (
-/obj/structure/roguewindow/stained/yellow,
+"Tr" = (
+/obj/machinery/light/rogue/oven,
 /turf/closed/wall/stone/stucco,
-/area/rogue/indoors/town/church/chapel)
+/area/rogue/indoors/town/church)
+"TM" = (
+/obj/structure/chair/wood/rogue/chair3{
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/town/church)
 "Ub" = (
 /obj/effect/landmark/poi/jungle_heart,
 /turf/open/floor/grass,
@@ -1329,6 +1355,23 @@
 /obj/item/reagent_containers/food/snacks/smallrat,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"UP" = (
+/obj/structure/table/wood/bar,
+/turf/open/floor/tile/kitchen,
+/area/rogue/indoors/town/church)
+"Vc" = (
+/obj/structure/gravemarker{
+	desc = "A simple marker honouring the departed. This one has a well-done etching on it. <i>"Here lies Emma Carnival, wife of the Carpenter. Died in her slep. Rest in piece.</i>"";
+	name = "marked grave marker"
+	},
+/turf/open/floor/cobblerock,
+/area/rogue/outdoors/exposed/church)
+"Vd" = (
+/obj/structure/chair/wood/rogue/chair3{
+	dir = 8
+	},
+/turf/open/floor/wood/pattern_dark,
+/area/rogue/outdoors/exposed/church)
 "Vh" = (
 /obj/structure/closet/dirthole/grave,
 /turf/open/floor/dirt,
@@ -1342,6 +1385,12 @@
 /obj/structure/bed/rogue/shit,
 /turf/open/floor/wood/plank_hori,
 /area/game/outdoors/town)
+"Vt" = (
+/obj/structure/chair/wood/rogue/chair3{
+	dir = 1
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/town/church)
 "Vw" = (
 /obj/structure/ladder,
 /turf/open/floor/metal/plating,
@@ -1366,27 +1415,18 @@
 /obj/structure/rack/rogue,
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
-"Wo" = (
-/obj/structure/chair/wood/rogue/chair3{
-	dir = 8
-	},
-/turf/open/floor/rogue/churchbrick,
-/area/rogue/indoors/town/church)
 "Ws" = (
 /turf/open/floor/sand,
 /area/game/outdoors/shore/fishing)
-"WP" = (
-/obj/structure/bed/rogue/shit,
-/obj/item/bedsheet/rogue/cloth,
-/turf/open/floor/wood/pattern_dark,
+"WF" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/end{
+	dir = 1
+	},
 /area/rogue/outdoors/exposed/church)
 "WR" = (
 /obj/structure/mineral_door/bars,
 /turf/open/floor/cobblerock,
 /area/rogue/outdoors/exposed/church)
-"WU" = (
-/turf/closed/wall/stone/stucco,
-/area/rogue/indoors/town/church/chapel)
 "Xh" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -1411,9 +1451,6 @@
 /obj/structure/light/rogue/wallfire/candle/blue/r,
 /turf/open/floor/metal/plating_vert,
 /area/game/start/indoors/town)
-"XR" = (
-/turf/closed/wall/mineral/rogue/wooddark/vertical,
-/area/rogue/outdoors/exposed/church)
 "XV" = (
 /obj/item/chair/rogue,
 /turf/open/floor/dirt,
@@ -1424,49 +1461,9 @@
 /obj/structure/light/rogue/lampholder/dir/left,
 /turf/open/floor/stone/blocks,
 /area/game/start/indoors/town)
-"Yd" = (
-/obj/structure/table/wood/bar,
-/obj/item/kitchen/fork{
-	pixel_x = -11;
-	pixel_y = 3
-	},
-/obj/item/kitchen/spoon/plastic{
-	pixel_y = 3;
-	pixel_x = -1
-	},
-/obj/item/kitchen/fork{
-	pixel_x = -11;
-	pixel_y = 3
-	},
-/obj/item/kitchen/fork{
-	pixel_x = -11;
-	pixel_y = 3
-	},
-/obj/item/kitchen/fork{
-	pixel_x = -11;
-	pixel_y = 3
-	},
-/obj/item/kitchen/spoon/plastic{
-	pixel_y = 3;
-	pixel_x = -1
-	},
-/obj/item/kitchen/spoon/plastic{
-	pixel_y = 3;
-	pixel_x = -1
-	},
-/obj/item/kitchen/spoon/plastic{
-	pixel_y = 3;
-	pixel_x = -1
-	},
-/turf/open/floor/tile/kitchen,
-/area/rogue/indoors/town/church)
 "Yg" = (
 /obj/structure/light/rogue/lampholder/dir/left,
 /turf/open/floor/wood,
-/area/game/outdoors/town)
-"Yp" = (
-/obj/structure/rack/rogue/shelf/big,
-/turf/open/transparent/openspace,
 /area/game/outdoors/town)
 "Yt" = (
 /obj/structure/closet/crate/roguecloset,
@@ -1489,10 +1486,6 @@
 "Za" = (
 /turf/open/floor/grass,
 /area/game/outdoors/town)
-"Zl" = (
-/obj/structure/fluff/psycross,
-/turf/open/floor/rogue/church,
-/area/rogue/indoors/town/church/chapel)
 "Zp" = (
 /obj/structure/mineral_door/wood,
 /turf/open/floor/wood,
@@ -1501,9 +1494,16 @@
 /obj/structure/mineral_door/bars,
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
+"Zx" = (
+/obj/structure/mineral_door/bars,
+/turf/open/floor/rogue/churchrough,
+/area/rogue/outdoors/exposed/church)
 "ZE" = (
 /turf/open/floor/grass,
 /area/game/start/indoors/town)
+"ZH" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/outdoors/exposed/church)
 "ZM" = (
 /obj/structure/stairs{
 	dir = 1
@@ -235743,15 +235743,15 @@ uP
 uP
 uP
 uP
-pU
-pU
-pU
-pU
-pU
-pU
-pU
-pU
-pU
+FY
+FY
+FY
+FY
+FY
+FY
+FY
+FY
+FY
 bk
 bk
 bk
@@ -236145,15 +236145,15 @@ uP
 uP
 uP
 uP
-pU
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-pU
+FY
+lx
+lx
+lx
+lx
+lx
+lx
+lx
+FY
 bk
 bk
 DN
@@ -236547,15 +236547,15 @@ uP
 uP
 uP
 uP
-pU
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-pU
+FY
+lx
+lx
+lx
+lx
+lx
+lx
+lx
+FY
 bk
 bk
 bk
@@ -236949,15 +236949,15 @@ uP
 uP
 uP
 uP
-pU
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-sO
+FY
+lx
+lx
+lx
+lx
+lx
+lx
+lx
+lx
 bk
 bk
 bk
@@ -237351,15 +237351,15 @@ uP
 uP
 uP
 uP
-pU
-sO
-sO
-sO
-sO
-sO
-sO
-sO
-pU
+FY
+lx
+lx
+lx
+lx
+lx
+lx
+lx
+FY
 bk
 bk
 bk
@@ -237753,15 +237753,15 @@ uP
 uP
 uP
 uP
-pU
-pU
-sO
-sO
-sO
-sO
-sO
-sO
-pU
+FY
+FY
+lx
+lx
+lx
+lx
+lx
+lx
+FY
 bk
 bk
 bk
@@ -238155,15 +238155,15 @@ uP
 uP
 uP
 uP
-pU
-pU
-sO
-sO
-sO
-sO
-sO
-sO
-pU
+FY
+FY
+lx
+lx
+lx
+lx
+lx
+lx
+FY
 bk
 bk
 bk
@@ -238532,18 +238532,18 @@ Za
 Za
 Za
 Za
-uh
-uh
-uh
-uh
-uh
+ck
+ck
+ck
+ck
+ck
 WR
-uh
-uh
-uh
-uh
-uh
-uh
+ck
+ck
+ck
+ck
+ck
+ck
 uP
 uP
 uP
@@ -238557,15 +238557,15 @@ uP
 uP
 uP
 uP
-pU
-pU
-sO
-sO
-sO
-sO
-sO
-pU
-pU
+FY
+FY
+lx
+lx
+lx
+lx
+lx
+FY
+FY
 bk
 bk
 bk
@@ -238934,18 +238934,18 @@ Za
 Za
 Za
 Za
-uh
+ck
 vr
 sc
 sc
 vr
-sb
+Jo
 sc
 sc
 sc
 sc
 sc
-uh
+ck
 uP
 uP
 uP
@@ -238959,14 +238959,14 @@ uP
 uP
 uP
 uP
-pU
-pU
-pU
-pU
-pU
-pU
-pU
-pU
+FY
+FY
+FY
+FY
+FY
+FY
+FY
+FY
 bk
 bk
 bk
@@ -239336,18 +239336,18 @@ Za
 Za
 Za
 Za
-uh
+ck
 sc
 Vh
 Vh
 sc
-sb
+Jo
 sc
 Hn
 mt
 bA
 sc
-uh
+ck
 uP
 uP
 uP
@@ -239738,18 +239738,18 @@ Za
 Za
 Za
 Za
-uh
+ck
 sc
 mt
 mt
 sc
-sb
+Jo
 sc
 mt
 mt
 mt
 vr
-uh
+ck
 uP
 uP
 uP
@@ -240140,18 +240140,18 @@ Za
 Za
 Za
 Za
-uh
+ck
 sc
 Ue
 Vh
 sc
-sb
+Jo
 sc
 Vh
 mt
 Vh
 sc
-uh
+ck
 uP
 uP
 uP
@@ -240542,18 +240542,18 @@ Za
 Za
 Za
 Za
-uh
+ck
 sc
 mt
 mt
 sc
-sb
+Jo
 sc
 mt
 mt
 mt
 sc
-uh
+ck
 uP
 uP
 uP
@@ -240944,18 +240944,18 @@ jA
 Za
 Za
 Za
-uh
+ck
 sc
 Vh
 nA
 sc
-sb
+Jo
 sc
 sc
 vr
 vr
 sc
-uh
+ck
 uP
 uP
 uP
@@ -241346,18 +241346,18 @@ jA
 jA
 Za
 Za
-uh
+ck
 vr
 sc
 sc
 vr
+Vc
 Jo
-sb
-sb
-sb
-sb
-sb
-uh
+Jo
+Jo
+Jo
+Jo
+ck
 uP
 uP
 uP
@@ -241748,18 +241748,18 @@ jA
 jA
 jA
 jA
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-WR
 ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+WR
+lP
 CC
 uP
 uP
@@ -242160,7 +242160,7 @@ jA
 jA
 jA
 jA
-sb
+Jo
 In
 CD
 fc
@@ -242562,13 +242562,13 @@ jA
 jA
 jA
 jA
-sb
-sb
+Jo
+Jo
 Sv
-sb
-sb
-sb
-sb
+Jo
+Jo
+Jo
+Jo
 uP
 uP
 uP
@@ -396532,27 +396532,27 @@ kV
 kV
 kV
 kV
-EP
-EP
-EP
-EP
-EP
-WU
-WU
-WU
-WU
-WU
-WU
-WU
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
+pL
+pL
+pL
+pL
+pL
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
 kV
 kV
 kV
@@ -396934,27 +396934,27 @@ kV
 kV
 kV
 kV
-EP
-eU
-eU
-eU
-EP
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-EP
-eU
-eU
-eU
-eU
-eU
-eU
-eU
-EP
+pL
+EC
+EC
+EC
+pL
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+pL
+EC
+EC
+EC
+EC
+EC
+EC
+EC
+pL
 kV
 kV
 kV
@@ -397336,27 +397336,27 @@ kV
 kV
 kV
 kV
-EP
-eU
-eU
-eU
-EP
-yS
-KV
-KV
-KV
-KV
-KV
-yS
-EP
+pL
+EC
+EC
+EC
+pL
+uh
 eU
 eU
 eU
 eU
 eU
-eU
-eU
-EP
+uh
+pL
+EC
+EC
+EC
+EC
+EC
+EC
+EC
+pL
 kV
 kV
 kV
@@ -397738,27 +397738,27 @@ kV
 kV
 kV
 kV
-EP
-eU
-eU
-eU
-EP
-yS
-KV
-KV
-KV
-KV
-KV
-yS
-EP
+pL
+EC
+EC
+EC
+pL
+uh
 eU
 eU
 eU
 eU
 eU
-eU
-eU
-EP
+uh
+pL
+EC
+EC
+EC
+EC
+EC
+EC
+EC
+pL
 kV
 kV
 kV
@@ -398140,27 +398140,27 @@ kV
 kV
 kV
 kV
-EP
-eU
-eU
-eU
-EP
-yS
-KV
-KV
-KV
-KV
-KV
-yS
-EP
+pL
+EC
+EC
+EC
+pL
+uh
 eU
 eU
 eU
 eU
 eU
-eU
-eU
-EP
+uh
+pL
+EC
+EC
+EC
+EC
+EC
+EC
+EC
+pL
 kV
 kV
 kV
@@ -398542,27 +398542,27 @@ kV
 kV
 kV
 kV
-EP
-EP
-eU
-EP
-EP
-yS
-KV
-KV
-KV
-KV
-KV
-yS
-EP
-EP
+pL
+pL
+EC
+pL
+pL
+uh
 eU
 eU
 eU
 eU
 eU
-eU
-EP
+uh
+pL
+pL
+EC
+EC
+EC
+EC
+EC
+EC
+pL
 kV
 kV
 kV
@@ -398943,28 +398943,28 @@ kV
 kV
 kV
 kV
-WU
-WU
-yS
-yS
-yS
-WU
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-EP
-eU
-eU
-eU
-eU
-eU
-eU
-EP
+sb
+sb
+uh
+uh
+uh
+sb
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+pL
+EC
+EC
+EC
+EC
+EC
+EC
+pL
 kV
 kV
 kV
@@ -399345,28 +399345,28 @@ kV
 kV
 kV
 kV
-Da
-Zl
-KV
-KV
-KV
-yS
-yS
+Es
+sy
+eU
+eU
+eU
+uh
+uh
 Og
-KV
+eU
 Og
-KV
+eU
 Og
-KV
-yS
-EP
 eU
-eU
-eU
-eU
-eU
-EP
-EP
+uh
+pL
+EC
+EC
+EC
+EC
+EC
+pL
+pL
 kV
 kV
 kV
@@ -399747,27 +399747,27 @@ kV
 kV
 kV
 kV
-WU
-yS
-KV
-KV
-KV
-KV
-yS
+sb
+uh
+eU
+eU
+eU
+eU
+uh
 QA
-KV
+eU
 QA
-KV
+eU
 QA
-KV
-yS
-EP
-EP
-EP
-vR
-EP
-EP
-EP
+eU
+uh
+pL
+pL
+pL
+pU
+pL
+pL
+pL
 kV
 kV
 kV
@@ -400149,25 +400149,25 @@ kV
 kV
 kV
 kV
-WU
-yS
-KV
-py
+sb
+uh
+eU
+Sk
 ax
-KV
-yS
+eU
+uh
 KY
-KV
+eU
 KY
-KV
+eU
 KY
-KV
-yS
-yS
-EP
-vR
-vR
-vR
+eU
+uh
+uh
+pL
+pU
+pU
+pU
 bu
 kV
 kV
@@ -400551,25 +400551,25 @@ kV
 kV
 kV
 kV
-ST
-tD
-KV
-ky
+qg
+HG
+eU
+RU
 MY
-KV
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-vR
-vR
-vR
+eU
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+pU
+pU
+pU
 bu
 kV
 kV
@@ -400953,25 +400953,25 @@ kV
 kV
 kV
 kV
-WU
-yS
-KV
-tS
+sb
+uh
+eU
+to
 KU
-KV
-yS
+eU
+uh
 Og
-KV
+eU
 Og
-KV
+eU
 Og
-KV
-yS
-yS
-EP
-vR
-vR
-vR
+eU
+uh
+uh
+pL
+pU
+pU
+pU
 bu
 kV
 kV
@@ -401355,27 +401355,27 @@ kV
 kV
 kV
 kV
-WU
-yS
-KV
-KV
-KV
-KV
-yS
+sb
+uh
+eU
+eU
+eU
+eU
+uh
 QA
-KV
+eU
 QA
-KV
+eU
 QA
-KV
-yS
-EP
-EP
-EP
-aN
-EP
-EP
-EP
+eU
+uh
+pL
+pL
+pL
+IK
+pL
+pL
+pL
 kV
 kV
 kV
@@ -401757,28 +401757,28 @@ kV
 kV
 kV
 kV
-Da
-Zl
-KV
-KV
-KV
-yS
-yS
+Es
+sy
+eU
+eU
+eU
+uh
+uh
 KY
-KV
+eU
 KY
-KV
+eU
 KY
-KV
-yS
-EP
-aN
-aN
-aN
-aN
-aN
-EP
-EP
+eU
+uh
+pL
+IK
+IK
+IK
+IK
+IK
+pL
+pL
 kV
 kV
 kV
@@ -402159,28 +402159,28 @@ kV
 kV
 kV
 kV
-WU
-WU
-yS
-yS
-yS
-WU
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-EP
-aN
-aN
-JG
-JG
-JG
-aN
-EP
+sb
+sb
+uh
+uh
+uh
+sb
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+pL
+IK
+IK
+Ea
+Ea
+Ea
+IK
+pL
 kV
 kV
 kV
@@ -402562,27 +402562,27 @@ kV
 kV
 kV
 kV
-WU
-WU
-WU
-WU
-kt
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-yS
-aN
-aN
-dr
-SB
-SB
-SB
-qB
-EP
+sb
+sb
+sb
+sb
+RQ
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+uh
+IK
+IK
+tf
+Hj
+Hj
+Hj
+Vt
+pL
 kV
 kV
 kV
@@ -402946,45 +402946,45 @@ kV
 kV
 kV
 kV
-Yp
+mN
 kV
 kV
 kV
 kV
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-uh
-WU
-WU
-WU
-WU
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+ck
+sb
+sb
+sb
+sb
+EP
 pL
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-aN
-dr
-SB
-SB
-SB
-qB
-EP
+pL
+pL
+pL
+pL
+pL
+pL
+IK
+tf
+Hj
+Hj
+Hj
+Vt
+pL
 kV
 kV
 kV
@@ -403353,7 +403353,7 @@ kV
 kV
 kV
 kV
-uh
+ck
 CD
 CD
 CD
@@ -403366,27 +403366,27 @@ CD
 CD
 CD
 CD
-sb
-sb
-wM
-pL
-pL
-pL
-pL
+Jo
+Jo
+Zx
 EP
-bi
-pk
-pk
-pk
-Oh
 EP
-aN
-dr
-SB
-SB
-SB
-qB
 EP
+EP
+pL
+aJ
+Ro
+Ro
+Ro
+lD
+pL
+IK
+tf
+Hj
+Hj
+Hj
+Vt
+pL
 kV
 kV
 kV
@@ -403755,40 +403755,40 @@ kV
 kV
 kV
 kV
-uh
+ck
 CD
 mt
 Vh
 mt
-ms
+vU
 mt
-xc
+zx
 mt
-CT
+Oi
 CD
 CD
-sb
-sb
+Jo
+Jo
 CD
+pL
 EP
-pL
-pL
-pL
-pL
-pL
-pk
-pk
-EW
-cv
-pk
-Yd
-aN
-dr
-SB
-SB
-SB
-qB
 EP
+EP
+EP
+EP
+Ro
+Ro
+bj
+KJ
+Ro
+eg
+IK
+tf
+Hj
+Hj
+Hj
+Vt
+pL
 kV
 kV
 kV
@@ -404157,40 +404157,40 @@ kV
 kV
 kV
 kV
-uh
+ck
 CD
 mt
-ms
+vU
 mt
 Vh
 mt
-xc
+zx
 mt
 CD
 CD
-sb
-sb
+Jo
+Jo
 CD
 CD
-EP
-EP
-EP
-EP
-EP
-yk
-EC
-pk
-fY
-zH
-pk
-nG
-aN
-dr
-SB
-SB
-SB
-qB
-EP
+pL
+pL
+pL
+pL
+pL
+Tr
+Nu
+Ro
+kU
+si
+Ro
+UP
+IK
+tf
+Hj
+Hj
+Hj
+Vt
+pL
 kV
 kV
 kV
@@ -404559,7 +404559,7 @@ kV
 kV
 kV
 kV
-uh
+ck
 CD
 CD
 CD
@@ -404569,30 +404569,30 @@ CD
 CD
 CD
 CD
-sb
-sb
+Jo
+Jo
 CD
 CD
 CD
 CD
-EP
-eU
-eU
-eU
-eU
-pk
-pk
-uB
+pL
+EC
+EC
+EC
+EC
 Ro
-pk
-nG
-aN
-dr
-SB
-SB
-SB
-qB
-EP
+Ro
+fq
+gc
+Ro
+UP
+IK
+tf
+Hj
+Hj
+Hj
+Vt
+pL
 kV
 kV
 kV
@@ -404961,40 +404961,40 @@ kV
 kV
 kV
 kV
-CF
-XR
-XR
-XR
-XR
-CF
+ZH
+PP
+PP
+PP
+PP
+ZH
 CD
 CD
 CD
-sb
-sb
+Jo
+Jo
 CD
 CD
 mt
 Vh
 CD
-EP
-eU
-eU
-eU
-EP
-Su
-pk
-pk
-pk
-pk
-EP
-aN
-aN
-Wo
-Wo
-Wo
-aN
-EP
+pL
+EC
+EC
+EC
+pL
+Kh
+Ro
+Ro
+Ro
+Ro
+pL
+IK
+IK
+TM
+TM
+TM
+IK
+pL
 kV
 kV
 kV
@@ -405363,40 +405363,40 @@ kV
 kV
 kV
 kV
-Ov
+LT
+cm
+HS
+dY
 LZ
-Em
-GU
-uD
-Ov
+LT
 CD
 CD
-sb
-sb
+Jo
+Jo
 CD
 CD
 Vh
 mt
 Vh
 CD
-EP
-eU
-eU
-eU
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
-EP
+pL
+EC
+EC
+EC
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
+pL
 kV
 kV
 kV
@@ -405765,15 +405765,15 @@ kV
 kV
 kV
 kV
-Ov
-ad
-mq
-GU
-GU
-RE
-sb
-sb
-sb
+LT
+Vd
+vX
+dY
+dY
+rj
+Jo
+Jo
+Jo
 CD
 CD
 CD
@@ -405781,11 +405781,11 @@ CD
 CD
 Vh
 CD
-EP
-EP
-EP
-EP
-EP
+pL
+pL
+pL
+pL
+pL
 ay
 Za
 kV
@@ -406167,24 +406167,24 @@ kV
 kV
 kV
 kV
-Ov
-WP
-GU
-GU
-uD
-Ov
-FI
-cY
-cY
-cY
-cY
-cY
-bc
+LT
+Rt
+dY
+dY
+LZ
+LT
+dx
+vf
+vf
+vf
+vf
+vf
+WF
 CD
 CD
 CD
 CD
-uh
+ck
 Za
 Za
 Za
@@ -406569,23 +406569,23 @@ kV
 kV
 kV
 kV
-CF
-XR
-XR
-XR
-XR
-CF
+ZH
+PP
+PP
+PP
+PP
+ZH
 Za
 Za
 Za
 Za
 Za
 Za
-yI
-cY
-cY
-cY
-cY
+ym
+vf
+vf
+vf
+vf
 uP
 uP
 uP
