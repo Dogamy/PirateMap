@@ -3,6 +3,12 @@
 /obj/structure/closet/crate/chest,
 /turf/open/floor/wood,
 /area/game/outdoors/town)
+"af" = (
+/obj/structure/lever/wall{
+	dir = 8
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "ax" = (
 /obj/structure/table/church,
 /turf/open/floor/rogue/churchmarble,
@@ -264,10 +270,24 @@
 /obj/effect/landmark/start/churchling,
 /turf/open/floor/wood/plank_hori,
 /area/rogue/indoors/town/church)
+"fw" = (
+/obj/structure/roguewindow/stained/yellow{
+	desc = "As you stare out this wondow, you can't help but be filled with a sense of solemn. You wonder how many have died with this exact view."
+	},
+/turf/closed,
+/area/rogue/indoors/town/church/chapel)
 "fz" = (
 /obj/effect/spawner/boat/canoe,
 /turf/open/water,
 /area/game/outdoors/shore/fishing)
+"fI" = (
+/obj/structure/handcart{
+	dir = 8;
+	name = "dead cart";
+	desc = "Bring out your dead!"
+	},
+/turf/open/floor/cobblerock,
+/area/game/outdoors/town)
 "fX" = (
 /obj/effect/spawner/boat/small_boat,
 /turf/open/water,
@@ -429,6 +449,14 @@
 /obj/effect/landmark/lost_cargo,
 /turf/open/floor/sand,
 /area/game/outdoors/shore/fishing)
+"lo" = (
+/obj/structure/table/wood,
+/obj/item/storage/backpack/rogue/backpack/surgery{
+	pixel_y = 4;
+	pixel_x = -3
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "lp" = (
 /obj/structure/fluff/railing/border{
 	dir = 1
@@ -521,6 +549,10 @@
 /obj/item/natural/feather,
 /turf/open/floor/wood,
 /area/game/start/indoors/town)
+"nu" = (
+/obj/structure/floordoor,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "nz" = (
 /obj/structure/fluff/wallclock,
 /turf/open/floor,
@@ -606,6 +638,17 @@
 /obj/structure/roguewindow/stained/yellow,
 /turf/closed/wall/stone/stucco,
 /area/rogue/indoors/town/church/chapel)
+"qq" = (
+/obj/structure/table/wood{
+	pixel_y = 6
+	},
+/obj/item/rogueweapon/huntingknife/idagger{
+	pixel_x = -2;
+	pixel_y = 10;
+	name = "mercy dagger"
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "qs" = (
 /obj/structure/table/wood,
 /obj/structure/light/rogue/lampholder/dir/right,
@@ -626,6 +669,10 @@
 /obj/structure/mineral_door/wood/deadbolt,
 /turf/open/floor/wood/dark,
 /area/rogue/indoors/town/church)
+"rt" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "rz" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
@@ -852,6 +899,10 @@
 /obj/structure/closet/dirthole/closed,
 /turf/open/floor/dirt,
 /area/rogue/outdoors/exposed/church)
+"zy" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "zJ" = (
 /obj/structure/stairs{
 	dir = 1
@@ -928,6 +979,10 @@
 /obj/structure/light/rogue/firebowl/stump,
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
+"DY" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "Ea" = (
 /obj/structure/chair/wood/rogue/chair3{
 	dir = 4
@@ -1058,6 +1113,11 @@
 /obj/item/natural/feather,
 /turf/open/floor/carpet/plain,
 /area/game/start/indoors/town)
+"HO" = (
+/obj/structure/bed/rogue/shit,
+/obj/item/bedsheet/rogue/cloth,
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/town/church/chapel)
 "HS" = (
 /obj/structure/chair/wood/rogue/chair3{
 	dir = 1
@@ -1430,6 +1490,10 @@
 /obj/effect/landmark/start/priest,
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/indoors/town/church/chapel)
+"RZ" = (
+/obj/structure/fluff/bounty_board,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "Se" = (
 /obj/structure/stairs/stone{
 	dir = 4
@@ -1449,6 +1513,15 @@
 	},
 /turf/open/floor/cobblerock,
 /area/game/outdoors/town)
+"Ss" = (
+/obj/structure/table/wood{
+	pixel_y = 6
+	},
+/obj/item/natural/bundle/cloth{
+	pixel_y = 8
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "Sv" = (
 /obj/structure/light/rogue/torchholder/r,
 /turf/open/floor/cobblerock,
@@ -1465,6 +1538,21 @@
 "SM" = (
 /turf/open/floor/wood/dark,
 /area/game/start/indoors/town)
+"SU" = (
+/obj/structure/table/wood,
+/obj/item/needle{
+	pixel_x = -9;
+	pixel_y = 4
+	},
+/obj/item/natural/bundle/fibers/full{
+	pixel_x = -3
+	},
+/obj/item/natural/bundle/fibers/full{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church/chapel)
 "Tr" = (
 /obj/machinery/light/rogue/oven,
 /turf/closed/wall/stone/stucco,
@@ -235915,7 +236003,7 @@ uP
 uP
 uP
 uP
-uP
+bk
 uP
 uP
 uP
@@ -236317,7 +236405,7 @@ uP
 uP
 uP
 uP
-uP
+fI
 uP
 uP
 uP
@@ -396716,7 +396804,7 @@ pL
 sb
 sb
 sb
-sb
+fw
 sb
 sb
 sb
@@ -397115,13 +397203,13 @@ fv
 EC
 vV
 pL
+SU
+Ss
+af
+nu
 uh
-uh
-uh
-uh
-uh
-uh
-uh
+qq
+lo
 FY
 Bk
 HH
@@ -397518,11 +397606,11 @@ EC
 gG
 pL
 uh
-eU
-eU
-eU
-eU
-eU
+HO
+DY
+HO
+rt
+HO
 uh
 FY
 ir
@@ -397919,12 +398007,12 @@ Eg
 EC
 vV
 pL
-uh
+zy
+HO
 eU
+HO
 eU
-eU
-eU
-eU
+HO
 uh
 FY
 nz
@@ -398322,11 +398410,11 @@ EC
 gG
 pL
 uh
+HO
 eU
-eU
-eU
-eU
-eU
+HO
+DY
+HO
 uh
 FY
 jP
@@ -398724,11 +398812,11 @@ EC
 pL
 pL
 uh
-eU
-eU
-eU
-eU
-eU
+uh
+uh
+uh
+uh
+uh
 uh
 FY
 FY
@@ -399125,7 +399213,7 @@ uh
 uh
 uh
 sb
-uh
+RZ
 uh
 uh
 uh
